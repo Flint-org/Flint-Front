@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "flint-front",
+    "slug": "flint-front",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "flint-front"
+}
