@@ -9,8 +9,14 @@ const Container = styled.View`
   align-items: center;
   justify-content: center;
 `;
-const Text = styled.Text``;
-const Btn = styled.TouchableOpacity``;
+const Text = styled.Text`
+  color: white;
+  font-weight: 500;
+`;
+const Btn = styled.TouchableOpacity`
+  background-color: black;
+  padding: 10px 15px;
+`;
 
 const SignupPage = () => {
   const navigation = useNavigation();
@@ -21,7 +27,7 @@ const SignupPage = () => {
           navigation.navigate(DetailsInfoPage);
         }}
       >
-        <Text>1</Text>
+        <Text>카카오 네이버 로그인 페이지</Text>
       </Btn>
     </Container>
   );
