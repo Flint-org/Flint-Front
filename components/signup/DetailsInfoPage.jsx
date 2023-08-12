@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
-import DropDownPicker from 'react-native-dropdown-picker';
-import { Platform, StyleSheet, View } from 'react-native';
+import { Platform } from 'react-native';
 
 import SignupHeader from './SignupHeader';
 import SignupPage from './SignupPage';
 import EmailVerificationPage from './EmailVerificationPage';
+import InfoDropdown from './InfoDropdown';
 
 /* TODO: 전체 완료 시 삭제
  * 입학년도 입력 dropdown (O)
@@ -60,21 +60,21 @@ const DetailsInfoPage = () => {
   const [loading, setLoading] = useState(false);
   const [yearOpen, setYearOpen] = useState(false);
   const [yearValue, setYearValue] = useState(null);
-  const [year, setYear] = useState([]);
+  const [yearItems, setYearItems] = useState([]);
 
   useEffect(() => {
-    setYear(setYearData); // 년도 데이터를 가지는 state에 값 설정
+    setYearItems(setYearData); // 년도 데이터를 가지는 state에 값 설정
   }, []);
 
   // retrun: 1980년부터 2023년까지의 년도 데이터를 반환
   const setYearData = () => {
-    let start = 1980;
-    const yearData = [];
-    while (start < 2024) {
-      yearData.push({ label: start, value: start });
-      start += 1;
+    let year = 1980;
+    const yearItems = [];
+    while (year < 2024) {
+      yearItems.push({ label: year, value: year });
+      year += 1;
     }
-    return yearData;
+    return yearItems;
   };
 
   // FIXME: dropdown들에 적용된 아이콘 변경 필요
@@ -85,21 +85,15 @@ const DetailsInfoPage = () => {
         <Title>학교 및 학과 선택</Title>
         <ContentWrap1>
           <SubTitle>입학년도</SubTitle>
-          <DropDownPicker
+          <InfoDropdown
             loading={loading}
             open={yearOpen}
             value={yearValue}
-            items={year}
+            items={yearItems}
             setOpen={setYearOpen}
             setValue={setYearValue}
-            setItems={setYear}
-            placeholder="입학년도를 선택하세요."
-            style={styles.container}
-            textStyle={styles.text}
-            placeholderStyle={styles.placeholder}
-            listItemLabelStyle={styles.listItemLabel}
-            dropDownContainerStyle={styles.dropdownContainer}
-            selectedItemLabelStyle={styles.selectedItemLabel}
+            setItems={setYearItems}
+            placeholder={'입학년도를 입력하세요.'}
           />
         </ContentWrap1>
         <ContentWrap2>
@@ -112,34 +106,5 @@ const DetailsInfoPage = () => {
     </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#f3f3f3',
-    borderColor: '#f3f3f3',
-    borderWidth: '1.2px',
-    borderRadius: '12px',
-  },
-  text: {
-    fontSize: '18px',
-    fontWeight: '500',
-  },
-  dropdownContainer: {
-    borderColor: '#f3f3f3',
-    borderWidth: '1.2px',
-  },
-  placeholder: {
-    fontSize: '18px',
-    fontWeight: '500',
-    color: '#c0c0c0',
-  },
-  listItemLabel: {
-    fontSize: '16px',
-    fontWeight: '400',
-  },
-  selectedItemLabel: {
-    fontWeight: '600',
-  },
-});
 
 export default DetailsInfoPage;
