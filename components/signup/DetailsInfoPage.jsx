@@ -57,6 +57,12 @@ const SubTitle = styled.Text`
 const DetailsInfoPage = () => {
   const navigation = useNavigation();
 
+  // 입학년도 dropdown에 대한 state
+  const [yearLoading, setYearLoading] = useState(false);
+  const [yearOpen, setYearOpen] = useState(false);
+  const [yearValue, setYearValue] = useState(null);
+  const [yearItems, setYearItems] = useState([]);
+
   //FIXME: 데이터 교체 필요
   // 학교 dropdown에 대한 state
   const [univLoading, setUnivLoading] = useState(false);
@@ -72,18 +78,33 @@ const DetailsInfoPage = () => {
     { label: 'gg대학교', value: 'gg대학교' },
   ]);
 
-  // 입학년도 dropdown에 대한 state
-  const [yearLoading, setYearLoading] = useState(false);
-  const [yearOpen, setYearOpen] = useState(false);
-  const [yearValue, setYearValue] = useState(null);
-  const [yearItems, setYearItems] = useState([]);
+  //FIXME: 데이터 교체 필요
+  // 학과 dropdown에 대한 state
+  const [majorLoading, setMajorLoading] = useState(false);
+  const [majorOpen, setMajorOpen] = useState(false);
+  const [majorValue, setMajorValue] = useState(null);
+  const [majorItems, setMajorItems] = useState([
+    { label: '기계공학과', value: '기계공학과' },
+    { label: '소프트웨어학과', value: '소프트웨어학과' },
+    { label: '전자공학과', value: '전자공학과' },
+    { label: '미디어학과', value: '미디어학과' },
+    { label: '산업공학과', value: '산업공학과' },
+    { label: '사이버보안학과', value: '사이버보안학과' },
+    { label: '국방디지털융합학과', value: '국방디지털융합학과' },
+  ]);
 
   // 다른 dropdown 열리면 나머지 닫히도록 설정
   const onYearOpen = useCallback(() => {
     setUnivOpen(false);
+    setMajorOpen(false);
   }, []);
   const onUnivOpen = useCallback(() => {
     setYearOpen(false);
+    setMajorOpen(false);
+  }, []);
+  const onMajorOpen = useCallback(() => {
+    setYearOpen(false);
+    setUnivOpen(false);
   }, []);
 
   // retrun: 1980년부터 2023년까지의 년도 데이터를 반환
@@ -134,11 +155,24 @@ const DetailsInfoPage = () => {
             onOpen={onUnivOpen}
             searchable={true}
             placeholder={'학교 이름을 입력하세요.'}
-            searchPlaceholder={'학교 이름을 검색하세요.'}
+            searchPlaceholder={'검색'}
           />
         </ContentWrap2>
         <ContentWrap3>
           <SubTitle>학과</SubTitle>
+          <InfoDropdown
+            loading={majorLoading}
+            open={majorOpen}
+            value={majorValue}
+            items={majorItems}
+            setOpen={setMajorOpen}
+            setValue={setMajorValue}
+            setItems={setMajorItems}
+            onOpen={onMajorOpen}
+            searchable={true}
+            placeholder={'학과 이름을 입력하세요.'}
+            searchPlaceholder={'검색'}
+          />
         </ContentWrap3>
       </MainSection>
     </Container>
