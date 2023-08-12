@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
 import DropDownPicker from 'react-native-dropdown-picker';
@@ -9,7 +9,7 @@ import SignupPage from './SignupPage';
 import EmailVerificationPage from './EmailVerificationPage';
 
 /* TODO: 전체 완료 시 삭제
- * 입학년도 입력 dropdown
+ * 입학년도 입력 dropdown (O)
  * 학교 입력 searchable dropdown
  * 학과 입력 searchable dropdown
  * 년도 데이터
@@ -56,18 +56,26 @@ const SubTitle = styled.Text`
 const DetailsInfoPage = () => {
   const navigation = useNavigation();
 
+  // 입학년도 dropdown에 대한 state
   const [loading, setLoading] = useState(false);
   const [yearOpen, setYearOpen] = useState(false);
   const [yearValue, setYearValue] = useState(null);
-  // FIXME: 데이터 수정 필요
-  const [year, setYear] = useState([
-    { label: '1980', value: '1980' },
-    { label: '1981', value: '1981' },
-    { label: '1982', value: '1982' },
-    { label: '1983', value: '1983' },
-    { label: '1984', value: '1984' },
-    { label: '1985', value: '1985' },
-  ]);
+  const [year, setYear] = useState([]);
+
+  useEffect(() => {
+    setYear(setYearData); // 년도 데이터를 가지는 state에 값 설정
+  }, []);
+
+  // retrun: 1980년부터 2023년까지의 년도 데이터를 반환
+  const setYearData = () => {
+    let start = 1980;
+    const yearData = [];
+    while (start < 2024) {
+      yearData.push({ label: start, value: start });
+      start += 1;
+    }
+    return yearData;
+  };
 
   // FIXME: dropdown들에 적용된 아이콘 변경 필요
   return (
