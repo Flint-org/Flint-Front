@@ -28,7 +28,7 @@ const TitleWrap = styled.View`
 `;
 const Title = styled.Text`
   font-weight: ${Platform.OS === 'android' ? '600' : '700'};
-  font-size: ${Platform.OS === 'android' ? '20px' : '24px'};
+  font-size: ${Platform.OS === 'android' ? '18px' : '22px'};
   color: #000;
   padding-right: 20px;
 `;
