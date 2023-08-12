@@ -18,7 +18,7 @@ import InfoDropdown from './InfoDropdown';
  * 사용자가 선택한 데이터 보내기
  */
 
-const Container = styled.View`
+const Container = styled.KeyboardAvoidingView`
   flex: 1;
   align-items: center;
   background-color: #fff;
@@ -30,13 +30,13 @@ const MainSection = styled.View`
 const ContentWrap1 = styled.View`
   display: flex;
   gap: 18;
-  margin-bottom: 30px;
+  margin-bottom: 8%;
   ${Platform.OS == 'ios' && 'z-index: 3'};
 `;
 const ContentWrap2 = styled.View`
   display: flex;
   gap: 18;
-  margin-bottom: 30px;
+  margin-bottom: 8%;
   ${Platform.OS == 'ios' && 'z-index: 2'};
 `;
 const ContentWrap3 = styled.View`
@@ -47,7 +47,7 @@ const ContentWrap3 = styled.View`
 const Title = styled.Text`
   font-size: ${Platform.OS == 'android' ? '20px' : '26px'};
   font-weight: ${Platform.OS == 'android' ? '600' : '700'};
-  margin-bottom: 30px;
+  margin-bottom: 8%;
 `;
 const SubTitle = styled.Text`
   font-size: ${Platform.OS == 'android' ? '16px' : '22px'};
