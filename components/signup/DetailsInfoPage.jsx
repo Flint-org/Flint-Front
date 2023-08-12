@@ -31,25 +31,26 @@ const ContentWrap1 = styled.View`
   display: flex;
   gap: 18;
   margin-bottom: 30px;
-  z-index: 3;
+  ${Platform.OS == 'ios' && 'z-index: 3'};
 `;
 const ContentWrap2 = styled.View`
   display: flex;
   gap: 18;
   margin-bottom: 30px;
-  z-index: 2;
+  ${Platform.OS == 'ios' && 'z-index: 2'};
 `;
 const ContentWrap3 = styled.View`
   display: flex;
   gap: 18;
+  ${Platform.OS == 'ios' && 'z-index: 1'};
 `;
 const Title = styled.Text`
-  font-size: ${Platform.OS == 'android' ? '22px' : '26px'};
+  font-size: ${Platform.OS == 'android' ? '20px' : '26px'};
   font-weight: ${Platform.OS == 'android' ? '600' : '700'};
   margin-bottom: 30px;
 `;
 const SubTitle = styled.Text`
-  font-size: ${Platform.OS == 'android' ? '18px' : '22px'};
+  font-size: ${Platform.OS == 'android' ? '16px' : '22px'};
   font-weight: 500;
   margin-left: 12px;
 `;
@@ -140,6 +141,7 @@ const DetailsInfoPage = () => {
             setItems={setYearItems}
             onOpen={onYearOpen}
             placeholder={'입학년도를 입력하세요.'}
+            zIndex={3}
           />
         </ContentWrap1>
         <ContentWrap2>
@@ -156,6 +158,7 @@ const DetailsInfoPage = () => {
             searchable={true}
             placeholder={'학교 이름을 입력하세요.'}
             searchPlaceholder={'검색'}
+            zIndex={2}
           />
         </ContentWrap2>
         <ContentWrap3>
@@ -172,6 +175,7 @@ const DetailsInfoPage = () => {
             searchable={true}
             placeholder={'학과 이름을 입력하세요.'}
             searchPlaceholder={'검색'}
+            zIndex={1}
           />
         </ContentWrap3>
       </MainSection>
