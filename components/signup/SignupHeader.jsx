@@ -12,6 +12,7 @@ const Header = styled.View`
   align-items: center;
   height: 105px;
   padding: 45px 30px 0;
+  background-color: #fff;
 `;
 
 const Btn = styled.TouchableOpacity`
