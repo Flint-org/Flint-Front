@@ -4,13 +4,14 @@ import { WithLocalSvg } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 
 import BackArrowSvg from '../../assets/images/back_arrow.svg';
+import { Platform } from 'react-native';
 
 const Header = styled.View`
   display: flex;
   flex-direction: row;
   align-items: center;
-  height: 90px;
-  padding: 45px 20px 0;
+  height: 105px;
+  padding: 45px 30px 0;
 `;
 
 const Btn = styled.TouchableOpacity`
@@ -26,8 +27,8 @@ const TitleWrap = styled.View`
   align-items: center;
 `;
 const Title = styled.Text`
-  font-weight: 700;
-  font-size: 20px;
+  font-weight: ${Platform.OS === 'android' ? '600' : '700'};
+  font-size: ${Platform.OS === 'android' ? '20px' : '24px'};
   color: #000;
   padding-right: 20px;
 `;
