@@ -10,7 +10,10 @@ const InfoDropdown = ({
   setOpen,
   setValue,
   setItems,
+  onOpen,
   placeholder,
+  searchable,
+  searchPlaceholder,
 }) => {
   return (
     <DropDownPicker
@@ -21,13 +24,20 @@ const InfoDropdown = ({
       setOpen={setOpen}
       setValue={setValue}
       setItems={setItems}
+      onOpen={onOpen}
+      searchable={searchable ? true : false}
       placeholder={placeholder}
+      searchPlaceholder={searchPlaceholder}
       style={styles.container}
       textStyle={styles.text}
       placeholderStyle={styles.placeholder}
       listItemLabelStyle={styles.listItemLabel}
       dropDownContainerStyle={styles.dropdownContainer}
       selectedItemLabelStyle={styles.selectedItemLabel}
+      searchContainerStyle={styles.searchContainer}
+      searchTextInputStyle={styles.searchTextInput}
+      customItemContainerStyle={styles.customItemContainer}
+      searchPlaceholderTextColor="#c0c0c0"
     />
   );
 };
@@ -58,6 +68,16 @@ const styles = StyleSheet.create({
   },
   selectedItemLabel: {
     fontWeight: '600',
+  },
+  searchContainer: {
+    backgroundColor: '#fff',
+    borderBlockColor: '#f3f3f3',
+  },
+  searchTextInput: {
+    borderColor: 'transparent',
+    borderRadius: '0',
+    fontSize: '18px',
+    fontWeight: '500',
   },
 });
 

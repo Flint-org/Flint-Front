@@ -31,12 +31,13 @@ const ContentWrap1 = styled.View`
   display: flex;
   gap: 18;
   margin-bottom: 30px;
-  z-index: 1;
+  z-index: 3;
 `;
 const ContentWrap2 = styled.View`
   display: flex;
   gap: 18;
   margin-bottom: 30px;
+  z-index: 2;
 `;
 const ContentWrap3 = styled.View`
   display: flex;
@@ -56,14 +57,33 @@ const SubTitle = styled.Text`
 const DetailsInfoPage = () => {
   const navigation = useNavigation();
 
+  //FIXME: 데이터 교체 필요
+  // 학교 dropdown에 대한 state
+  const [univLoading, setUnivLoading] = useState(false);
+  const [univOpen, setUnivOpen] = useState(false);
+  const [univValue, setUnivValue] = useState(null);
+  const [univItems, setUnivItems] = useState([
+    { label: 'aa대학교', value: 'aa대학교' },
+    { label: 'bb대학교', value: 'bb대학교' },
+    { label: 'cc대학교', value: 'cc대학교' },
+    { label: 'dd대학교', value: 'dd대학교' },
+    { label: 'ee대학교', value: 'ee대학교' },
+    { label: 'ff대학교', value: 'ff대학교' },
+    { label: 'gg대학교', value: 'gg대학교' },
+  ]);
+
   // 입학년도 dropdown에 대한 state
-  const [loading, setLoading] = useState(false);
+  const [yearLoading, setYearLoading] = useState(false);
   const [yearOpen, setYearOpen] = useState(false);
   const [yearValue, setYearValue] = useState(null);
   const [yearItems, setYearItems] = useState([]);
 
-  useEffect(() => {
-    setYearItems(setYearData); // 년도 데이터를 가지는 state에 값 설정
+  // 다른 dropdown 열리면 나머지 닫히도록 설정
+  const onYearOpen = useCallback(() => {
+    setUnivOpen(false);
+  }, []);
+  const onUnivOpen = useCallback(() => {
+    setYearOpen(false);
   }, []);
 
   // retrun: 1980년부터 2023년까지의 년도 데이터를 반환
@@ -77,6 +97,10 @@ const DetailsInfoPage = () => {
     return yearItems;
   };
 
+  useEffect(() => {
+    setYearItems(setYearData);
+  }, []);
+
   // FIXME: dropdown들에 적용된 아이콘 변경 필요
   return (
     <Container>
@@ -86,18 +110,32 @@ const DetailsInfoPage = () => {
         <ContentWrap1>
           <SubTitle>입학년도</SubTitle>
           <InfoDropdown
-            loading={loading}
+            loading={yearLoading}
             open={yearOpen}
             value={yearValue}
             items={yearItems}
             setOpen={setYearOpen}
             setValue={setYearValue}
             setItems={setYearItems}
+            onOpen={onYearOpen}
             placeholder={'입학년도를 입력하세요.'}
           />
         </ContentWrap1>
         <ContentWrap2>
           <SubTitle>학교</SubTitle>
+          <InfoDropdown
+            loading={univLoading}
+            open={univOpen}
+            value={univValue}
+            items={univItems}
+            setOpen={setUnivOpen}
+            setValue={setUnivValue}
+            setItems={setUnivItems}
+            onOpen={onUnivOpen}
+            searchable={true}
+            placeholder={'학교 이름을 입력하세요.'}
+            searchPlaceholder={'학교 이름을 검색하세요.'}
+          />
         </ContentWrap2>
         <ContentWrap3>
           <SubTitle>학과</SubTitle>
