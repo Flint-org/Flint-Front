@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components/native';
-import { useNavigation } from '@react-navigation/native';
 import { Platform } from 'react-native';
 
 import SignupHeader from './SignupHeader';
 import SignupPage from './SignupPage';
 import EmailVerificationPage from './EmailVerificationPage';
 import InfoDropdown from './InfoDropdown';
+import OrangeNextBtn from '../common/OrangeNextBtn';
 
 /* TODO: 전체 완료 시 삭제
  * 입학년도 입력 dropdown (O)
@@ -18,12 +18,14 @@ import InfoDropdown from './InfoDropdown';
  * 사용자가 선택한 데이터 보내기
  */
 
-const Container = styled.KeyboardAvoidingView`
+const Container = styled.View`
   flex: 1;
   align-items: center;
   background-color: #fff;
 `;
 const MainSection = styled.View`
+  flex: 1;
+  flex-direction: end;
   padding: 30px 30px;
   width: 100%;
 `;
@@ -43,21 +45,20 @@ const ContentWrap3 = styled.View`
   display: flex;
   gap: 18;
   ${Platform.OS == 'ios' && 'z-index: 1'};
+  margin-bottom: 10%;
 `;
 const Title = styled.Text`
   font-size: ${Platform.OS == 'android' ? '20px' : '26px'};
   font-weight: ${Platform.OS == 'android' ? '600' : '700'};
-  margin-bottom: 8%;
+  margin-bottom: 10%;
 `;
 const SubTitle = styled.Text`
   font-size: ${Platform.OS == 'android' ? '16px' : '22px'};
-  font-weight: 500;
+  font-weight: ${Platform.OS == 'android' ? '500' : '600'};
   margin-left: 12px;
 `;
 
 const DetailsInfoPage = () => {
-  const navigation = useNavigation();
-
   // 입학년도 dropdown에 대한 state
   const [yearLoading, setYearLoading] = useState(false);
   const [yearOpen, setYearOpen] = useState(false);
@@ -130,21 +131,6 @@ const DetailsInfoPage = () => {
       <MainSection>
         <Title>학교 및 학과 선택</Title>
         <ContentWrap1>
-          <SubTitle>입학년도</SubTitle>
-          <InfoDropdown
-            loading={yearLoading}
-            open={yearOpen}
-            value={yearValue}
-            items={yearItems}
-            setOpen={setYearOpen}
-            setValue={setYearValue}
-            setItems={setYearItems}
-            onOpen={onYearOpen}
-            placeholder={'입학년도를 입력하세요.'}
-            zIndex={3}
-          />
-        </ContentWrap1>
-        <ContentWrap2>
           <SubTitle>학교</SubTitle>
           <InfoDropdown
             loading={univLoading}
@@ -158,10 +144,10 @@ const DetailsInfoPage = () => {
             searchable={true}
             placeholder={'학교 이름을 입력하세요.'}
             searchPlaceholder={'검색'}
-            zIndex={2}
+            zIndex={3}
           />
-        </ContentWrap2>
-        <ContentWrap3>
+        </ContentWrap1>
+        <ContentWrap2>
           <SubTitle>학과</SubTitle>
           <InfoDropdown
             loading={majorLoading}
@@ -175,9 +161,34 @@ const DetailsInfoPage = () => {
             searchable={true}
             placeholder={'학과 이름을 입력하세요.'}
             searchPlaceholder={'검색'}
+            zIndex={2}
+          />
+        </ContentWrap2>
+        <ContentWrap3>
+          <SubTitle>입학년도</SubTitle>
+          <InfoDropdown
+            loading={yearLoading}
+            open={yearOpen}
+            value={yearValue}
+            items={yearItems}
+            setOpen={setYearOpen}
+            setValue={setYearValue}
+            setItems={setYearItems}
+            onOpen={onYearOpen}
+            placeholder={'입학년도를 입력하세요.'}
             zIndex={1}
           />
         </ContentWrap3>
+        <OrangeNextBtn
+          height={'50px'}
+          width={'100%'}
+          active={
+            yearValue !== null && univValue !== null && majorValue !== null
+              ? true
+              : false
+          }
+          next={EmailVerificationPage}
+        />
       </MainSection>
     </Container>
   );
