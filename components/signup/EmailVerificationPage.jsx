@@ -76,7 +76,7 @@ const EmailVerificationPage = () => {
 
   // 인증번호 전송 버튼 onPress 함수
   const onBtnPress = () => {
-    if (localParts !== '') {
+    if (localParts !== '' && domain !== '') {
       navigation.navigate(EmailVerificationPage2);
     }
   };
@@ -93,17 +93,23 @@ const EmailVerificationPage = () => {
               placeholder="이메일"
               onChangeText={setLocalParts}
               value={localParts}
+              keyboardType={'email-address'}
             />
           </InpuStyleWrap>
           <AtSignText>@</AtSignText>
           <InpuStyleWrap>
-            <EmailInput value={domain} editable={false} />
+            <EmailInput
+              placeholder="도메인"
+              value={domain}
+              onChangeText={setDomain}
+              keyboardType={'email-address'}
+            />
           </InpuStyleWrap>
         </InputWrap>
         <OrangeNextBtn
           width={'100%'}
           height={'50px'}
-          active={localParts !== '' ? true : false}
+          active={localParts !== '' && setDomain !== '' ? true : false}
           text={'인증번호 전송'}
           onPress={onBtnPress}
         />
