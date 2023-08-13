@@ -4,7 +4,6 @@ import { WithLocalSvg } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 
 import BackArrowSvg from '../../assets/images/back_arrow.svg';
-import { Platform } from 'react-native';
 
 const Header = styled.View`
   display: flex;

@@ -131,7 +131,7 @@ const EmailVerificationPage2 = () => {
   };
 
   return (
-    <Container></Container>
+    <Container>
       <SignupHeader prevPage={EmailVerificationPage} />
       <MainSection>
         <Title>학교 이메일 인증</Title>

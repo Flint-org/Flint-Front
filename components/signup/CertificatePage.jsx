@@ -2,7 +2,7 @@ import { useNavigation } from '@react-navigation/native';
 import React from 'react';
 import styled from 'styled-components/native';
 
-import EmailVerificationPage from './EmailVerificationPage';
+import EmailVerificationPage2 from './EmailVerificationPage2';
 import SignupHeader from './SignupHeader';
 
 const Container = styled.View`
@@ -27,7 +27,7 @@ const CertificatePage = () => {
   const navigation = useNavigation();
   return (
     <Container>
-      <SignupHeader prevPage={EmailVerificationPage} />
+      <SignupHeader prevPage={EmailVerificationPage2} />
       {/* FIXME: 버튼과 텍스트 부분 페이지 작업 들어가면 삭제 */}
       <Btn
         onPress={() => {
