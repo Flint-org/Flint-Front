@@ -20,8 +20,8 @@ const OrangeNextBtn = ({ height, width, active, next, text }) => {
     border-radius: 8px;
   `;
   const BtnText = styled.Text`
-    font-size: ${Platform.OS == 'android' ? '16px' : '22px'};
-    font-weight: ${Platform.OS == 'android' ? '500' : '600'};
+    font-size: 18px;
+    font-weight: 600;
     color: #fff;
   `;
 
