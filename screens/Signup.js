@@ -7,7 +7,7 @@ import DetailsInfoPage from '../components/signup/DetailsInfoPage';
 import EmailVerificationPage from '../components/signup/EmailVerificationPage';
 import CertificatePage from '../components/signup/CertificatePage';
 import SignupPage from '../components/signup/SignupPage';
-import EmailVerificationPage2 from '../components/signup/EmailVerificatonPage2';
+import EmailVerificationPage2 from '../components/signup/EmailVerificationPage2';
 
 const NativeStack = createNativeStackNavigator();
 
