@@ -90,6 +90,12 @@ const EmailVerificationPage = () => {
             <EmailInput value={domain} editable={false} />
           </InpuStyleWrap>
         </InputWrap>
+        <OrangeNextBtn
+          width={'100%'}
+          height={'50px'}
+          active={localParts !== null ? true : false}
+          text={'인증번호 전송'}
+        />
       </MainSection>
     </Container>
   );
