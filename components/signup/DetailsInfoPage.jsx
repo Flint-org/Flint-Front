@@ -188,6 +188,7 @@ const DetailsInfoPage = () => {
               : false
           }
           next={EmailVerificationPage}
+          text={'다음'}
         />
       </MainSection>
     </Container>
