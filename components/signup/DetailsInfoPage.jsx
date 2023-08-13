@@ -11,8 +11,8 @@ import OrangeNextBtn from '../common/OrangeNextBtn';
 
 /* TODO: 전체 완료 시 삭제
  * 입학년도 입력 dropdown (O)
- * 학교 입력 searchable dropdown
- * 학과 입력 searchable dropdown
+ * 학교 입력 searchable dropdown (O)
+ * 학과 입력 searchable dropdown (O)
  * 년도 데이터
  * 학교 데이터
  * 학과 데이터
