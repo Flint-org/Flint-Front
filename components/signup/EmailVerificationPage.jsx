@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
+import { useNavigation } from '@react-navigation/native';
 
 import DetailsInfoPage from './DetailsInfoPage';
 import SignupHeader from './SignupHeader';
@@ -67,9 +68,18 @@ const AtSignText = styled.Text`
 `;
 
 const EmailVerificationPage = () => {
+  const navigation = useNavigation();
+
   // email state : local-parts@domain
   const [localParts, setLocalParts] = useState(null);
   const [domain, setDomain] = useState('naver.com');
+
+  // 인증번호 전송 버튼 onPress 함수
+  const onBtnPress = () => {
+    if (localParts !== null) {
+      navigation.navigate(EmailVerificationPage2);
+    }
+  };
 
   return (
     <Container>
@@ -95,7 +105,7 @@ const EmailVerificationPage = () => {
           height={'50px'}
           active={localParts !== null ? true : false}
           text={'인증번호 전송'}
-          next={EmailVerificationPage2}
+          onPress={onBtnPress}
         />
       </MainSection>
     </Container>
