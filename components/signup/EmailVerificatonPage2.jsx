@@ -32,31 +32,32 @@ const InputWrap = styled.View`
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin-bottom: 8%;
-`;
-const InpuStyleWrap = styled.View`
-  display: flex;
   height: 50px;
   background-color: #f3f3f3;
   border-radius: 8px;
+  margin-bottom: 8%;
   padding: 0 15px;
 `;
-const EmailInput = styled.TextInput`
-  width: 125px;
+const NumInput = styled.TextInput`
+  width: 100%;
   height: 50px;
   overflow: hidden;
   font-size: 16px;
   color: #000;
 `;
-const AtSignText = styled.Text`
-  color: #a0a0a0;
-  font-size: 16px;
+const BtnWrap = styled.View`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 100%;
 `;
 
 const EmailVerificationPage2 = () => {
-  // email state : local-parts@domain
-  const [localParts, setLocalParts] = useState(null);
-  const [domain, setDomain] = useState('naver.com');
+  const [inputNum, setInputNum] = useState(null); // 사용자가 입력한 인증번호
+  // FIXME: 전송된 인증번호 데이터 가져오는 수정 필요
+  const [compareNum, setCompareNum] = useState(1234); // 전송된 실제 인증번호
+
+  const onBtnPress = () => {};
 
   return (
     <Container>
@@ -65,24 +66,28 @@ const EmailVerificationPage2 = () => {
         <Title>학교 이메일 인증</Title>
         <SubTitle>인증번호</SubTitle>
         <InputWrap>
-          <InpuStyleWrap>
-            <EmailInput
-              placeholder="이메일"
-              onChangeText={setLocalParts}
-              value={localParts}
-            />
-          </InpuStyleWrap>
-          <AtSignText>@</AtSignText>
-          <InpuStyleWrap>
-            <EmailInput value={domain} editable={false} />
-          </InpuStyleWrap>
+          <NumInput
+            placeholder="인증번호 입력"
+            onChangeText={setInputNum}
+            value={inputNum}
+            keyboardType={'numeric'}
+          />
         </InputWrap>
-        <OrangeNextBtn
-          width={'100%'}
-          height={'50px'}
-          active={localParts !== null ? true : false}
-          text={'인증번호 전송'}
-        />
+        <BtnWrap>
+          <OrangeNextBtn
+            width={'48%'}
+            height={'50px'}
+            active={true}
+            text={'인증번호 재전송'}
+          />
+          <OrangeNextBtn
+            width={'48%'}
+            height={'50px'}
+            active={inputNum !== null ? true : false}
+            text={'인증완료'}
+            onPress={onBtnPress}
+          />
+        </BtnWrap>
       </MainSection>
     </Container>
   );
