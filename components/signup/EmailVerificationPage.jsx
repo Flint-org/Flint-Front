@@ -1,9 +1,10 @@
-import { useNavigation } from '@react-navigation/native';
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components/native';
 
 import DetailsInfoPage from './DetailsInfoPage';
 import SignupHeader from './SignupHeader';
+import { Platform } from 'react-native';
+import OrangeNextBtn from '../common/OrangeNextBtn';
 
 /* TODO: 전체 완료 시 삭제
  * 이메일 입력 input 생성
@@ -20,13 +21,76 @@ import SignupHeader from './SignupHeader';
 const Container = styled.View`
   flex: 1;
   align-items: center;
+  background-color: #fff;
+`;
+const MainSection = styled.View`
+  display: flex;
+  padding: 30px 30px;
+  width: 100%;
+`;
+const Title = styled.Text`
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8%;
+`;
+const SubTitle = styled.Text`
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 12px;
+  margin-bottom: 8%;
+`;
+const InputWrap = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: 8%;
+`;
+const InpuStyleWrap = styled.View`
+  display: flex;
+  height: 50px;
+  background-color: #f3f3f3;
+  border-radius: 8px;
+  padding: 0 15px;
+`;
+const EmailInput = styled.TextInput`
+  width: 125px;
+  height: 50px;
+  overflow: hidden;
+  font-size: 16px;
+  color: #000;
+`;
+const AtSignText = styled.Text`
+  color: #a0a0a0;
+  font-size: 16px;
 `;
 
 const EmailVerificationPage = () => {
-  const navigation = useNavigation();
+  // email state : local-parts@domain
+  const [localParts, setLocalParts] = useState(null);
+  const [domain, setDomain] = useState('naver.com');
+
   return (
     <Container>
       <SignupHeader prevPage={DetailsInfoPage} />
+      <MainSection>
+        <Title>학교 이메일 인증</Title>
+        <SubTitle>이메일</SubTitle>
+        <InputWrap>
+          <InpuStyleWrap>
+            <EmailInput
+              placeholder="이메일"
+              onChangeText={setLocalParts}
+              value={localParts}
+            />
+          </InpuStyleWrap>
+          <AtSignText>@</AtSignText>
+          <InpuStyleWrap>
+            <EmailInput value={domain} editable={false} />
+          </InpuStyleWrap>
+        </InputWrap>
+      </MainSection>
     </Container>
   );
 };
