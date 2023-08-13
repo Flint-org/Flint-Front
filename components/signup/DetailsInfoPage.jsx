@@ -32,13 +32,13 @@ const MainSection = styled.View`
 const ContentWrap1 = styled.View`
   display: flex;
   gap: 18;
-  margin-bottom: 8%;
+  margin-bottom: 6%;
   ${Platform.OS == 'ios' && 'z-index: 3'};
 `;
 const ContentWrap2 = styled.View`
   display: flex;
   gap: 18;
-  margin-bottom: 8%;
+  margin-bottom: 6%;
   ${Platform.OS == 'ios' && 'z-index: 2'};
 `;
 const ContentWrap3 = styled.View`
@@ -48,13 +48,13 @@ const ContentWrap3 = styled.View`
   margin-bottom: 10%;
 `;
 const Title = styled.Text`
-  font-size: ${Platform.OS == 'android' ? '20px' : '26px'};
-  font-weight: ${Platform.OS == 'android' ? '600' : '700'};
-  margin-bottom: 10%;
+  font-size: 22px;
+  font-weight: 700;
+  margin-bottom: 8%;
 `;
 const SubTitle = styled.Text`
-  font-size: ${Platform.OS == 'android' ? '16px' : '22px'};
-  font-weight: ${Platform.OS == 'android' ? '500' : '600'};
+  font-size: 18px;
+  font-weight: 500;
   margin-left: 12px;
 `;
 
