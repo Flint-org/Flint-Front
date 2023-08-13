@@ -70,13 +70,15 @@ const ModalView = styled.View`
   margin: auto auto;
   padding: 25px 30px;
   width: 85%;
-  height: 22%;
+  gap: 18;
   background-color: #fff;
   border-radius: 12px;
 `;
 const ModalText = styled.Text`
   font-size: 18px;
   font-weight: 600;
+  text-align: center;
+  margin-bottom: 5px;
 `;
 
 /* 모달 컴포넌트
@@ -171,7 +173,7 @@ const EmailVerificationPage2 = () => {
       )}
       {failModalVisible && (
         <VerificationModal
-          text={'올바른 인증번호를 입력해주세요.'}
+          text={'올바른 \n 인증번호를 입력해주세요.'}
           setModalVisible={setFailsModalVisible}
           success={false}
         />
