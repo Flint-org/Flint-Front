@@ -1,22 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 
-import DetailsInfoPage from './DetailsInfoPage';
 import SignupHeader from './SignupHeader';
 import OrangeNextBtn from '../common/OrangeNextBtn';
-import EmailVerificationPage2 from './EmailVerificatonPage2';
-
-/* TODO: 전체 완료 시 삭제
- * 이메일 입력 input 생성 (O)
- * 인증번호 전송 button 생성 (O)
- * 인증번호 입력 input 생성
- * 인증완료 button 생성
- * 인증 실패 modal 생성
- * 인증 완료 modal 생성
- * 사용자 소속 학교에 따라 이메일 정보 받아오기 (@ 뒷부분)
- * 인증번호 전송 button 클릭 시 인증번호 전송
- * 입력한 인증번호와 실제 인증번호 비교
- */
+import EmailVerificationPage from './EmailVerificationPage';
 
 const Container = styled.View`
   flex: 1;
@@ -66,17 +53,17 @@ const AtSignText = styled.Text`
   font-size: 16px;
 `;
 
-const EmailVerificationPage = () => {
+const EmailVerificationPage2 = () => {
   // email state : local-parts@domain
   const [localParts, setLocalParts] = useState(null);
   const [domain, setDomain] = useState('naver.com');
 
   return (
     <Container>
-      <SignupHeader prevPage={DetailsInfoPage} />
+      <SignupHeader prevPage={EmailVerificationPage} />
       <MainSection>
         <Title>학교 이메일 인증</Title>
-        <SubTitle>이메일</SubTitle>
+        <SubTitle>인증번호</SubTitle>
         <InputWrap>
           <InpuStyleWrap>
             <EmailInput
@@ -95,11 +82,10 @@ const EmailVerificationPage = () => {
           height={'50px'}
           active={localParts !== null ? true : false}
           text={'인증번호 전송'}
-          next={EmailVerificationPage2}
         />
       </MainSection>
     </Container>
   );
 };
 
-export default EmailVerificationPage;
+export default EmailVerificationPage2;

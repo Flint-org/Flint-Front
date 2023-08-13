@@ -7,6 +7,7 @@ import DetailsInfoPage from '../components/signup/DetailsInfoPage';
 import EmailVerificationPage from '../components/signup/EmailVerificationPage';
 import CertificatePage from '../components/signup/CertificatePage';
 import SignupPage from '../components/signup/SignupPage';
+import EmailVerificationPage2 from '../components/signup/EmailVerificatonPage2';
 
 const NativeStack = createNativeStackNavigator();
 
@@ -18,6 +19,10 @@ const Signup = () => {
       <NativeStack.Screen
         name="EmailVerificationPage"
         component={EmailVerificationPage}
+      />
+      <NativeStack.Screen
+        name="EmailVerificationPage2"
+        component={EmailVerificationPage2}
       />
       <NativeStack.Screen name="CertificatePage" component={CertificatePage} />
     </NativeStack.Navigator>
