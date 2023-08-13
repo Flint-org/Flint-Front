@@ -1,5 +1,4 @@
 import React from 'react';
-import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
 
 /*
@@ -7,9 +6,7 @@ import styled from 'styled-components/native';
  * 기능 : 활성화 전(회색)과 후(오렌지)의 버튼 색상이 변하며,
  *  활성화 후에는 다음 페이지로 이동 가능
  */
-const OrangeNextBtn = ({ height, width, active, next, text }) => {
-  const navigation = useNavigation();
-
+const OrangeNextBtn = ({ height, width, active, onPress, text }) => {
   const Btn = styled.TouchableOpacity`
     display: flex;
     align-items: center;
@@ -26,11 +23,7 @@ const OrangeNextBtn = ({ height, width, active, next, text }) => {
   `;
 
   return (
-    <Btn
-      onPress={() => {
-        active && navigation.navigate(next);
-      }}
-    >
+    <Btn onPress={onPress}>
       <BtnText>{text}</BtnText>
     </Btn>
   );

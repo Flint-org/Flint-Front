@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import styled from 'styled-components/native';
 import { Platform } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import SignupHeader from './SignupHeader';
 import SignupPage from './SignupPage';
@@ -59,6 +60,8 @@ const SubTitle = styled.Text`
 `;
 
 const DetailsInfoPage = () => {
+  const navigation = useNavigation();
+
   // 입학년도 dropdown에 대한 state
   const [yearLoading, setYearLoading] = useState(false);
   const [yearOpen, setYearOpen] = useState(false);
@@ -187,8 +190,13 @@ const DetailsInfoPage = () => {
               ? true
               : false
           }
-          next={EmailVerificationPage}
           text={'다음'}
+          onPress={() => {
+            yearValue !== null &&
+              univValue !== null &&
+              majorValue !== null &&
+              navigation.navigate(EmailVerificationPage);
+          }}
         />
       </MainSection>
     </Container>
