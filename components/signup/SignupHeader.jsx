@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { WithLocalSvg } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
+import { Platform } from 'react-native';
 
 import BackArrowSvg from '../../assets/images/back_arrow.svg';
 
@@ -11,6 +12,7 @@ const Header = styled.View`
   align-items: center;
   height: 105px;
   padding: 45px 30px 0;
+  background-color: #fff;
 `;
 
 const Btn = styled.TouchableOpacity`
