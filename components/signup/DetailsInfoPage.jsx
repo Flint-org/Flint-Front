@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import SignupHeader from './SignupHeader';
-import SignupPage from './SignupPage';
+import StartPage from './StartPage';
 import EmailVerificationPage from './EmailVerificationPage';
 import InfoDropdown from './InfoDropdown';
 import OrangeNextBtn from '../common/OrangeNextBtn';
@@ -130,7 +130,7 @@ const DetailsInfoPage = () => {
   // FIXME: dropdown들에 적용된 아이콘 변경 필요
   return (
     <Container>
-      <SignupHeader prevPage={SignupPage} />
+      <SignupHeader prevPage={StartPage} />
       <MainSection>
         <Title>학교 및 학과 선택</Title>
         <ContentWrap1>
