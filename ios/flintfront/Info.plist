@@ -28,6 +28,16 @@
 					<string>kakao452b80aa1b1ba2a240aeab206d1bdadd</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>naver</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>flint</string>
+			</array>
+	</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
@@ -38,6 +48,8 @@
 		<string>kakaokompassauth</string>
 		<string>storykompassauth</string>
 		<string>kakaolink</string>
+		<string>naversearchapp</string>
+  		<string>naversearchthirdlogin</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
