@@ -24,11 +24,37 @@ const Container = styled.View`
   background-color: white;
   gap: 155;
 `;
+const BtnWrap = styled.View`
+  gap: 15;
+  width: 100%;
+`;
+const StartBtn = styled.TouchableOpacity`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 15;
+  width: 100%;
+  height: 55px;
+  border-radius: 8px;
+  background-color: ${(props) => props.backgroundColor};
+`;
+const BtnText = styled.Text`
+  font-size: 18px;
+  color: ${(props) => props.color};
+  font-weight: 600;
+`;
 
 const SignupPage = () => {
   return (
     <Container>
       <WithLocalSvg width={135} asset={FlintLogoSvg} />
+      <BtnWrap>
+        <StartBtn backgroundColor={'#fae100'}>
+          <WithLocalSvg height={22} asset={KakaoLogoSvg} />
+          <BtnText color={'#381e1f'}>카카오톡으로 시작하기</BtnText>
+        </StartBtn>
+      </BtnWrap>
     </Container>
   );
 };
