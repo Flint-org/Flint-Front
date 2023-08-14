@@ -54,6 +54,10 @@ const SignupPage = () => {
           <WithLocalSvg height={22} asset={KakaoLogoSvg} />
           <BtnText color={'#381e1f'}>카카오톡으로 시작하기</BtnText>
         </StartBtn>
+        <StartBtn backgroundColor={'#3bac37'}>
+          <WithLocalSvg height={22} asset={NaverLogoSvg} />
+          <BtnText color={'#fff'}>네이버로 시작하기</BtnText>
+        </StartBtn>
       </BtnWrap>
     </Container>
   );
