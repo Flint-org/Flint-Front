@@ -4,7 +4,6 @@ import { WithLocalSvg } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 
 import BackArrowSvg from '../../assets/images/back_arrow.svg';
-import { Platform } from 'react-native';
 
 const Header = styled.View`
   display: flex;
@@ -27,8 +26,8 @@ const TitleWrap = styled.View`
   align-items: center;
 `;
 const Title = styled.Text`
-  font-weight: ${Platform.OS === 'android' ? '600' : '700'};
-  font-size: ${Platform.OS === 'android' ? '18px' : '22px'};
+  font-weight: 700;
+  font-size: 18px;
   color: #000;
   padding-right: 20px;
 `;
