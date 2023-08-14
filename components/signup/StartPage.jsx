@@ -20,7 +20,7 @@ const Btn = styled.TouchableOpacity`
   padding: 10px 15px;
 `;
 
-const SignupPage = () => {
+const StartPage = () => {
   const navigation = useNavigation();
   return (
     <Container>
@@ -36,4 +36,4 @@ const SignupPage = () => {
   );
 };
 
-export default SignupPage;
+export default StartPage;
