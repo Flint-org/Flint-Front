@@ -26,7 +26,7 @@ const Container = styled.View`
   gap: 155;
 `;
 const BtnWrap = styled.View`
-  gap: 15;
+  gap: 15px;
   width: 100%;
 `;
 const StartBtn = styled.TouchableOpacity`
