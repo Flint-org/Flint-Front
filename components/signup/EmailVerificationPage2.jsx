@@ -70,7 +70,7 @@ const ModalView = styled.View`
   margin: auto auto;
   padding: 25px 30px;
   width: 85%;
-  gap: 18;
+  gap: 18px;
   background-color: #fff;
   border-radius: 8px;
 `;

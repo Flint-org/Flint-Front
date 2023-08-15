@@ -23,7 +23,7 @@ const Container = styled.View`
   justify-content: center;
   padding: 120px 30px 0;
   background-color: white;
-  gap: 155;
+  gap: 155px;
 `;
 const BtnWrap = styled.View`
   gap: 15px;
