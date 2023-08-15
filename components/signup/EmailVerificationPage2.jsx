@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
-import { WithLocalSvg } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 
 import SignupHeader from './SignupHeader';
 import OrangeNextBtn from '../common/OrangeNextBtn';
 import EmailVerificationPage from './EmailVerificationPage';
 import CertificatePage from './CertificatePage';
-import AlertSvg from '../../assets/images/alert.svg';
+import AlertModal from '../common/AlertModal';
 
 const Container = styled.View`
   flex: 1;
@@ -56,63 +55,9 @@ const BtnWrap = styled.View`
   width: 100%;
 `;
 
-const ModalWrap = styled.Modal``;
-const ModalBackground = styled.View`
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 0 30px;
-`;
-const ModalView = styled.View`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: auto auto;
-  padding: 25px 30px;
-  width: 85%;
-  gap: 18px;
-  background-color: #fff;
-  border-radius: 8px;
-`;
-const ModalText = styled.Text`
-  font-size: 18px;
-  font-weight: 600;
-  text-align: center;
-  margin-bottom: 5px;
-`;
-
-/* 모달 컴포넌트
- * props.text : 모달에 출력될 텍스트 메세지
- * props.setModalVisible : 모달 보여짐 여부를 설정하는 state 갱신 함수
- * props.succes : 인증 성공 모달인지 인증 실패 모달인지 구분 (true면 인증 성공)
- */
-const VerificationModal = ({ text, setModalVisible, success }) => {
+const EmailVerificationPage2 = () => {
   const navigation = useNavigation();
 
-  return (
-    <ModalWrap transparent={true} visible={true}>
-      <ModalBackground>
-        <ModalView>
-          <WithLocalSvg width={35} height={35} asset={AlertSvg} />
-          <ModalText>{text}</ModalText>
-          <OrangeNextBtn
-            width={'100%'}
-            height={'40px'}
-            fontSize={'16px'}
-            active={true}
-            text={'확인'}
-            onPress={() => {
-              success && navigation.navigate(CertificatePage);
-              setModalVisible(false);
-            }}
-          />
-        </ModalView>
-      </ModalBackground>
-    </ModalWrap>
-  );
-};
-
-const EmailVerificationPage2 = () => {
   const [inputNum, setInputNum] = useState(''); // 사용자가 입력한 인증번호
 
   const [compareNum, setCompareNum] = useState(1234); // 전송된 실제 인증번호 FIXME: 데이터 필요
@@ -168,17 +113,18 @@ const EmailVerificationPage2 = () => {
       </MainSection>
       {/* 모달창 부분 */}
       {succesModalVisible && (
-        <VerificationModal
+        <AlertModal
           text={'인증이 완료되었습니다.'}
-          setModalVisible={setSuccessModalVisible}
-          success={true}
+          onPress={() => {
+            setSuccessModalVisible(false);
+            navigation.navigate(CertificatePage);
+          }}
         />
       )}
       {failModalVisible && (
-        <VerificationModal
+        <AlertModal
           text={'올바른 \n 인증번호를 입력해주세요.'}
-          setModalVisible={setFailsModalVisible}
-          success={false}
+          onPress={() => setFailsModalVisible(false)}
         />
       )}
     </Container>
