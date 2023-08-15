@@ -51,6 +51,7 @@ const InputWrap = styled.View`
 const InpuStyleWrap = styled.View`
   display: flex;
   height: 50px;
+  width: 45%;
   background-color: #f3f3f3;
   border-radius: 5px;
   padding: 0 15px;
