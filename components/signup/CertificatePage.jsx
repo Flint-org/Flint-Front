@@ -7,11 +7,12 @@ import EmailVerificationPage2 from './EmailVerificationPage2';
 import SignupHeader from './SignupHeader';
 import CameraSvg from '../../assets/images/camera.svg';
 import OrangeNextBtn from '../common/OrangeNextBtn';
+import AlertModal from '../common/AlertModal';
 
 /* TODO: 전체 완료 시 삭제
  * 증명서 첨부 UI 생성 (O)
  * 로컬에서 이미지 or pdf 가져오는 로직 구현 (O)
- * 버튼 클릭 시 모달창 띄우기
+ * 버튼 클릭 시 모달창 띄우기 (O)
  * 버튼 클릭 시 이미지 전송
  */
 
@@ -62,6 +63,9 @@ const CertificatePage = () => {
   const [certificateURI, setCertificateURI] = useState('');
   const [certificateName, setCertificateName] = useState('');
 
+  // 인증 완료 버튼 클릭 여부
+  const [modalVisible, setModalVisible] = useState(false);
+
   /* selectCertificate : 인증서 받아오는 함수
    * 파일을 받아와서 certificateURI state에  URI 저장
    */
@@ -76,6 +80,7 @@ const CertificatePage = () => {
       setCertificateName(result?.assets[0]?.name);
     }
   };
+
   return (
     <Container>
       <SignupHeader prevPage={EmailVerificationPage2} />
@@ -110,8 +115,19 @@ const CertificatePage = () => {
           fontSize={'18px'}
           active={selectSuccess}
           text={'인증완료'}
+          onPress={() => setModalVisible(true)}
         />
       </MainSection>
+      {/* FIXME: console.log 말고 메인 페이지 이동 필요 */}
+      {selectSuccess && modalVisible && (
+        <AlertModal
+          text={'회원가입이\n완료되었습니다'}
+          onPress={() => {
+            console.log('메인 페이지 이동 필요');
+            setModalVisible(false);
+          }}
+        />
+      )}
     </Container>
   );
 };
