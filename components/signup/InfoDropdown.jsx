@@ -2,18 +2,9 @@ import React from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
 import { StyleSheet, View } from 'react-native';
 import { WithLocalSvg } from 'react-native-svg';
-import styled from 'styled-components/native';
 
 import ArrowUpSvg from '../../assets/images/arrow_up.svg';
 import ArrowDownSvg from '../../assets/images/arrow_down.svg';
-import CheckSvg from '../../assets/images/check.svg';
-
-const SvgWrap = styled.View`
-  flex: 1;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-`;
 
 const InfoDropdown = ({
   loading,
@@ -46,32 +37,10 @@ const InfoDropdown = ({
       showTickIcon={false}
       zIndex={zIndex}
       ArrowUpIconComponent={() => (
-        <SvgWrap>
-          {value !== null && (
-            <WithLocalSvg
-              width={20}
-              height={20}
-              marginRight={10}
-              fill={'#00c471'}
-              asset={CheckSvg}
-            />
-          )}
-          <WithLocalSvg width={17} height={17} asset={ArrowUpSvg} />
-        </SvgWrap>
+        <WithLocalSvg width={17} height={17} asset={ArrowUpSvg} />
       )}
       ArrowDownIconComponent={() => (
-        <SvgWrap>
-          {value !== null && (
-            <WithLocalSvg
-              width={20}
-              height={20}
-              marginRight={10}
-              fill={'#00c471'}
-              asset={CheckSvg}
-            />
-          )}
-          <WithLocalSvg width={17} height={17} asset={ArrowDownSvg} />
-        </SvgWrap>
+        <WithLocalSvg width={17} height={17} asset={ArrowDownSvg} />
       )}
       style={styles.container}
       textStyle={styles.text}
