@@ -109,6 +109,7 @@ const EmailVerificationPage = () => {
         <OrangeNextBtn
           width={'100%'}
           height={'50px'}
+          fontSize={'18px'}
           active={localParts !== '' && setDomain !== '' ? true : false}
           text={'인증번호 전송'}
           onPress={onBtnPress}

@@ -17,7 +17,7 @@ const OrangeNextBtn = ({ height, width, fontSize, active, onPress, text }) => {
     border-radius: 5px;
   `;
   const BtnText = styled.Text`
-    font-size: 18px;
+    font-size: ${fontSize};
     font-weight: 600;
     color: #fff;
   `;

@@ -107,6 +107,7 @@ const CertificatePage = () => {
         <OrangeNextBtn
           width={'100%'}
           height={'50px'}
+          fontSize={'18px'}
           active={selectSuccess}
           text={'인증완료'}
         />

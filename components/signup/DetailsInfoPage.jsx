@@ -185,6 +185,7 @@ const DetailsInfoPage = () => {
         <OrangeNextBtn
           height={'50px'}
           width={'100%'}
+          fontSize={'18px'}
           active={
             yearValue !== null && univValue !== null && majorValue !== null
               ? true

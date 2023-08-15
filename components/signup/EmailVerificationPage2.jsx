@@ -98,6 +98,7 @@ const VerificationModal = ({ text, setModalVisible, success }) => {
           <OrangeNextBtn
             width={'100%'}
             height={'40px'}
+            fontSize={'16px'}
             active={true}
             text={'확인'}
             onPress={() => {
@@ -151,12 +152,14 @@ const EmailVerificationPage2 = () => {
           <OrangeNextBtn
             width={'48%'}
             height={'50px'}
+            fontSize={'18px'}
             active={true}
             text={'인증번호 재전송'}
           />
           <OrangeNextBtn
             width={'48%'}
             height={'50px'}
+            fontSize={'18px'}
             active={inputNum !== '' ? true : false}
             text={'인증완료'}
             onPress={onBtnPress}
