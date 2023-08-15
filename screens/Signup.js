@@ -12,7 +12,7 @@ const NativeStack = createNativeStackNavigator();
 const Signup = () => {
   return (
     <NativeStack.Navigator screenOptions={{ headerShown: false }}>
-      {/* <NativeStack.Screen name="StartPage" component={StartPage} />
+      <NativeStack.Screen name="StartPage" component={StartPage} />
       <NativeStack.Screen name="DetailsInfoPage" component={DetailsInfoPage} />
       <NativeStack.Screen
         name="EmailVerificationPage"
@@ -21,7 +21,7 @@ const Signup = () => {
       <NativeStack.Screen
         name="EmailVerificationPage2"
         component={EmailVerificationPage2}
-      /> */}
+      />
       <NativeStack.Screen name="CertificatePage" component={CertificatePage} />
     </NativeStack.Navigator>
   );
