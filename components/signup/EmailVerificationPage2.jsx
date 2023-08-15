@@ -38,7 +38,7 @@ const InputWrap = styled.View`
   width: 100%;
   height: 50px;
   background-color: #f3f3f3;
-  border-radius: 8px;
+  border-radius: 5px;
   margin-bottom: 8%;
   padding: 0 15px;
 `;
@@ -72,7 +72,7 @@ const ModalView = styled.View`
   width: 85%;
   gap: 18;
   background-color: #fff;
-  border-radius: 12px;
+  border-radius: 8px;
 `;
 const ModalText = styled.Text`
   font-size: 18px;
