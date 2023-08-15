@@ -52,7 +52,7 @@ const InpuStyleWrap = styled.View`
   display: flex;
   height: 50px;
   background-color: #f3f3f3;
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 0 15px;
 `;
 const EmailInput = styled.TextInput`
