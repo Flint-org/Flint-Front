@@ -38,7 +38,7 @@ const InputWrap = styled.View`
   width: 100%;
   height: 50px;
   background-color: #f3f3f3;
-  border-radius: 8px;
+  border-radius: 5px;
   margin-bottom: 8%;
   padding: 0 15px;
 `;
@@ -70,9 +70,9 @@ const ModalView = styled.View`
   margin: auto auto;
   padding: 25px 30px;
   width: 85%;
-  gap: 18;
+  gap: 18px;
   background-color: #fff;
-  border-radius: 12px;
+  border-radius: 8px;
 `;
 const ModalText = styled.Text`
   font-size: 18px;
@@ -98,6 +98,7 @@ const VerificationModal = ({ text, setModalVisible, success }) => {
           <OrangeNextBtn
             width={'100%'}
             height={'40px'}
+            fontSize={'16px'}
             active={true}
             text={'확인'}
             onPress={() => {
@@ -151,12 +152,14 @@ const EmailVerificationPage2 = () => {
           <OrangeNextBtn
             width={'48%'}
             height={'50px'}
+            fontSize={'18px'}
             active={true}
             text={'인증번호 재전송'}
           />
           <OrangeNextBtn
             width={'48%'}
             height={'50px'}
+            fontSize={'18px'}
             active={inputNum !== '' ? true : false}
             text={'인증완료'}
             onPress={onBtnPress}

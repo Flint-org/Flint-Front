@@ -23,10 +23,10 @@ const Container = styled.View`
   justify-content: center;
   padding: 120px 30px 0;
   background-color: white;
-  gap: 155;
+  gap: 155px;
 `;
 const BtnWrap = styled.View`
-  gap: 15;
+  gap: 15px;
   width: 100%;
 `;
 const StartBtn = styled.TouchableOpacity`
@@ -34,10 +34,10 @@ const StartBtn = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 15;
+  gap: 15px;
   width: 100%;
   height: 55px;
-  border-radius: 8px;
+  border-radius: 5px;
   background-color: ${(props) => props.backgroundColor};
 `;
 const BtnText = styled.Text`

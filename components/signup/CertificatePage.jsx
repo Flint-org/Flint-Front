@@ -47,7 +47,7 @@ const UploadBtn = styled.TouchableOpacity`
   padding: 35px 30px;
   margin-bottom: 8%;
   border: ${(props) => (props.border ? 0 : '1px solid #ff9810')};
-  border-radius: 8px;
+  border-radius: 5px;
   background-color: ${(props) => props.backgroundColor};
 `;
 const BtnText = styled.Text`
@@ -107,6 +107,7 @@ const CertificatePage = () => {
         <OrangeNextBtn
           width={'100%'}
           height={'50px'}
+          fontSize={'18px'}
           active={selectSuccess}
           text={'인증완료'}
         />

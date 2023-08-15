@@ -32,19 +32,19 @@ const MainSection = styled.View`
 `;
 const ContentWrap1 = styled.View`
   display: flex;
-  gap: 18;
+  gap: 18px;
   margin-bottom: 6%;
   ${Platform.OS == 'ios' && 'z-index: 3'};
 `;
 const ContentWrap2 = styled.View`
   display: flex;
-  gap: 18;
+  gap: 18px;
   margin-bottom: 6%;
   ${Platform.OS == 'ios' && 'z-index: 2'};
 `;
 const ContentWrap3 = styled.View`
   display: flex;
-  gap: 18;
+  gap: 18px;
   ${Platform.OS == 'ios' && 'z-index: 1'};
   margin-bottom: 10%;
 `;
@@ -185,6 +185,7 @@ const DetailsInfoPage = () => {
         <OrangeNextBtn
           height={'50px'}
           width={'100%'}
+          fontSize={'18px'}
           active={
             yearValue !== null && univValue !== null && majorValue !== null
               ? true

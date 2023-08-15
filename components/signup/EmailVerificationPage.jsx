@@ -51,8 +51,9 @@ const InputWrap = styled.View`
 const InpuStyleWrap = styled.View`
   display: flex;
   height: 50px;
+  width: 45%;
   background-color: #f3f3f3;
-  border-radius: 8px;
+  border-radius: 5px;
   padding: 0 15px;
 `;
 const EmailInput = styled.TextInput`
@@ -109,6 +110,7 @@ const EmailVerificationPage = () => {
         <OrangeNextBtn
           width={'100%'}
           height={'50px'}
+          fontSize={'18px'}
           active={localParts !== '' && setDomain !== '' ? true : false}
           text={'인증번호 전송'}
           onPress={onBtnPress}
