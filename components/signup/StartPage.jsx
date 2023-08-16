@@ -1,12 +1,13 @@
-import React, { css } from 'react';
-import styled from 'styled-components/native';
-import { WithLocalSvg } from 'react-native-svg';
-import { useNavigation } from '@react-navigation/native';
+import React, { css, useEffect, useState } from "react";
+import styled from "styled-components/native";
+import { WithLocalSvg } from "react-native-svg";
+import { useNavigation } from "@react-navigation/native";
+import { login } from "@react-native-seoul/kakao-login";
 
-import FlintLogoSvg from '../../assets/images/flint_logo.svg';
-import KakaoLogoSvg from '../../assets/images/kakao_logo.svg';
-import NaverLogoSvg from '../../assets/images/naver_logo.svg';
-import DetailsInfoPage from './DetailsInfoPage';
+import FlintLogoSvg from "../../assets/images/flint_logo.svg";
+import KakaoLogoSvg from "../../assets/images/kakao_logo.svg";
+import NaverLogoSvg from "../../assets/images/naver_logo.svg";
+import DetailsInfoPage from "./DetailsInfoPage";
 
 /* TODO: 전체 완료 시 삭제
  * 로고 삽입 (O)
@@ -48,6 +49,20 @@ const BtnText = styled.Text`
 
 const StartPage = () => {
   const navigation = useNavigation();
+  const [token, setToken] = useState(null);
+  const signInWithKakao = async () => {
+    try {
+      const token = await login();
+      setToken(token.accessToken);
+      console.log(JSON.stringify(token));
+    } catch (err) {
+      console.error("login err", err);
+    }
+  };
+
+  useEffect(() => {
+    navigation.navigate(DetailsInfoPage);
+  }, [token]);
 
   return (
     <Container>
@@ -55,16 +70,16 @@ const StartPage = () => {
       <BtnWrap>
         {/* FIXME: 로직 수정 필요 (우선 임의로 다음 페이지로 넘어가도록 해둠)*/}
         <StartBtn
-          backgroundColor={'#fae100'}
+          backgroundColor={"#fae100"}
           onPress={() => {
-            navigation.navigate(DetailsInfoPage);
+            signInWithKakao();
           }}
         >
           <WithLocalSvg height={22} asset={KakaoLogoSvg} />
-          <BtnText color={'#381e1f'}>카카오톡으로 시작하기</BtnText>
+          <BtnText color={"#381e1f"}>카카오톡으로 시작하기</BtnText>
         </StartBtn>
         {/* FIXME: 로직 수정 필요 (우선 임의로 다음 페이지로 넘어가도록 해둠)*/}
-        <StartBtn backgroundColor={'#3bac37'}>
+        <StartBtn backgroundColor={"#3bac37"}>
           <WithLocalSvg
             height={22}
             asset={NaverLogoSvg}
@@ -72,7 +87,7 @@ const StartPage = () => {
               navigation.navigate(DetailsInfoPage);
             }}
           />
-          <BtnText color={'#fff'}>네이버로 시작하기</BtnText>
+          <BtnText color={"#fff"}>네이버로 시작하기</BtnText>
         </StartBtn>
       </BtnWrap>
     </Container>
