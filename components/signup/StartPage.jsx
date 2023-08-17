@@ -3,6 +3,7 @@ import styled from "styled-components/native";
 import { WithLocalSvg } from "react-native-svg";
 import { useNavigation } from "@react-navigation/native";
 import { login } from "@react-native-seoul/kakao-login";
+import NaverLogin from "@react-native-seoul/naver-login";
 
 import FlintLogoSvg from "../../assets/images/flint_logo.svg";
 import KakaoLogoSvg from "../../assets/images/kakao_logo.svg";
@@ -50,6 +51,7 @@ const BtnText = styled.Text`
 const StartPage = () => {
   const navigation = useNavigation();
   const [token, setToken] = useState(null);
+
   const signInWithKakao = async () => {
     try {
       const token = await login();
@@ -60,8 +62,25 @@ const StartPage = () => {
     }
   };
 
+  const signInWithNaver = async () => {
+    const { failureResponse, successResponse, isSuccess } =
+      await NaverLogin.login({
+        appName: "com.flintfront",
+        consumerKey: "to11DuJF425zfdagzPWl",
+        consumerSecret: "MVoE5xJDwh",
+        serviceUrlScheme: "flint",
+      });
+    if (isSuccess) {
+      console.log(successResponse);
+      setToken(successResponse.accessToken);
+    } else {
+      console.log(failureResponse);
+    }
+  };
+
   useEffect(() => {
     navigation.navigate(DetailsInfoPage);
+    console.log(token);
   }, [token]);
 
   return (
@@ -79,14 +98,13 @@ const StartPage = () => {
           <BtnText color={"#381e1f"}>카카오톡으로 시작하기</BtnText>
         </StartBtn>
         {/* FIXME: 로직 수정 필요 (우선 임의로 다음 페이지로 넘어가도록 해둠)*/}
-        <StartBtn backgroundColor={"#3bac37"}>
-          <WithLocalSvg
-            height={22}
-            asset={NaverLogoSvg}
-            onPress={() => {
-              navigation.navigate(DetailsInfoPage);
-            }}
-          />
+        <StartBtn
+          backgroundColor={"#3bac37"}
+          onPress={() => {
+            signInWithNaver();
+          }}
+        >
+          <WithLocalSvg height={22} asset={NaverLogoSvg} />
           <BtnText color={"#fff"}>네이버로 시작하기</BtnText>
         </StartBtn>
       </BtnWrap>
