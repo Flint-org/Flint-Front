@@ -10,15 +10,6 @@ import KakaoLogoSvg from "../../assets/images/kakao_logo.svg";
 import NaverLogoSvg from "../../assets/images/naver_logo.svg";
 import DetailsInfoPage from "./DetailsInfoPage";
 
-/* TODO: 전체 완료 시 삭제
- * 로고 삽입 (O)
- * 카카오로 시작하기 버튼 생성 (O)
- * 네이버로 시작하기 버튼 생성 (O)
- * 카카오 버튼 로직
- * 네이버 버튼 로직
- * 회원가입 완료시 DetailsInfoPage로 넘어가기
- */
-
 const Container = styled.View`
   flex: 1;
   align-items: center;
@@ -56,9 +47,8 @@ const StartPage = () => {
     try {
       const token = await login();
       setToken(token.accessToken);
-      console.log(JSON.stringify(token));
     } catch (err) {
-      console.error("login err", err);
+      console.error("error: ", err);
     }
   };
 
@@ -71,23 +61,21 @@ const StartPage = () => {
         serviceUrlScheme: "flint",
       });
     if (isSuccess) {
-      console.log(successResponse);
       setToken(successResponse.accessToken);
     } else {
-      console.log(failureResponse);
+      console.log("error: " + failureResponse);
     }
   };
 
   useEffect(() => {
     navigation.navigate(DetailsInfoPage);
-    console.log(token);
+    console.log("accessToken: " + token);
   }, [token]);
 
   return (
     <Container>
       <WithLocalSvg width={135} asset={FlintLogoSvg} />
       <BtnWrap>
-        {/* FIXME: 로직 수정 필요 (우선 임의로 다음 페이지로 넘어가도록 해둠)*/}
         <StartBtn
           backgroundColor={"#fae100"}
           onPress={() => {
@@ -97,7 +85,6 @@ const StartPage = () => {
           <WithLocalSvg height={22} asset={KakaoLogoSvg} />
           <BtnText color={"#381e1f"}>카카오톡으로 시작하기</BtnText>
         </StartBtn>
-        {/* FIXME: 로직 수정 필요 (우선 임의로 다음 페이지로 넘어가도록 해둠)*/}
         <StartBtn
           backgroundColor={"#3bac37"}
           onPress={() => {
