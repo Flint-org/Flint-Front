@@ -130,7 +130,7 @@ const DetailsInfoPage = () => {
   // FIXME: dropdown들에 적용된 아이콘 변경 필요
   return (
     <Container>
-      <SignupHeader prevPage={StartPage} />
+      <SignupHeader prevPage={StartPage} onPrevBtn={false} />
       <MainSection>
         <Title>학교 및 학과 선택</Title>
         <ContentWrap1>

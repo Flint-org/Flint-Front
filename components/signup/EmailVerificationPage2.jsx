@@ -117,13 +117,13 @@ const EmailVerificationPage2 = () => {
           text={'인증이 완료되었습니다.'}
           onPress={() => {
             setSuccessModalVisible(false);
-            navigation.navigate(CertificatePage);
+            // FIXME: 홈 화면으로 이동 필요
           }}
         />
       )}
       {failModalVisible && (
         <AlertModal
-          text={'올바른 \n 인증번호를 입력해주세요.'}
+          text={'올바른 인증번호를 입력해주세요.'}
           onPress={() => setFailsModalVisible(false)}
         />
       )}

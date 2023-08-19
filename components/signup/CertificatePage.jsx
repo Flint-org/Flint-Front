@@ -3,11 +3,11 @@ import styled from 'styled-components/native';
 import * as DocumentPicker from 'expo-document-picker';
 import { WithLocalSvg } from 'react-native-svg';
 
-import EmailVerificationPage2 from './EmailVerificationPage2';
 import SignupHeader from './SignupHeader';
 import CameraSvg from '../../assets/images/camera.svg';
 import OrangeNextBtn from '../common/OrangeNextBtn';
 import AlertModal from '../common/AlertModal';
+import EmailVerificationPage from './EmailVerificationPage';
 
 /* TODO: 전체 완료 시 삭제
  * 증명서 첨부 UI 생성 (O)
@@ -83,7 +83,7 @@ const CertificatePage = () => {
 
   return (
     <Container>
-      <SignupHeader prevPage={EmailVerificationPage2} />
+      <SignupHeader prevPage={EmailVerificationPage} />
       <MainSection>
         <Title>증명서 첨부</Title>
         <SubTitle>PDF / 이미지 파일</SubTitle>
@@ -118,13 +118,12 @@ const CertificatePage = () => {
           onPress={() => setModalVisible(true)}
         />
       </MainSection>
-      {/* FIXME: console.log 말고 메인 페이지 이동 필요 */}
       {selectSuccess && modalVisible && (
         <AlertModal
-          text={'회원가입이\n완료되었습니다'}
+          text={'인증이 완료되었습니다.'}
           onPress={() => {
-            console.log('메인 페이지 이동 필요');
             setModalVisible(false);
+            // FIXME: 메인 페이지 이동 필요
           }}
         />
       )}
