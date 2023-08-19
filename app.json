@@ -11,7 +11,18 @@
           "iCloudContainerEnvironment": "Production"
         }
       ]
-    ]
+    ],
+    "splash": {
+      "image": "./assets/images/splash_logo.png",
+      "resizeMode": "center",
+      "backgroundColor": "#FFFFFF"
+    },
+    "ios": {
+      "bundleIdentifier": "org.name.flintfront"
+    },
+    "android": {
+      "package": "org.name.flintfront"
+    }
   },
   "name": "flint-front"
 }
