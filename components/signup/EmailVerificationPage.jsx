@@ -6,6 +6,7 @@ import DetailsInfoPage from './DetailsInfoPage';
 import SignupHeader from './SignupHeader';
 import OrangeNextBtn from '../common/OrangeNextBtn';
 import EmailVerificationPage2 from './EmailVerificationPage2';
+import CertificatePage from './CertificatePage';
 
 /* TODO: 전체 완료 시 삭제
  * 이메일 입력 input 생성 (O)
@@ -67,6 +68,16 @@ const AtSignText = styled.Text`
   color: #a0a0a0;
   font-size: 16px;
 `;
+const ChangePageBtn = styled.TouchableOpacity`
+  margin: 10% auto 0;
+  padding: 2px;
+  border-color: #c0c0c0;
+  border-bottom-width: 1px;
+`;
+const ChangePageText = styled.Text`
+  color: #c0c0c0;
+  font-size: 16px;
+`;
 
 const EmailVerificationPage = () => {
   const navigation = useNavigation();
@@ -115,6 +126,11 @@ const EmailVerificationPage = () => {
           text={'인증번호 전송'}
           onPress={onBtnPress}
         />
+        <ChangePageBtn>
+          <ChangePageText onPress={() => navigation.navigate(CertificatePage)}>
+            학교 이메일이 없으신가요?
+          </ChangePageText>
+        </ChangePageBtn>
       </MainSection>
     </Container>
   );
