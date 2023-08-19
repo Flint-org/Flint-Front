@@ -123,7 +123,7 @@ const EmailVerificationPage2 = () => {
       )}
       {failModalVisible && (
         <AlertModal
-          text={'올바른 \n 인증번호를 입력해주세요.'}
+          text={'올바른 인증번호를 입력해주세요.'}
           onPress={() => setFailsModalVisible(false)}
         />
       )}
