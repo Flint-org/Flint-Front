@@ -1,14 +1,24 @@
 import React from "react";
 import styled from "styled-components/native";
+import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
+import MyCard from "./Card/MyCard";
+import CardBox from "./Card/CardBox";
 
-const Container = styled.View``;
-const Text = styled.Text``;
+const Tab = createMaterialTopTabNavigator();
 
 const Card = () => {
   return (
-    <Container>
-      <Text>Card</Text>
-    </Container>
+    <Tab.Navigator
+      screenOptions={{
+        tabBarLabelStyle: { fontSize: 15 },
+        tabBarIndicatorStyle: {
+          backgroundColor: "#FF9810",
+        },
+      }}
+    >
+      <Tab.Screen name="내명함" component={MyCard} />
+      <Tab.Screen name="명함상자" component={CardBox} />
+    </Tab.Navigator>
   );
 };
 
