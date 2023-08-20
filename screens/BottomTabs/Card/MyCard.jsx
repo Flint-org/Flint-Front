@@ -1,6 +1,7 @@
-import React from "react";
-import styled from "styled-components/native";
-import { useNavigation } from "@react-navigation/native";
+import React from 'react';
+import styled from 'styled-components/native';
+import { useNavigation } from '@react-navigation/native';
+import CardComponent from '../../../components/bottomTabs/card/CardComponent';
 
 const Container = styled.View`
   flex: 1;
@@ -16,10 +17,10 @@ const MyCard = () => {
   const navigation = useNavigation();
   return (
     <Container>
-      <Text>MyCard</Text>
+      <CardComponent />
       <Btn
         onPress={() => {
-          navigation.navigate("Stack", { screen: "EditCard" });
+          navigation.navigate('Stack', { screen: 'EditCard' });
         }}
       >
         <Text>Edit Card</Text>
