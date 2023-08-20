@@ -439,8 +439,9 @@ const IntroWrap = styled.View`
   display: flex;
   justify-content: center;
   background-color: #fff;
-  padding: 7px 10px;
+  padding: 5px 10px;
   border-radius: 5px;
+  margin-bottom: 8px;
 `;
 const InterestsWrap = styled.View`
   width: 155px;
@@ -452,8 +453,11 @@ const InterestsWrap = styled.View`
   overflow: hidden;
 `;
 const InterestWrap = styled.View`
+  display: flex;
+  justify-content: center;
+  height: 22px;
   background-color: #fff;
-  padding: 3px 8px;
+  padding: 0 8px;
   border-radius: 20px;
 `;
 
