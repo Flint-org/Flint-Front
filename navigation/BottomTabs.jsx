@@ -1,10 +1,11 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { WithLocalSvg } from 'react-native-svg';
+
 import Card from '../screens/bottomTabs/Card';
 import Chat from '../screens/bottomTabs/Chat';
 import Home from '../screens/bottomTabs/Home';
 import Notification from '../screens/bottomTabs/Notification';
 import Profile from '../screens/bottomTabs/Profile';
-import { WithLocalSvg } from 'react-native-svg';
 
 import CardActive from '../assets/bottomTabIcons/card_active.svg';
 import CardInActive from '../assets/bottomTabIcons/card_inactive.svg';
@@ -16,6 +17,7 @@ import HomeActive from '../assets/bottomTabIcons/home_active.svg';
 import HomeInActive from '../assets/bottomTabIcons/home_inactive.svg';
 import InfoActive from '../assets/bottomTabIcons/info_active.svg';
 import InfoInActive from '../assets/bottomTabIcons/info_inactive.svg';
+import { Platform } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
@@ -24,6 +26,14 @@ const BottomTabs = () => {
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor: '#FF9810',
+        tabBarLabelStyle: { fontSize: 12, marginTop: 3 },
+        tabBarStyle: {
+          height: '9.5%',
+          paddingBottom: '6%',
+          paddingTop: '3%',
+          paddingLeft: 20,
+          paddingRight: 20,
+        },
       }}
     >
       <Tab.Screen
