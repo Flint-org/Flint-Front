@@ -4,9 +4,9 @@ import * as DocumentPicker from 'expo-document-picker';
 import { WithLocalSvg } from 'react-native-svg';
 
 import SignupHeader from './SignupHeader';
-import CameraSvg from '../../assets/images/camera.svg';
-import OrangeNextBtn from '../common/OrangeNextBtn';
-import AlertModal from '../common/AlertModal';
+import CameraSvg from '../../../assets/images/camera.svg';
+import OrangeNextBtn from '../../common/OrangeNextBtn';
+import AlertModal from '../../common/AlertModal';
 import EmailVerificationPage from './EmailVerificationPage';
 
 /* TODO: 전체 완료 시 삭제

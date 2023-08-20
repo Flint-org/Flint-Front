@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import DetailsInfoPage from './DetailsInfoPage';
 import SignupHeader from './SignupHeader';
-import OrangeNextBtn from '../common/OrangeNextBtn';
+import OrangeNextBtn from '../../common/OrangeNextBtn';
 import EmailVerificationPage2 from './EmailVerificationPage2';
 import CertificatePage from './CertificatePage';
 

@@ -1,8 +1,7 @@
-import React from "react";
-import styled from "styled-components/native";
-import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
-import MyCard from "./Card/MyCard";
-import CardBox from "./Card/CardBox";
+import React from 'react';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import MyCard from './card/MyCard';
+import CardBox from './card/CardBox';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -12,7 +11,7 @@ const Card = () => {
       screenOptions={{
         tabBarLabelStyle: { fontSize: 15 },
         tabBarIndicatorStyle: {
-          backgroundColor: "#FF9810",
+          backgroundColor: '#FF9810',
         },
       }}
     >

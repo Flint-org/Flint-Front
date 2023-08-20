@@ -1,21 +1,21 @@
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import Card from "../screens/BottomTabs/Card";
-import Chat from "../screens/BottomTabs/Chat";
-import Home from "../screens/BottomTabs/Home";
-import Notification from "../screens/BottomTabs/Notification";
-import Profile from "../screens/BottomTabs/Profile";
-import { WithLocalSvg } from "react-native-svg";
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import Card from '../screens/bottomTabs/Card';
+import Chat from '../screens/bottomTabs/Chat';
+import Home from '../screens/bottomTabs/Home';
+import Notification from '../screens/bottomTabs/Notification';
+import Profile from '../screens/bottomTabs/Profile';
+import { WithLocalSvg } from 'react-native-svg';
 
-import CardActive from "../assets/bottomTabIcons/card_active.svg";
-import CardInActive from "../assets/bottomTabIcons/card_inactive.svg";
-import AlarmActive from "../assets/bottomTabIcons/alarm_active.svg";
-import AlarmInActive from "../assets/bottomTabIcons/alarm_inactive.svg";
-import ChatActive from "../assets/bottomTabIcons/chat_active.svg";
-import ChatInActive from "../assets/bottomTabIcons/chat_inactive.svg";
-import HomeActive from "../assets/bottomTabIcons/home_active.svg";
-import HomeInActive from "../assets/bottomTabIcons/home_inactive.svg";
-import InfoActive from "../assets/bottomTabIcons/info_active.svg";
-import InfoInActive from "../assets/bottomTabIcons/info_inactive.svg";
+import CardActive from '../assets/bottomTabIcons/card_active.svg';
+import CardInActive from '../assets/bottomTabIcons/card_inactive.svg';
+import AlarmActive from '../assets/bottomTabIcons/alarm_active.svg';
+import AlarmInActive from '../assets/bottomTabIcons/alarm_inactive.svg';
+import ChatActive from '../assets/bottomTabIcons/chat_active.svg';
+import ChatInActive from '../assets/bottomTabIcons/chat_inactive.svg';
+import HomeActive from '../assets/bottomTabIcons/home_active.svg';
+import HomeInActive from '../assets/bottomTabIcons/home_inactive.svg';
+import InfoActive from '../assets/bottomTabIcons/info_active.svg';
+import InfoInActive from '../assets/bottomTabIcons/info_inactive.svg';
 
 const Tab = createBottomTabNavigator();
 
@@ -23,7 +23,7 @@ const BottomTabs = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: "#FF9810",
+        tabBarActiveTintColor: '#FF9810',
       }}
     >
       <Tab.Screen

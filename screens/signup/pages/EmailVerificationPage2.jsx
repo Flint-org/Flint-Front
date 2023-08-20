@@ -3,10 +3,9 @@ import styled from 'styled-components/native';
 import { useNavigation } from '@react-navigation/native';
 
 import SignupHeader from './SignupHeader';
-import OrangeNextBtn from '../common/OrangeNextBtn';
+import OrangeNextBtn from '../../common/OrangeNextBtn';
 import EmailVerificationPage from './EmailVerificationPage';
-import CertificatePage from './CertificatePage';
-import AlertModal from '../common/AlertModal';
+import AlertModal from '../../common/AlertModal';
 
 const Container = styled.View`
   flex: 1;
