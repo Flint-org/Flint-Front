@@ -1,7 +1,7 @@
-import React from "react";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import Signup from "../screens/Signup";
-import EditCard from "../screens/BottomTabs/Card/EditCard";
+import React from 'react';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import Signup from '../screens/signup/Signup';
+import EditCard from '../screens/bottomTabs/card/EditCard';
 
 const NativeStack = createNativeStackNavigator();
 
@@ -9,7 +9,7 @@ const Stack = () => {
   return (
     <NativeStack.Navigator
       screenOptions={{
-        presentation: "modal",
+        presentation: 'modal',
         headerShown: false,
       }}
     >
