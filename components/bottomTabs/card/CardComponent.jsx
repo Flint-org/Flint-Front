@@ -256,48 +256,50 @@ const CardComponent = () => {
             </BackContentText>
           </BackTextWrap>
         </BackContentWrap>
-        <BackContentWrap>
-          <BackContentBtn
-            onPress={() => {
-              setClickIntroModal(true);
-            }}
-          >
-            <TitleWrap>
-              <BackTitleText color={`rgb(${red}, ${green}, ${blue})`}>
-                자기소개
-              </BackTitleText>
-              <WithLocalSvg height={12} width={12} asset={PlusSvg} />
-            </TitleWrap>
-            <IntroWrap>
-              <BackContentText
-                color={'#000'}
-                numberOfLines={2}
-                ellipsizeMode={'end'}
-              >
-                {introduction}
-              </BackContentText>
-            </IntroWrap>
-          </BackContentBtn>
-          <BackContentBtn
-            onPress={() => {
-              setClickInterestModal(true);
-            }}
-          >
-            <TitleWrap>
-              <BackTitleText color={`rgb(${red}, ${green}, ${blue})`}>
-                관심사
-              </BackTitleText>
-              <WithLocalSvg height={12} width={12} asset={PlusSvg} />
-            </TitleWrap>
-            <InterestsWrap>
-              {interests.map((interest) => (
-                <InterestWrap key={interest}>
-                  <BackContentText color={'#000'}>{interest}</BackContentText>
-                </InterestWrap>
-              ))}
-            </InterestsWrap>
-          </BackContentBtn>
-        </BackContentWrap>
+        {listenerVal > 90 && (
+          <BackContentWrap>
+            <BackContentBtn
+              onPress={() => {
+                setClickIntroModal(true);
+              }}
+            >
+              <TitleWrap>
+                <BackTitleText color={`rgb(${red}, ${green}, ${blue})`}>
+                  자기소개
+                </BackTitleText>
+                <WithLocalSvg height={12} width={12} asset={PlusSvg} />
+              </TitleWrap>
+              <IntroWrap>
+                <BackContentText
+                  color={'#000'}
+                  numberOfLines={2}
+                  ellipsizeMode={'end'}
+                >
+                  {introduction}
+                </BackContentText>
+              </IntroWrap>
+            </BackContentBtn>
+            <BackContentBtn
+              onPress={() => {
+                setClickInterestModal(true);
+              }}
+            >
+              <TitleWrap>
+                <BackTitleText color={`rgb(${red}, ${green}, ${blue})`}>
+                  관심사
+                </BackTitleText>
+                <WithLocalSvg height={12} width={12} asset={PlusSvg} />
+              </TitleWrap>
+              <InterestsWrap>
+                {interests.map((interest) => (
+                  <InterestWrap key={interest}>
+                    <BackContentText color={'#000'}>{interest}</BackContentText>
+                  </InterestWrap>
+                ))}
+              </InterestsWrap>
+            </BackContentBtn>
+          </BackContentWrap>
+        )}
       </CardBack>
       <CardModal
         visible={onClickIntroModal}
