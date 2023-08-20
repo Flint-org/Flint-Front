@@ -1,13 +1,13 @@
-import React, { useCallback, useEffect, useState } from 'react';
-import styled from 'styled-components/native';
-import { Platform } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import React, { useCallback, useEffect, useState } from "react";
+import styled from "styled-components/native";
+import { Platform } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
-import SignupHeader from './SignupHeader';
-import StartPage from './StartPage';
-import EmailVerificationPage from './EmailVerificationPage';
-import InfoDropdown from './InfoDropdown';
-import OrangeNextBtn from '../../common/OrangeNextBtn';
+import SignupHeader from "./SignupHeader";
+import StartPage from "./StartPage";
+import EmailVerificationPage from "./EmailVerificationPage";
+import InfoDropdown from "../../../components/InfoDropdown";
+import OrangeNextBtn from "../../common/OrangeNextBtn";
 
 /* TODO: 전체 완료 시 삭제
  * 입학년도 입력 dropdown (O)
@@ -34,18 +34,18 @@ const ContentWrap1 = styled.View`
   display: flex;
   gap: 18px;
   margin-bottom: 6%;
-  ${Platform.OS == 'ios' && 'z-index: 3'};
+  ${Platform.OS == "ios" && "z-index: 3"};
 `;
 const ContentWrap2 = styled.View`
   display: flex;
   gap: 18px;
   margin-bottom: 6%;
-  ${Platform.OS == 'ios' && 'z-index: 2'};
+  ${Platform.OS == "ios" && "z-index: 2"};
 `;
 const ContentWrap3 = styled.View`
   display: flex;
   gap: 18px;
-  ${Platform.OS == 'ios' && 'z-index: 1'};
+  ${Platform.OS == "ios" && "z-index: 1"};
   margin-bottom: 10%;
 `;
 const Title = styled.Text`
@@ -74,13 +74,13 @@ const DetailsInfoPage = () => {
   const [univOpen, setUnivOpen] = useState(false);
   const [univValue, setUnivValue] = useState(null);
   const [univItems, setUnivItems] = useState([
-    { label: 'aa대학교', value: 'aa대학교' },
-    { label: 'bb대학교', value: 'bb대학교' },
-    { label: 'cc대학교', value: 'cc대학교' },
-    { label: 'dd대학교', value: 'dd대학교' },
-    { label: 'ee대학교', value: 'ee대학교' },
-    { label: 'ff대학교', value: 'ff대학교' },
-    { label: 'gg대학교', value: 'gg대학교' },
+    { label: "aa대학교", value: "aa대학교" },
+    { label: "bb대학교", value: "bb대학교" },
+    { label: "cc대학교", value: "cc대학교" },
+    { label: "dd대학교", value: "dd대학교" },
+    { label: "ee대학교", value: "ee대학교" },
+    { label: "ff대학교", value: "ff대학교" },
+    { label: "gg대학교", value: "gg대학교" },
   ]);
 
   //FIXME: 데이터 교체 필요
@@ -89,13 +89,13 @@ const DetailsInfoPage = () => {
   const [majorOpen, setMajorOpen] = useState(false);
   const [majorValue, setMajorValue] = useState(null);
   const [majorItems, setMajorItems] = useState([
-    { label: '기계공학과', value: '기계공학과' },
-    { label: '소프트웨어학과', value: '소프트웨어학과' },
-    { label: '전자공학과', value: '전자공학과' },
-    { label: '미디어학과', value: '미디어학과' },
-    { label: '산업공학과', value: '산업공학과' },
-    { label: '사이버보안학과', value: '사이버보안학과' },
-    { label: '국방디지털융합학과', value: '국방디지털융합학과' },
+    { label: "기계공학과", value: "기계공학과" },
+    { label: "소프트웨어학과", value: "소프트웨어학과" },
+    { label: "전자공학과", value: "전자공학과" },
+    { label: "미디어학과", value: "미디어학과" },
+    { label: "산업공학과", value: "산업공학과" },
+    { label: "사이버보안학과", value: "사이버보안학과" },
+    { label: "국방디지털융합학과", value: "국방디지털융합학과" },
   ]);
 
   // 다른 dropdown 열리면 나머지 닫히도록 설정
@@ -145,8 +145,8 @@ const DetailsInfoPage = () => {
             setItems={setUnivItems}
             onOpen={onUnivOpen}
             searchable={true}
-            placeholder={'학교 이름을 입력하세요.'}
-            searchPlaceholder={'검색'}
+            placeholder={"학교 이름을 입력하세요."}
+            searchPlaceholder={"검색"}
             zIndex={3}
           />
         </ContentWrap1>
@@ -162,8 +162,8 @@ const DetailsInfoPage = () => {
             setItems={setMajorItems}
             onOpen={onMajorOpen}
             searchable={true}
-            placeholder={'학과 이름을 입력하세요.'}
-            searchPlaceholder={'검색'}
+            placeholder={"학과 이름을 입력하세요."}
+            searchPlaceholder={"검색"}
             zIndex={2}
           />
         </ContentWrap2>
@@ -178,20 +178,20 @@ const DetailsInfoPage = () => {
             setValue={setYearValue}
             setItems={setYearItems}
             onOpen={onYearOpen}
-            placeholder={'입학년도를 입력하세요.'}
+            placeholder={"입학년도를 입력하세요."}
             zIndex={1}
           />
         </ContentWrap3>
         <OrangeNextBtn
-          height={'50px'}
-          width={'100%'}
-          fontSize={'18px'}
+          height={"50px"}
+          width={"100%"}
+          fontSize={"18px"}
           active={
             yearValue !== null && univValue !== null && majorValue !== null
               ? true
               : false
           }
-          text={'다음'}
+          text={"다음"}
           onPress={() => {
             yearValue !== null &&
               univValue !== null &&
