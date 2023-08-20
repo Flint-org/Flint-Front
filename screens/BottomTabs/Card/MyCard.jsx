@@ -4,9 +4,9 @@ import CardComponent from './CardComponent';
 
 const Container = styled.View`
   flex: 1;
-  background-color: #fff;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
+  background-color: #fff;
   padding: 0 30px;
 `;
 const Text = styled.Text``;
