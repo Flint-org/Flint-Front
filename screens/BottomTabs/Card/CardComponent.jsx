@@ -1,41 +1,42 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components/native';
 import { LinearGradient } from 'expo-linear-gradient';
-import { Platform } from 'react-native';
 import { Animated } from 'react-native';
 
 const CardWrap = styled.TouchableOpacity`
   width: 100%;
   height: 195px;
+  border-radius: 8px;
 `;
 const CardFront = styled(Animated.View)`
   width: 100%;
   height: 195px;
-  background-color: #fff;
   border-radius: 8px;
-  ${Platform.OS == 'android'
-    ? 'elevation: 4;'
-    : 'box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.23)'};
-  backface-visibility: hidden;
   position: absolute;
+  backface-visibility: hidden;
+  background-color: #fff;
+  border: 2px solid rgba(0, 0, 0, 0.08);
 `;
-
 const CardBack = styled(Animated.View)`
   width: 100%;
   height: 195px;
   border-radius: 8px;
-  background-color: blue;
+  position: absolute;
   backface-visibility: hidden;
+  background-color: ${(props) => {
+    props.backgroundColor;
+  }};
+  border: 2px solid rgba(0, 0, 0, 0.08);
 `;
-
 const CardGradient = styled(LinearGradient)`
   width: 100%;
   height: 100%;
   border-radius: 8px;
+  padding: 25px;
 `;
 
 const CardComponent = () => {
-  //  학교별 메인컬러 R,G,B 담는 state
+  // FIXME: 학교별 메인컬러 R,G,B 담는 state (데이터 필요)
   const [red, setRed] = useState(0);
   const [green, setGreen] = useState(91);
   const [blue, setBlue] = useState(172);
@@ -62,21 +63,21 @@ const CardComponent = () => {
     outputRange: ['180deg', '360deg'],
   });
 
-  const flipCard = useCallback(() => {
+  const flipCard = () => {
     if (listenerVal >= 90) {
       Animated.timing(flipValue, {
         toValue: 0,
         duration: 800,
-        useNativeDrive: true,
+        useNativeDriver: true,
       }).start();
     } else {
       Animated.timing(flipValue, {
         toValue: 180,
         duration: 800,
-        useNativeDrive: true,
+        useNativeDriver: true,
       }).start();
     }
-  }, [listenerVal]);
+  };
 
   return (
     <CardWrap onPress={flipCard}>
@@ -87,18 +88,19 @@ const CardComponent = () => {
       >
         <CardGradient
           colors={[
-            `rgba(${red}, ${green},${blue},0)`,
-            `rgba(${red}, ${green},${blue},0.3)`,
-            `rgba(${red}, ${green},${blue},0.9)`,
+            `rgba(${red}, ${green}, ${blue},0)`,
+            `rgba(${red}, ${green}, ${blue},0.3)`,
+            `rgba(${red}, ${green}, ${blue},0.9)`,
           ]}
           start={{ x: 0, y: 0.5 }}
           end={{ x: 1, y: 0.5 }}
-        />
+        ></CardGradient>
       </CardFront>
       <CardBack
         style={{
           transform: [{ rotateY: backInterpolation }],
         }}
+        backgroundColor={`rgba(${red}, ${green}, ${blue},0.1)`}
       ></CardBack>
     </CardWrap>
   );
