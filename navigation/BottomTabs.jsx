@@ -45,9 +45,9 @@ const BottomTabs = () => {
         tabBarActiveTintColor: '#FF9810',
         tabBarLabelStyle: { fontSize: 12, marginTop: 3 },
         tabBarStyle: {
-          height: '9.5%',
-          paddingBottom: '6%',
-          paddingTop: '3%',
+          height: Platform.OS == 'android' ? '9%' : '10%',
+          paddingBottom: Platform.OS == 'android' ? '4.5%' : '7%',
+          paddingTop: Platform.OS == 'android' ? '3.5%' : '2%',
           paddingLeft: 20,
           paddingRight: 20,
         },
