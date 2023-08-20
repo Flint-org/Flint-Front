@@ -6,6 +6,107 @@ import { WithLocalSvg } from 'react-native-svg';
 
 import LogoSvg from '../../../assets/images/logo_symbol_white.svg';
 import PlusSvg from '../../../assets/images/plus.svg';
+import CloseSvg from '../../../assets/images/close.svg';
+
+const ModalWrap = styled.Modal``;
+const ModalBackground = styled.View`
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 0 30px;
+`;
+const ModalView = styled.View`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto auto;
+  padding: 25px 30px;
+  width: 85%;
+  gap: 18px;
+  background-color: #fff;
+  border-radius: 8px;
+`;
+const ModalTitleWrap = styled.View`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+const ModalTitle = styled.Text`
+  margin: 0 auto;
+  padding-left: 13px;
+  font-size: 18px;
+  font-weight: 700;
+  color: ${(props) => props.color};
+`;
+const CloseBtn = styled.TouchableOpacity`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+`;
+const ModalInterestsWrap = styled.View`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+`;
+const ModalInterestWrap = styled.View`
+  display: flex;
+  justify-content: center;
+  height: 35px;
+  padding: 0 15px;
+  background-color: ${(props) => props.backgroundColor};
+  border-radius: 50px;
+`;
+const ModalText = styled.Text`
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+`;
+
+const CardModal = ({
+  visible,
+  setVisible,
+  red,
+  blue,
+  green,
+  text,
+  content,
+}) => {
+  return (
+    <ModalWrap transparent={true} visible={visible}>
+      <ModalBackground>
+        <ModalView>
+          <ModalTitleWrap>
+            <ModalTitle color={`rgb(${red},${green},${blue})`}>
+              {text}
+            </ModalTitle>
+            <CloseBtn onPress={() => setVisible(false)}>
+              <WithLocalSvg width={13} height={13} asset={CloseSvg} />
+            </CloseBtn>
+          </ModalTitleWrap>
+          {text == '자기소개' ? (
+            <ModalText>{content}</ModalText>
+          ) : (
+            <ModalInterestsWrap>
+              {content.map((interest) => (
+                <ModalInterestWrap
+                  backgroundColor={`rgba(${red},${green},${blue},0.1)`}
+                >
+                  <ModalText>{interest}</ModalText>
+                </ModalInterestWrap>
+              ))}
+            </ModalInterestsWrap>
+          )}
+        </ModalView>
+      </ModalBackground>
+    </ModalWrap>
+  );
+};
 
 const CardComponent = () => {
   // FIXME: 학교별 메인컬러 R,G,B 담는 state (데이터 필요)
@@ -22,7 +123,7 @@ const CardComponent = () => {
   const [score, setScore] = useState(4.1);
   const [sns, setSNS] = useState('@abcde');
   const [mbti, setMbti] = useState('ENTJ');
-  const [indroduction, setIntroduction] = useState(
+  const [introduction, setIntroduction] = useState(
     '안녕하세요 저는 00에 관심이 많은 김이름입니다. 만나서 반갑습니다'
   );
   // FIXME: 특히 관심사 부분은 선택형이므로 선택에 따라 데이터를 받아와야 하고 이모지도 필요
@@ -35,6 +136,9 @@ const CardComponent = () => {
     '노래',
     '악기',
   ]);
+
+  const [onClickIntroModal, setClickIntroModal] = useState(false);
+  const [onClickInterestModal, setClickInterestModal] = useState(false);
 
   /* 명함 flip 애니메이션 관련 state 및 함수
    * flipValue : 애니메이션 값
@@ -83,9 +187,9 @@ const CardComponent = () => {
       >
         <CardGradient
           colors={[
-            `rgba(${red}, ${green}, ${blue},0)`,
-            `rgba(${red}, ${green}, ${blue},0.3)`,
-            `rgba(${red}, ${green}, ${blue},0.9)`,
+            `rgba(${red}, ${green}, ${blue}, 0)`,
+            `rgba(${red}, ${green}, ${blue}, 0.3)`,
+            `rgba(${red}, ${green}, ${blue}, 0.9)`,
           ]}
           start={{ x: 0, y: 0.5 }}
           end={{ x: 1, y: 0.5 }}
@@ -153,7 +257,11 @@ const CardComponent = () => {
           </BackTextWrap>
         </BackContentWrap>
         <BackContentWrap>
-          <BackContentBtn>
+          <BackContentBtn
+            onPress={() => {
+              setClickIntroModal(true);
+            }}
+          >
             <TitleWrap>
               <BackTitleText color={`rgb(${red}, ${green}, ${blue})`}>
                 자기소개
@@ -166,11 +274,15 @@ const CardComponent = () => {
                 numberOfLines={2}
                 ellipsizeMode={'end'}
               >
-                {indroduction}
+                {introduction}
               </BackContentText>
             </IntroWrap>
           </BackContentBtn>
-          <BackContentBtn>
+          <BackContentBtn
+            onPress={() => {
+              setClickInterestModal(true);
+            }}
+          >
             <TitleWrap>
               <BackTitleText color={`rgb(${red}, ${green}, ${blue})`}>
                 관심사
@@ -187,6 +299,24 @@ const CardComponent = () => {
           </BackContentBtn>
         </BackContentWrap>
       </CardBack>
+      <CardModal
+        visible={onClickIntroModal}
+        setVisible={setClickIntroModal}
+        red={red}
+        green={green}
+        blue={blue}
+        text={'자기소개'}
+        content={introduction}
+      />
+      <CardModal
+        visible={onClickInterestModal}
+        setVisible={setClickInterestModal}
+        red={red}
+        green={green}
+        blue={blue}
+        text={'관심사'}
+        content={interests}
+      />
     </CardWrap>
   );
 };
