@@ -1,5 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { WithLocalSvg } from 'react-native-svg';
+import styled from 'styled-components/native';
+import { getHeaderTitle } from '@react-navigation/elements';
 
 import Card from '../screens/bottomTabs/Card';
 import Chat from '../screens/bottomTabs/Chat';
@@ -21,6 +23,21 @@ import { Platform } from 'react-native';
 
 const Tab = createBottomTabNavigator();
 
+const Header = styled.View`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 105px;
+  padding: 45px 30px 0;
+  background-color: #fff;
+`;
+const HeaderText = styled.Text`
+  font-weight: 700;
+  font-size: 18px;
+  color: #000;
+`;
+
 const BottomTabs = () => {
   return (
     <Tab.Navigator
@@ -33,6 +50,15 @@ const BottomTabs = () => {
           paddingTop: '3%',
           paddingLeft: 20,
           paddingRight: 20,
+        },
+        header: ({ route, options }) => {
+          const title = getHeaderTitle(options, route.name);
+
+          return (
+            <Header>
+              <HeaderText>{title}</HeaderText>
+            </Header>
+          );
         },
       }}
     >
