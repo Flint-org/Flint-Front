@@ -1,10 +1,10 @@
 import React from 'react';
 import DropDownPicker from 'react-native-dropdown-picker';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { WithLocalSvg } from 'react-native-svg';
 
-import ArrowUpSvg from '../../assets/images/arrow_up.svg';
-import ArrowDownSvg from '../../assets/images/arrow_down.svg';
+import ArrowUpSvg from '../../../assets/images/arrow_up.svg';
+import ArrowDownSvg from '../../../assets/images/arrow_down.svg';
 
 const InfoDropdown = ({
   loading,

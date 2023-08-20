@@ -1,11 +1,11 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import DetailsInfoPage from '../components/signup/DetailsInfoPage';
-import EmailVerificationPage from '../components/signup/EmailVerificationPage';
-import CertificatePage from '../components/signup/CertificatePage';
-import StartPage from '../components/signup/StartPage';
-import EmailVerificationPage2 from '../components/signup/EmailVerificationPage2';
+import StartPage from './pages/StartPage';
+import DetailsInfoPage from './pages/DetailsInfoPage';
+import EmailVerificationPage from './pages/EmailVerificationPage';
+import EmailVerificationPage2 from './pages/EmailVerificationPage2';
+import CertificatePage from './pages/CertificatePage';
 
 const NativeStack = createNativeStackNavigator();
 

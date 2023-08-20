@@ -7,7 +7,7 @@ import SignupHeader from './SignupHeader';
 import StartPage from './StartPage';
 import EmailVerificationPage from './EmailVerificationPage';
 import InfoDropdown from './InfoDropdown';
-import OrangeNextBtn from '../common/OrangeNextBtn';
+import OrangeNextBtn from '../../common/OrangeNextBtn';
 
 /* TODO: 전체 완료 시 삭제
  * 입학년도 입력 dropdown (O)

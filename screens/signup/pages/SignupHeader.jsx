@@ -2,9 +2,8 @@ import React from 'react';
 import styled from 'styled-components/native';
 import { WithLocalSvg } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
-import { Platform } from 'react-native';
 
-import BackArrowSvg from '../../assets/images/back_arrow.svg';
+import BackArrowSvg from '../../../assets/images/back_arrow.svg';
 
 const SignupHeader = ({ prevPage, onPrevBtn = true }) => {
   const Header = styled.View`
