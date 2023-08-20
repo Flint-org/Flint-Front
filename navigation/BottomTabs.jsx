@@ -28,8 +28,8 @@ const Header = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 105px;
-  padding: 45px 30px 0;
+  height: 100px;
+  padding: 40px 30px 0;
   background-color: #fff;
 `;
 const HeaderText = styled.Text`
