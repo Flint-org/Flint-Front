@@ -9,7 +9,7 @@ const Card = () => {
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarLabelStyle: { fontSize: 15 },
+        tabBarLabelStyle: { fontSize: 16, fontWeight: 600 },
         tabBarIndicatorStyle: {
           backgroundColor: '#FF9810',
         },
