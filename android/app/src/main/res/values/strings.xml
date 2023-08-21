@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">flint-front</string>
+    <string name="kakao_app_key">452b80aa1b1ba2a240aeab206d1bdadd</string>
 </resources>

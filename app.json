@@ -3,9 +3,26 @@
     "name": "flint-front",
     "slug": "flint-front",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "assetBundlePatterns": ["**/*"],
+    "plugins": [
+      [
+        "expo-document-picker",
+        {
+          "iCloudContainerEnvironment": "Production"
+        }
+      ]
+    ],
+    "splash": {
+      "image": "./assets/images/splash_logo.png",
+      "resizeMode": "center",
+      "backgroundColor": "#FFFFFF"
+    },
+    "ios": {
+      "bundleIdentifier": "org.name.flintfront"
+    },
+    "android": {
+      "package": "org.name.flintfront"
+    }
   },
   "name": "flint-front"
 }
