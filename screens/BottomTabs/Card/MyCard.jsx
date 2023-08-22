@@ -72,7 +72,7 @@ const MyCard = () => {
           blue: 172,
           userName: '김이름',
           univ: '00대학교',
-          major: '19학번',
+          major: '소프트웨어학과',
           grade: '19학번',
           email: 'abcd@00.ac.kr',
           score: 4.1,

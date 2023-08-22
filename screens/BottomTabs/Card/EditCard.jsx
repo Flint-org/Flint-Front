@@ -13,11 +13,12 @@ import PlusSvg from '../../../assets/images/plus.svg';
  * 헤더 추가 (O)
  * 프로필 사진 가져오기 및 보여주기 (O)
  * 입력창 추가 (O)
- * 관심사 버튼 추가
+ * 관심사 버튼 추가 (O)
  * 저장 버튼 클릭시 데이터 저장
  * 저장 버튼 클릭시 내명함에 반영
  */
 
+// 인풋 컴포넌트
 const CardDataInput = (props) => {
   if (props.half) {
     return (
@@ -63,6 +64,7 @@ const CardDataInput = (props) => {
     );
   }
 };
+
 const EditCard = () => {
   const navigation = useNavigation();
 
@@ -99,6 +101,16 @@ const EditCard = () => {
   const [introduction, setIntroduction] = useState('');
   const [mbti, setMbti] = useState('');
   const [sns, setSns] = useState('');
+  const [interests, setInterests] = useState([
+    { name: '맛집 탐방', active: false },
+    { name: '전시회 관람', active: false },
+    { name: '게임', active: false },
+    { name: '산책', active: false },
+    { name: '스포츠', active: false },
+  ]);
+
+  // 관심사 버튼 클릭 여부 : 리렌더링을 목적으로 함
+  const [onCilckInterest, setClickInterest] = useState(false);
 
   return (
     <Container>
@@ -202,6 +214,24 @@ const EditCard = () => {
           placeholder={'SNS 계정을 입력하세요.'}
         />
         <InputTitle>관심사</InputTitle>
+        <InterestBtnWrap>
+          {interests.map((interest) => (
+            <InterestBtn
+              key={interest.name}
+              onPress={() => {
+                interest.active = !interest.active;
+                setClickInterest(!onCilckInterest);
+              }}
+              style={{
+                backgroundColor: interest.active ? '#ff9810' : '#f3f3f3',
+              }}
+            >
+              <InteretText style={{ color: interest.active ? '#fff' : '#000' }}>
+                {interest.name}
+              </InteretText>
+            </InterestBtn>
+          ))}
+        </InterestBtnWrap>
       </MainSection>
     </Container>
   );
@@ -307,4 +337,19 @@ const Input = styled.TextInput`
   width: 100%;
   font-size: 16px;
   color: #000;
+  font-weight: 500;
+`;
+const InterestBtnWrap = styled.View`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 15px;
+`;
+const InterestBtn = styled.TouchableOpacity`
+  padding: 10px 15px;
+  border-radius: 5px;
+`;
+const InteretText = styled.Text`
+  font-size: 16px;
+  font-weight: 500;
 `;
