@@ -49,7 +49,11 @@ const MyCard = () => {
         <TitleText>
           {userName} 님의{'\n'}명함
         </TitleText>
-        <EditBtn>
+        <EditBtn
+          onPress={() => {
+            navigation.navigate('Stack', { screen: 'EditCard' });
+          }}
+        >
           <WithLocalSvg height={23} width={23} asset={EditSvg} />
         </EditBtn>
       </TitleWrap>
