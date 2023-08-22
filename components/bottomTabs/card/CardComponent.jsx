@@ -8,66 +8,6 @@ import LogoSvg from '../../../assets/images/logo_symbol_white.svg';
 import PlusSvg from '../../../assets/images/plus.svg';
 import CloseSvg from '../../../assets/images/close.svg';
 
-const ModalWrap = styled.Modal``;
-const ModalBackground = styled.View`
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.6);
-  padding: 0 30px;
-`;
-const ModalView = styled.View`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin: auto auto;
-  padding: 25px 30px;
-  width: 85%;
-  gap: 18px;
-  background-color: #fff;
-  border-radius: 8px;
-`;
-const ModalTitleWrap = styled.View`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-`;
-const ModalTitle = styled.Text`
-  margin: 0 auto;
-  padding-left: 13px;
-  font-size: 18px;
-  font-weight: 700;
-  color: ${(props) => props.color};
-`;
-const CloseBtn = styled.TouchableOpacity`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 20px;
-  height: 20px;
-`;
-const ModalInterestsWrap = styled.View`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-`;
-const ModalInterestWrap = styled.View`
-  display: flex;
-  justify-content: center;
-  height: 35px;
-  padding: 0 15px;
-  background-color: ${(props) => props.backgroundColor};
-  border-radius: 50px;
-`;
-const ModalText = styled.Text`
-  font-size: 16px;
-  font-weight: 500;
-  text-align: center;
-`;
-
 const CardModal = ({
   visible,
   setVisible,
@@ -108,34 +48,11 @@ const CardModal = ({
   );
 };
 
-const CardComponent = () => {
-  // FIXME: 학교별 메인컬러 R,G,B 담는 state (데이터 필요)
-  const [red, setRed] = useState(0);
-  const [green, setGreen] = useState(91);
-  const [blue, setBlue] = useState(172);
-
-  // FIXME: 데이터 처리 필요
-  const [userName, setUserName] = useState('김이름');
-  const [univ, setUniv] = useState('00대학교');
-  const [major, setMajor] = useState('소프트웨어학과');
-  const [grade, setGrade] = useState('19학번');
-  const [email, setEmail] = useState('abcd@00.ac.kr');
-  const [score, setScore] = useState(4.1);
-  const [sns, setSNS] = useState('@abcde');
-  const [mbti, setMbti] = useState('ENTJ');
-  const [introduction, setIntroduction] = useState(
-    '안녕하세요 저는 00에 관심이 많은 김이름입니다. 만나서 반갑습니다'
-  );
-  // FIXME: 특히 관심사 부분은 선택형이므로 선택에 따라 데이터를 받아와야 하고 이모지도 필요
-  const [interests, setInterests] = useState([
-    '전시회 관람',
-    '그림 그리기',
-    '맛집 탐방',
-    'IT',
-    '게임',
-    '노래',
-    '악기',
-  ]);
+const CardComponent = ({ cardData }) => {
+  // 학교별 메인컬러 R,G,B 담는 state
+  const [red, setRed] = useState(cardData.red);
+  const [green, setGreen] = useState(cardData.green);
+  const [blue, setBlue] = useState(cardData.blue);
 
   const [onClickIntroModal, setClickIntroModal] = useState(false);
   const [onClickInterestModal, setClickInterestModal] = useState(false);
@@ -198,15 +115,15 @@ const CardComponent = () => {
             {/* FIXME: 학교 로고 SVG로 변경 필요 */}
             <Circle></Circle>
             <FrontNameText color={`rgb(${red}, ${green}, ${blue})`}>
-              {userName}
+              {cardData.userName}
             </FrontNameText>
           </FrontNameWrap>
           <FrontContentWrap>
-            <FrontContentText weight={800}>{univ}</FrontContentText>
-            <FrontContentText>{major}</FrontContentText>
-            <FrontContentText>{grade}</FrontContentText>
+            <FrontContentText weight={800}>{cardData.univ}</FrontContentText>
+            <FrontContentText>{cardData.major}</FrontContentText>
+            <FrontContentText>{cardData.grade}</FrontContentText>
             <MiddleLine />
-            <FrontContentText>{email}</FrontContentText>
+            <FrontContentText>{cardData.email}</FrontContentText>
           </FrontContentWrap>
         </CardGradient>
       </CardFront>
@@ -223,7 +140,7 @@ const CardComponent = () => {
             </BackTitleText>
             <ScoreWrap backgroundColor={`rgb(${red}, ${green}, ${blue})`}>
               <BackContentText weight={700} color={'#fff'}>
-                {score}
+                {cardData.score}
               </BackContentText>
               <BackContentText color={'#fff'}>/ 4.5</BackContentText>
             </ScoreWrap>
@@ -244,7 +161,7 @@ const CardComponent = () => {
               SNS
             </BackTitleText>
             <BackContentText color={`rgb(${red}, ${green}, ${blue})`}>
-              {sns}
+              {cardData.sns}
             </BackContentText>
           </BackTextWrap>
           <BackTextWrap>
@@ -252,7 +169,7 @@ const CardComponent = () => {
               MBTI
             </BackTitleText>
             <BackContentText color={`rgb(${red}, ${green}, ${blue})`}>
-              {mbti}
+              {cardData.mbti}
             </BackContentText>
           </BackTextWrap>
         </BackContentWrap>
@@ -275,7 +192,7 @@ const CardComponent = () => {
                   numberOfLines={2}
                   ellipsizeMode={'end'}
                 >
-                  {introduction}
+                  {cardData.introduction}
                 </BackContentText>
               </IntroWrap>
             </BackContentBtn>
@@ -291,7 +208,7 @@ const CardComponent = () => {
                 <WithLocalSvg height={12} width={12} asset={PlusSvg} />
               </TitleWrap>
               <InterestsWrap>
-                {interests.map((interest) => (
+                {cardData.interests.map((interest) => (
                   <InterestWrap key={interest}>
                     <BackContentText color={'#000'}>{interest}</BackContentText>
                   </InterestWrap>
@@ -308,7 +225,7 @@ const CardComponent = () => {
         green={green}
         blue={blue}
         text={'자기소개'}
-        content={introduction}
+        content={cardData.introduction}
       />
       <CardModal
         visible={onClickInterestModal}
@@ -317,12 +234,13 @@ const CardComponent = () => {
         green={green}
         blue={blue}
         text={'관심사'}
-        content={interests}
+        content={cardData.interests}
       />
     </CardWrap>
   );
 };
 
+// 카드 컴포넌트 스타일
 const CardWrap = styled.TouchableOpacity`
   width: 100%;
   height: 200px;
@@ -461,6 +379,67 @@ const InterestWrap = styled.View`
   background-color: #fff;
   padding: 0 8px;
   border-radius: 20px;
+`;
+
+// 자기소개, 관심사 모달 style
+const ModalWrap = styled.Modal``;
+const ModalBackground = styled.View`
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 0 30px;
+`;
+const ModalView = styled.View`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto auto;
+  padding: 25px 30px;
+  width: 85%;
+  gap: 18px;
+  background-color: #fff;
+  border-radius: 8px;
+`;
+const ModalTitleWrap = styled.View`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+const ModalTitle = styled.Text`
+  margin: 0 auto;
+  padding-left: 13px;
+  font-size: 18px;
+  font-weight: 700;
+  color: ${(props) => props.color};
+`;
+const CloseBtn = styled.TouchableOpacity`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+`;
+const ModalInterestsWrap = styled.View`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+`;
+const ModalInterestWrap = styled.View`
+  display: flex;
+  justify-content: center;
+  height: 35px;
+  padding: 0 15px;
+  background-color: ${(props) => props.backgroundColor};
+  border-radius: 50px;
+`;
+const ModalText = styled.Text`
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
 `;
 
 // FIXME: 로고 데이터 받아오면 삭제 필요
