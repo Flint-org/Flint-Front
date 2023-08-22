@@ -20,6 +20,7 @@ const MyCard = () => {
   return (
     <Container>
       <CardComponent
+        focus={true}
         cardData={{
           red: 0,
           green: 91,

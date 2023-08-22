@@ -48,12 +48,13 @@ const CardModal = ({
   );
 };
 
-const CardComponent = ({ cardData }) => {
+const CardComponent = ({ cardData, focus }) => {
   // 학교별 메인컬러 R,G,B 담는 state
   const [red, setRed] = useState(cardData.red);
   const [green, setGreen] = useState(cardData.green);
   const [blue, setBlue] = useState(cardData.blue);
 
+  // 관심사, 자기소개 모달 클릭 여닫힘 여부 state
   const [onClickIntroModal, setClickIntroModal] = useState(false);
   const [onClickInterestModal, setClickInterestModal] = useState(false);
 
@@ -96,7 +97,7 @@ const CardComponent = ({ cardData }) => {
   };
 
   return (
-    <CardWrap onPress={flipCard}>
+    <CardWrap onPress={() => focus && flipCard()}>
       <CardFront
         style={{
           transform: [{ rotateY: frontInterpolation }],
