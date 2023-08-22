@@ -43,9 +43,9 @@ const BottomTabs = () => {
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor: '#FF9810',
-        tabBarLabelStyle: { fontSize: 12, marginTop: 3 },
+        tabBarLabelStyle: { fontSize: 13, marginTop: 3 },
         tabBarStyle: {
-          height: Platform.OS == 'android' ? '9%' : '10%',
+          height: Platform.OS == 'android' ? '9.5%' : '10.5%',
           paddingBottom: Platform.OS == 'android' ? '4.5%' : '7%',
           paddingTop: Platform.OS == 'android' ? '3.5%' : '2%',
           paddingLeft: 20,
