@@ -129,7 +129,9 @@ const CardComponent = ({ cardData, focus }) => {
           <FrontContentWrap>
             <FrontContentText weight={800}>{cardData.univ}</FrontContentText>
             <FrontContentText>{cardData.major}</FrontContentText>
-            <FrontContentText>{cardData.grade}</FrontContentText>
+            <FrontContentText>
+              {cardData.grade} {cardData.userName}
+            </FrontContentText>
             <MiddleLine />
             <FrontContentText>{cardData.email}</FrontContentText>
           </FrontContentWrap>
