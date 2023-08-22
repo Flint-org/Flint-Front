@@ -9,6 +9,15 @@ import BackArrowSvg from '../../../assets/images/back_arrow.svg';
 import LogoSvg from '../../../assets/images/logo_symbol_white.svg';
 import PlusSvg from '../../../assets/images/plus.svg';
 
+/* TODO: 전체 완료 시 삭제
+ * 헤더 추가 (O)
+ * 프로필 사진 가져오기 및 보여주기 (O)
+ * 입력창 추가 (O)
+ * 관심사 버튼 추가
+ * 저장 버튼 클릭시 데이터 저장
+ * 저장 버튼 클릭시 내명함에 반영
+ */
+
 const CardDataInput = (props) => {
   if (props.half) {
     return (
