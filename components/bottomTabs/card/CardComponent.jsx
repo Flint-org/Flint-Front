@@ -449,6 +449,7 @@ const ModalInterestWrap = styled.View`
 const ModalText = styled.Text`
   font-size: 16px;
   font-weight: 500;
+  line-height: 24px;
   text-align: center;
 `;
 
