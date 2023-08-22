@@ -28,13 +28,13 @@ const Header = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  height: 100px;
+  height: 105px;
   padding: 40px 30px 0;
   background-color: #fff;
 `;
 const HeaderText = styled.Text`
   font-weight: 700;
-  font-size: 18px;
+  font-size: 20px;
   color: #000;
 `;
 
