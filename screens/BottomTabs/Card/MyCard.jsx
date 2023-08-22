@@ -6,6 +6,13 @@ import { WithLocalSvg } from 'react-native-svg';
 
 import EditSvg from '../../../assets/images/edit.svg';
 
+/* TODO: 전체 완료 시 삭제
+ * 명함 컴포넌트 추가 (O)
+ * 명함 편집 페이지 이동 버튼 추가 (O)
+ * 이름 데이터 가져오기
+ * 명함 컴포넌트에 실제 데이터 보내기
+ */
+
 const Container = styled.View`
   flex: 1;
   align-items: center;
@@ -65,7 +72,7 @@ const MyCard = () => {
           blue: 172,
           userName: '김이름',
           univ: '00대학교',
-          major: '19학번',
+          major: '소프트웨어학과',
           grade: '19학번',
           email: 'abcd@00.ac.kr',
           score: 4.1,

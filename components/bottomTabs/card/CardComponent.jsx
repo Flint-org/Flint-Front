@@ -8,6 +8,13 @@ import LogoSvg from '../../../assets/images/logo_symbol_white.svg';
 import PlusSvg from '../../../assets/images/plus.svg';
 import CloseSvg from '../../../assets/images/close.svg';
 
+/* TODO: 전체 완료 시 삭제
+ * 앞면 UI 생성 (O)
+ * 뒷면 UI 생성 (O)
+ * flip 애니메이션 추가 (O)
+ * 실제 데이터 받아오기
+ */
+
 const CardModal = ({
   visible,
   setVisible,
@@ -122,7 +129,9 @@ const CardComponent = ({ cardData, focus }) => {
           <FrontContentWrap>
             <FrontContentText weight={800}>{cardData.univ}</FrontContentText>
             <FrontContentText>{cardData.major}</FrontContentText>
-            <FrontContentText>{cardData.grade}</FrontContentText>
+            <FrontContentText>
+              {cardData.grade} {cardData.userName}
+            </FrontContentText>
             <MiddleLine />
             <FrontContentText>{cardData.email}</FrontContentText>
           </FrontContentWrap>
@@ -440,6 +449,7 @@ const ModalInterestWrap = styled.View`
 const ModalText = styled.Text`
   font-size: 16px;
   font-weight: 500;
+  line-height: 24px;
   text-align: center;
 `;
 
