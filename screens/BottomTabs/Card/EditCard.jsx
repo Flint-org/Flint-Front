@@ -8,12 +8,14 @@ import { LinearGradient } from 'expo-linear-gradient';
 import BackArrowSvg from '../../../assets/images/back_arrow.svg';
 import LogoSvg from '../../../assets/images/logo_symbol_white.svg';
 import PlusSvg from '../../../assets/images/plus.svg';
+import AlertModal from '../../../components/common/AlertModal';
 
 /* TODO: 전체 완료 시 삭제
  * 헤더 추가 (O)
  * 프로필 사진 가져오기 및 보여주기 (O)
  * 입력창 추가 (O)
  * 관심사 버튼 추가 (O)
+ * 저장 버튼 클릭시 모달창 생성 (O)
  * 저장 버튼 클릭시 데이터 저장
  * 저장 버튼 클릭시 내명함에 반영
  */
@@ -112,6 +114,8 @@ const EditCard = () => {
   // 관심사 버튼 클릭 여부 : 리렌더링을 목적으로 함
   const [onCilckInterest, setClickInterest] = useState(false);
 
+  const [onClickSave, setClickSave] = useState(false);
+
   return (
     <Container>
       <HeaderSection>
@@ -128,7 +132,7 @@ const EditCard = () => {
           />
         </PrevPageBtn>
         <HeaderTitle>명함 수정</HeaderTitle>
-        <SaveBtn>
+        <SaveBtn onPress={() => setClickSave(true)}>
           <BtnText>저장</BtnText>
         </SaveBtn>
       </HeaderSection>
@@ -233,6 +237,12 @@ const EditCard = () => {
           ))}
         </InterestBtnWrap>
       </MainSection>
+      {onClickSave && (
+        <AlertModal
+          text={'저장되었습니다.'}
+          onPress={() => setClickSave(false)}
+        />
+      )}
     </Container>
   );
 };

@@ -32,6 +32,7 @@ const ModalView = styled.View`
 const ModalText = styled.Text`
   font-size: 18px;
   font-weight: 600;
+  line-height: 25px;
   text-align: center;
   margin-bottom: 5px;
 `;
