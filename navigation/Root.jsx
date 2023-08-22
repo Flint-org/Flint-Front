@@ -6,7 +6,7 @@ import BottomTabs from './BottomTabs';
 const Nav = createNativeStackNavigator();
 
 const Root = () => (
-  <Nav.Navigator screenOptions={{ presentation: 'modal', headerShown: false }}>
+  <Nav.Navigator screenOptions={{ headerShown: false }}>
     <Nav.Screen name="BottomTabs" component={BottomTabs}></Nav.Screen>
     <Nav.Screen name="Stack" component={Stack}></Nav.Screen>
   </Nav.Navigator>
