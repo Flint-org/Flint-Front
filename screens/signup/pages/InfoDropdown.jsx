@@ -1,10 +1,10 @@
-import React from 'react';
-import DropDownPicker from 'react-native-dropdown-picker';
-import { StyleSheet } from 'react-native';
-import { WithLocalSvg } from 'react-native-svg';
+import React from "react";
+import DropDownPicker from "react-native-dropdown-picker";
+import { StyleSheet } from "react-native";
+import { WithLocalSvg } from "react-native-svg";
 
-import ArrowUpSvg from '../../../assets/images/arrow_up.svg';
-import ArrowDownSvg from '../../../assets/images/arrow_down.svg';
+import ArrowUpSvg from "../../../assets/images/arrow_up.svg";
+import ArrowDownSvg from "../../../assets/images/arrow_down.svg";
 
 const InfoDropdown = ({
   loading,
@@ -53,41 +53,42 @@ const InfoDropdown = ({
       searchTextInputStyle={styles.searchTextInput}
       customItemContainerStyle={styles.customItemContainer}
       searchPlaceholderTextColor="#c0c0c0"
+      translation={{ NOTHING_TO_SHOW: "일치하는 사항이 없습니다." }}
     />
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#f3f3f3',
-    borderColor: '#f3f3f3',
+    backgroundColor: "#f3f3f3",
+    borderColor: "#f3f3f3",
   },
   text: {
-    fontWeight: '500',
+    fontWeight: "500",
   },
   dropdownContainer: {
-    borderColor: '#f3f3f3',
+    borderColor: "#f3f3f3",
   },
   placeholder: {
-    fontWeight: '500',
-    color: '#c0c0c0',
+    fontWeight: "500",
+    color: "#c0c0c0",
   },
   listItemLabel: {
-    fontWeight: '400',
+    fontWeight: "400",
   },
   selectedItemContainer: {
-    backgroundColor: 'rgba(255, 151, 16, 0.2)',
+    backgroundColor: "rgba(255, 151, 16, 0.2)",
   },
   selectedItemLabel: {
-    fontWeight: '600',
+    fontWeight: "600",
   },
   searchContainer: {
-    backgroundColor: '#fff',
-    borderBlockColor: '#f3f3f3',
+    backgroundColor: "#fff",
+    borderBlockColor: "#f3f3f3",
   },
   searchTextInput: {
-    borderColor: 'transparent',
-    fontWeight: '500',
+    borderColor: "transparent",
+    fontWeight: "500",
   },
 });
 
