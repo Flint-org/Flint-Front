@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components/native";
-import { FlatList } from "react-native";
 import BoxCardComponent from "../../../components/bottomTabs/card/BoxCardComponent";
 
 const Container = styled.View``;
@@ -11,26 +10,113 @@ const Separator = styled.View`
 const CardFlat = styled.FlatList``;
 
 const CardBox = () => {
-  const userData = [
-    "김이름",
-    "박건태",
-    "이혜승",
-    "박이름",
-    "이이름",
-    "전이름",
-    "문이름",
-    "문이름",
-    "문이름",
+  const cardData = [
+    {
+      red: 0,
+      green: 91,
+      blue: 172,
+      userName: "김이름",
+      univ: "00대학교",
+      major: "소프트웨어학과",
+      grade: "19학번",
+      email: "abcd@00.ac.kr",
+      score: 4.1,
+      sns: "@abcde",
+      mbti: "ENTJ",
+      introduction:
+        "안녕하세요 저는 00에 관심이 많은 김이름입니다. 만나서 반갑습니다",
+      interests: [
+        "전시회 관람",
+        "그림 그리기",
+        "맛집 탐방",
+        "IT",
+        "게임",
+        "노래",
+        "악기",
+      ],
+    },
+    {
+      red: 139,
+      green: 0,
+      blue: 41,
+      userName: "박건태",
+      univ: "00대학교",
+      major: "소프트웨어학과",
+      grade: "19학번",
+      email: "abcd@00.ac.kr",
+      score: 4.1,
+      sns: "@abcde",
+      mbti: "ENTJ",
+      introduction:
+        "안녕하세요 저는 00에 관심이 많은 김이름입니다. 만나서 반갑습니다",
+      interests: [
+        "전시회 관람",
+        "그림 그리기",
+        "맛집 탐방",
+        "IT",
+        "게임",
+        "노래",
+        "악기",
+      ],
+    },
+    {
+      red: 105,
+      green: 190,
+      blue: 130,
+      userName: "박이름",
+      univ: "00대학교",
+      major: "소프트웨어학과",
+      grade: "19학번",
+      email: "abcd@00.ac.kr",
+      score: 4.1,
+      sns: "@abcde",
+      mbti: "ENTJ",
+      introduction:
+        "안녕하세요 저는 00에 관심이 많은 김이름입니다. 만나서 반갑습니다",
+      interests: [
+        "전시회 관람",
+        "그림 그리기",
+        "맛집 탐방",
+        "IT",
+        "게임",
+        "노래",
+        "악기",
+      ],
+    },
+    {
+      red: 0,
+      green: 91,
+      blue: 172,
+      userName: "내이름",
+      univ: "00대학교",
+      major: "소프트웨어학과",
+      grade: "19학번",
+      email: "abcd@00.ac.kr",
+      score: 4.1,
+      sns: "@abcde",
+      mbti: "ENTJ",
+      introduction:
+        "안녕하세요 저는 00에 관심이 많은 김이름입니다. 만나서 반갑습니다",
+      interests: [
+        "전시회 관람",
+        "그림 그리기",
+        "맛집 탐방",
+        "IT",
+        "게임",
+        "노래",
+        "악기",
+      ],
+    },
   ];
   return (
     <Container>
       <CardFlat
-        data={userData}
+        data={cardData}
         renderItem={({ item, index }) => {
-          if (index == userData.length - 1) {
-            return <BoxCardComponent userName={item + index} isEnd={true} />;
+          if (index == cardData.length - 1) {
+            return <BoxCardComponent cardData={item} isEnd={true} />;
           }
-          return <BoxCardComponent userName={item + index} isEnd={false} />;
+          return <BoxCardComponent cardData={item} isEnd={false} />;
         }}
         //ItemSeparatorComponent={() => <Separator />}
       />
