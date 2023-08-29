@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components/native';
-import { WithLocalSvg } from 'react-native-svg';
-import { useNavigation } from '@react-navigation/native';
-import { login } from '@react-native-seoul/kakao-login';
-import NaverLogin from '@react-native-seoul/naver-login';
 
-import FlintLogoSvg from '../../../assets/images/flint_logo.svg';
-import KakaoLogoSvg from '../../../assets/images/kakao_logo.svg';
-import NaverLogoSvg from '../../../assets/images/naver_logo.svg';
-import DetailsInfoPage from './DetailsInfoPage';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components/native";
+import { WithLocalSvg } from "react-native-svg";
+import { useNavigation } from "@react-navigation/native";
+import { login } from "@react-native-seoul/kakao-login";
+import NaverLogin from "@react-native-seoul/naver-login";
+import { useSelector } from "react-redux";
+
+import FlintLogoSvg from "../../../assets/images/flint_logo.svg";
+import KakaoLogoSvg from "../../../assets/images/kakao_logo.svg";
+import NaverLogoSvg from "../../../assets/images/naver_logo.svg";
+import DetailsInfoPage from "./DetailsInfoPage";
 
 const Container = styled.View`
   flex: 1;
@@ -42,34 +44,42 @@ const BtnText = styled.Text`
 const StartPage = () => {
   const navigation = useNavigation();
   const [token, setToken] = useState(null);
-
+  //FIXME: 그냥 테스트 코드라 추후에 삭제필요.
+  /* user store에 올려놓은 토큰 값 받아와지는지 테스트 코드
+  const myToken = useSelector((state) => {
+    return state.user.token;
+  });
+  console.log(myToken)
+  */
   const signInWithKakao = async () => {
     try {
       const token = await login();
       setToken(token.accessToken);
+      console.log(token);
     } catch (err) {
-      console.error('error: ', err);
+      console.error("error: ", err);
     }
   };
 
   const signInWithNaver = async () => {
     const { failureResponse, successResponse, isSuccess } =
       await NaverLogin.login({
-        appName: 'com.flintfront',
-        consumerKey: 'to11DuJF425zfdagzPWl',
-        consumerSecret: 'MVoE5xJDwh',
-        serviceUrlScheme: 'flint',
+        appName: "com.flintfront",
+        consumerKey: "to11DuJF425zfdagzPWl",
+        consumerSecret: "MVoE5xJDwh",
+        serviceUrlScheme: "flint",
       });
     if (isSuccess) {
       setToken(successResponse.accessToken);
+      console.log(successResponse);
     } else {
-      console.log('error: ' + failureResponse);
+      console.log("error: " + failureResponse);
     }
   };
 
   useEffect(() => {
     navigation.navigate(DetailsInfoPage);
-    console.log('accessToken: ' + token);
+    console.log("accessToken: " + token);
   }, [token]);
 
   return (
@@ -77,22 +87,22 @@ const StartPage = () => {
       <WithLocalSvg width={135} asset={FlintLogoSvg} />
       <BtnWrap>
         <StartBtn
-          backgroundColor={'#fae100'}
+          backgroundColor={"#fae100"}
           onPress={() => {
             signInWithKakao();
           }}
         >
           <WithLocalSvg height={22} asset={KakaoLogoSvg} />
-          <BtnText color={'#381e1f'}>카카오톡으로 시작하기</BtnText>
+          <BtnText color={"#381e1f"}>카카오톡으로 시작하기</BtnText>
         </StartBtn>
         <StartBtn
-          backgroundColor={'#3bac37'}
+          backgroundColor={"#3bac37"}
           onPress={() => {
             signInWithNaver();
           }}
         >
           <WithLocalSvg height={22} asset={NaverLogoSvg} />
-          <BtnText color={'#fff'}>네이버로 시작하기</BtnText>
+          <BtnText color={"#fff"}>네이버로 시작하기</BtnText>
         </StartBtn>
       </BtnWrap>
     </Container>

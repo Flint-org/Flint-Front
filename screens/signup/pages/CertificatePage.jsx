@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import * as DocumentPicker from 'expo-document-picker';
 import { WithLocalSvg } from 'react-native-svg';
-
 import SignupHeader from '../../../components/signup/SignupHeader';
 import CameraSvg from '../../../assets/images/camera.svg';
 import OrangeNextBtn from '../../../components/common/OrangeNextBtn';
