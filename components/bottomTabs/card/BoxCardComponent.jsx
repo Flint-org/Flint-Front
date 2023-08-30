@@ -293,6 +293,7 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
 
 const Container = styled(Animated.View)`
   background-color: white;
+  padding: 0px 30px;
 `;
 // 카드 컴포넌트 스타일
 const CardWrap = styled.TouchableHighlight`

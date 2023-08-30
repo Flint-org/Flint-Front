@@ -1,15 +1,55 @@
 import React from "react";
 import styled from "styled-components/native";
 import BoxCardComponent from "../../../components/bottomTabs/card/BoxCardComponent";
+import { View } from "react-native";
 
 const Container = styled.View`
-  padding: 0px 30px;
+  background-color: white;
+  flex: 1;
 `;
 const Text = styled.Text``;
 const Separator = styled.View`
   margin-top: 30%;
 `;
-const CardFlat = styled.FlatList``;
+const GroupListWrap = styled.View`
+  width: 80%;
+`;
+const CardList = styled.FlatList``;
+const GroupList = styled.FlatList``;
+const CardContainer = styled.View`
+  margin-top: 20px;
+`;
+const GroupContainer = styled.View`
+  padding: 0px 20px;
+  display: flex;
+  flex-direction: row;
+  height: 64px;
+  justify-content: space-between;
+  border-color: rgba(217, 217, 217, 1);
+  border-bottom-width: 1px;
+  border-top-width: 1px;
+`;
+const Group = styled.View`
+  background-color: rgba(255, 152, 16, 1);
+  border-radius: 15px;
+  align-items: center;
+  justify-content: center;
+  margin: 17px 5px;
+  height: 30px;
+  width: 70px;
+`;
+const EditWrap = styled.View`
+  margin: 0px 20px;
+  width: 50px;
+  justify-content: center;
+`;
+const EditBtn = styled.TouchableOpacity`
+  height: 28px;
+  border-radius: 5px;
+  border: 1px solid rgba(255, 152, 16, 1);
+  align-items: center;
+  justify-content: center;
+`;
 
 const CardBox = () => {
   const cardData = [
@@ -110,18 +150,42 @@ const CardBox = () => {
       ],
     },
   ];
+
+  const groupData = ["전체", "운동", "동아리", "등산"];
   return (
     <Container>
-      <CardFlat
-        data={cardData}
-        renderItem={({ item, index }) => {
-          if (index == cardData.length - 1) {
-            return <BoxCardComponent cardData={item} isEnd={true} />;
-          }
-          return <BoxCardComponent cardData={item} isEnd={false} />;
-        }}
-        //ItemSeparatorComponent={() => <Separator />}
-      />
+      <GroupContainer>
+        <GroupListWrap>
+          <GroupList
+            horizontal={true}
+            data={groupData}
+            renderItem={({ item }) => {
+              return (
+                <Group>
+                  <Text>{item}</Text>
+                </Group>
+              );
+            }}
+          />
+        </GroupListWrap>
+        <EditWrap>
+          <EditBtn>
+            <Text style={{ color: "rgba(255, 152, 16, 1)" }}>편집</Text>
+          </EditBtn>
+        </EditWrap>
+      </GroupContainer>
+      <CardContainer>
+        <CardList
+          data={cardData}
+          renderItem={({ item, index }) => {
+            if (index == cardData.length - 1) {
+              return <BoxCardComponent cardData={item} isEnd={true} />;
+            }
+            return <BoxCardComponent cardData={item} isEnd={false} />;
+          }}
+          //ItemSeparatorComponent={() => <Separator />}
+        />
+      </CardContainer>
     </Container>
   );
 };
