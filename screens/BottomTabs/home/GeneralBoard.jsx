@@ -16,6 +16,7 @@ const GeneralBoard = () => {
       <BoardHeader title={"일반게시판"} />
       <Tab.Navigator
         screenOptions={{
+          swipeEnabled: false,
           tabBarItemStyle: { width: 145 },
           tabBarLabelStyle: { fontSize: 18, fontWeight: 600, marginBottom: 8 },
           tabBarIndicatorStyle: {
