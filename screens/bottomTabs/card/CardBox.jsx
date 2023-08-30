@@ -2,7 +2,9 @@ import React from "react";
 import styled from "styled-components/native";
 import BoxCardComponent from "../../../components/bottomTabs/card/BoxCardComponent";
 
-const Container = styled.View``;
+const Container = styled.View`
+  padding: 0px 30px;
+`;
 const Text = styled.Text``;
 const Separator = styled.View`
   margin-top: 30%;
