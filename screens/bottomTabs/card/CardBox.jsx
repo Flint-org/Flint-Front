@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/native";
 import BoxCardComponent from "../../../components/bottomTabs/card/BoxCardComponent";
 import { View } from "react-native";
@@ -29,8 +29,8 @@ const GroupContainer = styled.View`
   border-bottom-width: 1px;
   border-top-width: 1px;
 `;
-const Group = styled.View`
-  background-color: rgba(255, 152, 16, 1);
+const Group = styled.TouchableOpacity`
+  background-color: ${(props) => props.bgColor};
   border-radius: 15px;
   align-items: center;
   justify-content: center;
@@ -76,6 +76,7 @@ const CardBox = () => {
         "노래",
         "악기",
       ],
+      group: ["전체", "운동"],
     },
     {
       red: 139,
@@ -100,6 +101,7 @@ const CardBox = () => {
         "노래",
         "악기",
       ],
+      group: ["전체", "운동", "동아리"],
     },
     {
       red: 105,
@@ -124,6 +126,7 @@ const CardBox = () => {
         "노래",
         "악기",
       ],
+      group: ["전체", "동아리"],
     },
     {
       red: 0,
@@ -148,10 +151,13 @@ const CardBox = () => {
         "노래",
         "악기",
       ],
+      group: ["전체", "동아리", "등산"],
     },
   ];
 
   const groupData = ["전체", "운동", "동아리", "등산"];
+  const [selectedGroup, setSelectedGroup] = useState("전체");
+
   return (
     <Container>
       <GroupContainer>
@@ -160,8 +166,13 @@ const CardBox = () => {
             horizontal={true}
             data={groupData}
             renderItem={({ item }) => {
+              const backgroundColor =
+                item === selectedGroup ? "#ff9810" : "#ccc";
               return (
-                <Group>
+                <Group
+                  onPress={() => setSelectedGroup(item)}
+                  bgColor={backgroundColor}
+                >
                   <Text>{item}</Text>
                 </Group>
               );
