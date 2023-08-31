@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import BoxCardComponent from "../../../components/bottomTabs/card/BoxCardComponent";
 import { View } from "react-native";
@@ -157,6 +157,9 @@ const CardBox = () => {
 
   const groupData = ["전체", "운동", "동아리", "등산"];
   const [selectedGroup, setSelectedGroup] = useState("전체");
+  const filteredCardData = cardData.filter((card) =>
+    card.group.includes(selectedGroup)
+  );
 
   return (
     <Container>
@@ -187,9 +190,9 @@ const CardBox = () => {
       </GroupContainer>
       <CardContainer>
         <CardList
-          data={cardData}
+          data={filteredCardData}
           renderItem={({ item, index }) => {
-            if (index == cardData.length - 1) {
+            if (index == filteredCardData.length - 1) {
               return <BoxCardComponent cardData={item} isEnd={true} />;
             }
             return <BoxCardComponent cardData={item} isEnd={false} />;
