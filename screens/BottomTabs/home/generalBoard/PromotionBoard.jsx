@@ -4,6 +4,7 @@ import { RefreshControl } from "react-native";
 
 import { PostData } from "../../../../const/TempGeneralPostData";
 import PostPreview from "../../../../components/bottomTabs/home/board/PostPreview";
+import Filter from "../../../../components/bottomTabs/home/board/Filter";
 
 const PromotionBoard = () => {
   // refresh 여부 state
@@ -22,6 +23,7 @@ const PromotionBoard = () => {
 
   return (
     <Container>
+      <Filter />
       <PostsWrap
         data={PostData}
         refreshControl={
