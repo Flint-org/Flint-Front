@@ -41,8 +41,7 @@ const MarginRight = styled.View`
   margin-right: 12px;
 `;
 const MajorText = styled.Text`
-  margin: 0 auto;
-  line-height: 30px;
+  margin: auto auto;
   font-size: 16px;
   color: #fff;
   font-weight: 500;
