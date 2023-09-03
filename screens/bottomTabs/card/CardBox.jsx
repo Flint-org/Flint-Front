@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components/native";
 import BoxCardComponent from "../../../components/bottomTabs/card/BoxCardComponent";
-import { View } from "react-native";
+import { useSelector } from "react-redux";
 
 const Container = styled.View`
   background-color: white;
@@ -161,6 +161,10 @@ const CardBox = () => {
     card.group.includes(selectedGroup)
   );
 
+  const bottomSheetRef = useSelector((state) => {
+    return state.bottomSheet.bottomSheetRef;
+  });
+
   return (
     <Container>
       <GroupContainer>
@@ -183,7 +187,7 @@ const CardBox = () => {
           />
         </GroupListWrap>
         <EditWrap>
-          <EditBtn>
+          <EditBtn onPress={() => bottomSheetRef.snapToIndex(0)}>
             <Text style={{ color: "rgba(255, 152, 16, 1)" }}>편집</Text>
           </EditBtn>
         </EditWrap>
