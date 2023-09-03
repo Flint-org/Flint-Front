@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components/native";
 import BoxCardComponent from "../../../components/bottomTabs/card/BoxCardComponent";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import bottomSheetSlice from "../../../redux_modules/slice/bottomSheetSlice";
 
 const Container = styled.View`
   background-color: white;
@@ -161,9 +163,24 @@ const CardBox = () => {
     card.group.includes(selectedGroup)
   );
 
+  // bottomModal Ref 받아오기 (모달을 띄우기 위함)
   const bottomSheetRef = useSelector((state) => {
     return state.bottomSheet.bottomSheetRef;
   });
+
+  //bottomModal에 값 보내기
+  const dispatch = useDispatch();
+  const editBtnOnPress = () => {
+    dispatch(
+      bottomSheetSlice.actions.updateObj({
+        text_1: "그룹 편집",
+        onPress_1: () => console.log("onPress_1"),
+        text_2: "명함 수정",
+        onPress_2: () => console.log("onPress_2"),
+      })
+    );
+    bottomSheetRef.snapToIndex(0);
+  };
 
   return (
     <Container>
@@ -187,7 +204,7 @@ const CardBox = () => {
           />
         </GroupListWrap>
         <EditWrap>
-          <EditBtn onPress={() => bottomSheetRef.snapToIndex(0)}>
+          <EditBtn onPress={editBtnOnPress}>
             <Text style={{ color: "rgba(255, 152, 16, 1)" }}>편집</Text>
           </EditBtn>
         </EditWrap>

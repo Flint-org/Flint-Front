@@ -4,6 +4,7 @@ import BottomSheet, { BottomSheetBackdrop } from "@gorhom/bottom-sheet";
 import { View } from "react-native";
 import { useDispatch } from "react-redux";
 import bottomSheetSlice from "../../redux_modules/slice/bottomSheetSlice";
+import { useSelector } from "react-redux";
 
 const Text = styled.Text`
   font-size: 18px;
@@ -23,7 +24,10 @@ const BottomSheetModal = () => {
   useEffect(() => {
     dispatch(bottomSheetSlice.actions.updateRef(bottomSheetRef.current));
   }, [bottomSheetRef]);
-  const snapPoints = useMemo(() => ["20%"], []);
+
+  const bottomSheetObj = useSelector((state) => {
+    return state.bottomSheet.bottomSheetObj;
+  });
 
   const renderBackdrop = useCallback(
     (props) => (
@@ -35,6 +39,7 @@ const BottomSheetModal = () => {
     ),
     []
   );
+  const snapPoints = bottomSheetObj.text_2 ? ["20%"] : ["13%"];
 
   return (
     <BottomSheet
@@ -46,13 +51,17 @@ const BottomSheetModal = () => {
       backdropComponent={renderBackdrop}
     >
       <View>
-        <Content>
-          <Text>그룹 편집</Text>
+        <Content onPress={bottomSheetObj.onPress_1}>
+          <Text>{bottomSheetObj.text_1}</Text>
         </Content>
-        <BottomBorder />
-        <Content>
-          <Text>명함 수정</Text>
-        </Content>
+        {bottomSheetObj.text_2 && (
+          <>
+            <BottomBorder />
+            <Content onPress={bottomSheetObj.onPress_2}>
+              <Text>{bottomSheetObj.text_2}</Text>
+            </Content>
+          </>
+        )}
       </View>
     </BottomSheet>
   );

@@ -6,7 +6,7 @@ import userSlice from "./redux_modules/slice/userSlice";
 import { useDispatch } from "react-redux";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import BottomSheetModal from "./components/common/BottomSheet";
+import BottomSheetModal from "./components/common/BottomSheetModal";
 import { View } from "react-native";
 
 SplashScreen.preventAutoHideAsync();
