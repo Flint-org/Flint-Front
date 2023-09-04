@@ -3,11 +3,11 @@ import styled from "styled-components/native";
 import { WithLocalSvg } from "react-native-svg";
 import { Platform } from "react-native";
 
-import ArrowDownSvg from "../../../../assets/images/arrow_down.svg";
-import ArrowUpSvg from "../../../../assets/images/arrow_up.svg";
-import CheckSvg from "../../../../assets/images/check2.svg";
+import ArrowDownSvg from "../../assets/images/arrow_down.svg";
+import ArrowUpSvg from "../../assets/images/arrow_up.svg";
+import CheckSvg from "../../assets/images/check2.svg";
 
-const Filter = () => {
+const SortingFilter = () => {
   const [clickFilter, setClickFilter] = useState(false);
 
   const [clickBestBtn, setClickBestBtn] = useState(false);
@@ -71,7 +71,7 @@ const Filter = () => {
   );
 };
 
-export default Filter;
+export default SortingFilter;
 
 const Empty = styled.View`
   height: 2px;

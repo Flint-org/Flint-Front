@@ -4,7 +4,7 @@ import { RefreshControl } from "react-native";
 
 import { PostData } from "../../../../const/TempGeneralPostData";
 import PostPreview from "../../../../components/bottomTabs/home/board/PostPreview";
-import Filter from "../../../../components/bottomTabs/home/board/Filter";
+import SortingFilter from "../../../../components/common/SortingFilter";
 
 const DateBoard = () => {
   // refresh 여부 state
@@ -23,7 +23,7 @@ const DateBoard = () => {
 
   return (
     <Container>
-      <Filter />
+      <SortingFilter />
       <PostsWrap
         data={PostData}
         refreshControl={
