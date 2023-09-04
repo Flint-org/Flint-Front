@@ -4,6 +4,7 @@ import BoxCardComponent from "../../../components/bottomTabs/card/BoxCardCompone
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import bottomSheetSlice from "../../../redux_modules/slice/bottomSheetSlice";
+import { useNavigation } from "@react-navigation/native";
 
 const Container = styled.View`
   background-color: white;
@@ -54,6 +55,7 @@ const EditBtn = styled.TouchableOpacity`
 `;
 
 const CardBox = () => {
+  const navigator = useNavigation();
   const cardData = [
     {
       red: 0,
@@ -174,7 +176,10 @@ const CardBox = () => {
     dispatch(
       bottomSheetSlice.actions.updateObj({
         text_1: "그룹 편집",
-        onPress_1: () => console.log("onPress_1"),
+        onPress_1: () => {
+          navigator.navigate("Stack", { screen: "EditGroup" });
+          bottomSheetRef.close();
+        },
         text_2: "명함 수정",
         onPress_2: () => console.log("onPress_2"),
       })
