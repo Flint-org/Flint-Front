@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { RefreshControl } from "react-native";
 
@@ -7,6 +7,9 @@ import PostPreview from "../../../../components/bottomTabs/home/board/PostPrevie
 import SortingFilter from "../../../../components/common/SortingFilter";
 
 const FreeBoard = () => {
+  // 인기순 클릭 여부 state (false인 경우 최신순 true인 경우 인기순)
+  const [clickBestBtn, setClickBestBtn] = useState(false);
+
   // refresh 여부 state
   const [refreshing, setRefreshing] = useState(false);
 
@@ -23,7 +26,10 @@ const FreeBoard = () => {
 
   return (
     <Container>
-      <SortingFilter />
+      <SortingFilter
+        clickBestBtn={clickBestBtn}
+        setClickBestBtn={setClickBestBtn}
+      />
       <PostsWrap
         data={PostData}
         refreshControl={
