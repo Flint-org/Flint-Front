@@ -7,9 +7,14 @@ import ArrowDownSvg from "../../assets/images/arrow_down.svg";
 import ArrowUpSvg from "../../assets/images/arrow_up.svg";
 import CheckSvg from "../../assets/images/check2.svg";
 
+/* SortingFilter
+ * 최신순 및 인기순 필터링 컴포넌트
+ */
 const SortingFilter = () => {
+  // 필터 클릭 여부 state
   const [clickFilter, setClickFilter] = useState(false);
 
+  // 인기순 클릭 여부 state (false인 경우 최신순 true인 경우 인기순)
   const [clickBestBtn, setClickBestBtn] = useState(false);
 
   return (
