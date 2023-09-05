@@ -59,9 +59,9 @@ const CardModal = ({
 const BoxCardComponent = ({ cardData, isEnd }) => {
   const [focus, setFocus] = useState(false);
   // 학교별 메인컬러 R,G,B 담는 state
-  const [red, setRed] = useState(cardData.red);
-  const [green, setGreen] = useState(cardData.green);
-  const [blue, setBlue] = useState(cardData.blue);
+  // const [cardData.red, setcardData.Red] = useState(cardData.cardData.red);
+  // const [cardData.green, setcardData.Green] = useState(cardData.cardData.green);
+  // const [cardData.blue, setcardData.Blue] = useState(cardData.cardData.blue);
 
   // 관심사, 자기소개 모달 클릭 여닫힘 여부 state
   const [onClickIntroModal, setClickIntroModal] = useState(false);
@@ -138,9 +138,9 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
           >
             <CardGradient
               colors={[
-                `rgba(${red}, ${green}, ${blue}, 0)`,
-                `rgba(${red}, ${green}, ${blue}, 0.3)`,
-                `rgba(${red}, ${green}, ${blue}, 0.9)`,
+                `rgba(${cardData.red}, ${cardData.green}, ${cardData.blue}, 0)`,
+                `rgba(${cardData.red}, ${cardData.green}, ${cardData.blue}, 0.3)`,
+                `rgba(${cardData.red}, ${cardData.green}, ${cardData.blue}, 0.9)`,
               ]}
               start={{ x: 0, y: 0.5 }}
               end={{ x: 1, y: 0.5 }}
@@ -148,7 +148,9 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
               <FrontNameWrap>
                 {/* FIXME: 학교 로고 SVG로 변경 필요 */}
                 <Circle></Circle>
-                <FrontNameText color={`rgb(${red}, ${green}, ${blue})`}>
+                <FrontNameText
+                  color={`rgb(${cardData.red}, ${cardData.green}, ${cardData.blue})`}
+                >
                   {cardData.userName}
                 </FrontNameText>
               </FrontNameWrap>
@@ -169,14 +171,18 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
             style={{
               transform: [{ rotateY: backInterpolation }],
             }}
-            backgroundColor={`rgba(${red}, ${green}, ${blue},0.1)`}
+            backgroundColor={`rgba(${cardData.red}, ${cardData.green}, ${cardData.blue},0.1)`}
           >
             <BackContentWrap>
               <BackTextWrap>
-                <BackTitleText color={`rgb(${red}, ${green}, ${blue})`}>
+                <BackTitleText
+                  color={`rgb(${cardData.red}, ${cardData.green}, ${cardData.blue})`}
+                >
                   모임성적
                 </BackTitleText>
-                <ScoreWrap backgroundColor={`rgb(${red}, ${green}, ${blue})`}>
+                <ScoreWrap
+                  backgroundColor={`rgb(${cardData.red}, ${cardData.green}, ${cardData.blue})`}
+                >
                   <BackContentText weight={700} color={"#fff"}>
                     {cardData.score}
                   </BackContentText>
@@ -186,8 +192,8 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
               {/* FIXME: 사용자가 이미지 가져오면 해당 이미지로 변경돼야 함 */}
               <BasicProfile
                 colors={[
-                  `rgba(${red}, ${green}, ${blue}, 0.8)`,
-                  `rgba(${red}, ${green}, ${blue}, 0.3)`,
+                  `rgba(${cardData.red}, ${cardData.green}, ${cardData.blue}, 0.8)`,
+                  `rgba(${cardData.red}, ${cardData.green}, ${cardData.blue}, 0.3)`,
                 ]}
                 start={{ x: 0.5, y: 0 }}
                 end={{ x: 0.5, y: 1 }}
@@ -195,18 +201,26 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
                 <WithLocalSvg height={42} asset={LogoSvg} />
               </BasicProfile>
               <BackTextWrap>
-                <BackTitleText color={`rgb(${red}, ${green}, ${blue})`}>
+                <BackTitleText
+                  color={`rgb(${cardData.red}, ${cardData.green}, ${cardData.blue})`}
+                >
                   SNS
                 </BackTitleText>
-                <BackContentText color={`rgb(${red}, ${green}, ${blue})`}>
+                <BackContentText
+                  color={`rgb(${cardData.red}, ${cardData.green}, ${cardData.blue})`}
+                >
                   {cardData.sns}
                 </BackContentText>
               </BackTextWrap>
               <BackTextWrap>
-                <BackTitleText color={`rgb(${red}, ${green}, ${blue})`}>
+                <BackTitleText
+                  color={`rgb(${cardData.red}, ${cardData.green}, ${cardData.blue})`}
+                >
                   MBTI
                 </BackTitleText>
-                <BackContentText color={`rgb(${red}, ${green}, ${blue})`}>
+                <BackContentText
+                  color={`rgb(${cardData.red}, ${cardData.green}, ${cardData.blue})`}
+                >
                   {cardData.mbti}
                 </BackContentText>
               </BackTextWrap>
@@ -219,7 +233,9 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
                   }}
                 >
                   <TitleWrap>
-                    <BackTitleText color={`rgb(${red}, ${green}, ${blue})`}>
+                    <BackTitleText
+                      color={`rgb(${cardData.red}, ${cardData.green}, ${cardData.blue})`}
+                    >
                       자기소개
                     </BackTitleText>
                     <WithLocalSvg height={12} width={12} asset={PlusSvg} />
@@ -240,7 +256,9 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
                   }}
                 >
                   <TitleWrap>
-                    <BackTitleText color={`rgb(${red}, ${green}, ${blue})`}>
+                    <BackTitleText
+                      color={`rgb(${cardData.red}, ${cardData.green}, ${cardData.blue})`}
+                    >
                       관심사
                     </BackTitleText>
                     <WithLocalSvg height={12} width={12} asset={PlusSvg} />
@@ -261,18 +279,18 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
           <CardModal
             visible={onClickIntroModal}
             setVisible={setClickIntroModal}
-            red={red}
-            green={green}
-            blue={blue}
+            red={cardData.red}
+            green={cardData.green}
+            blue={cardData.blue}
             text={"자기소개"}
             content={cardData.introduction}
           />
           <CardModal
             visible={onClickInterestModal}
             setVisible={setClickInterestModal}
-            red={red}
-            green={green}
-            blue={blue}
+            red={cardData.red}
+            green={cardData.green}
+            blue={cardData.blue}
             text={"관심사"}
             content={cardData.interests}
           />

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import BoxCardComponent from "../../../components/bottomTabs/card/BoxCardComponent";
 import { useSelector } from "react-redux";
@@ -61,9 +61,9 @@ const CardBox = () => {
       red: 0,
       green: 91,
       blue: 172,
-      userName: "김이름",
-      univ: "00대학교",
-      major: "소프트웨어학과",
+      userName: "파랑1",
+      univ: "운동",
+      major: "파랑1",
       grade: "19학번",
       email: "abcd@00.ac.kr",
       score: 4.1,
@@ -86,9 +86,9 @@ const CardBox = () => {
       red: 139,
       green: 0,
       blue: 41,
-      userName: "박건태",
-      univ: "00대학교",
-      major: "소프트웨어학과",
+      userName: "운동,동아리",
+      univ: "운동,동아리",
+      major: "빨강",
       grade: "19학번",
       email: "abcd@00.ac.kr",
       score: 4.1,
@@ -111,9 +111,9 @@ const CardBox = () => {
       red: 105,
       green: 190,
       blue: 130,
-      userName: "박이름",
-      univ: "00대학교",
-      major: "소프트웨어학과",
+      userName: "동아리",
+      univ: "동아리",
+      major: "초록",
       grade: "19학번",
       email: "abcd@00.ac.kr",
       score: 4.1,
@@ -136,9 +136,9 @@ const CardBox = () => {
       red: 0,
       green: 91,
       blue: 172,
-      userName: "내이름",
-      univ: "00대학교",
-      major: "소프트웨어학과",
+      userName: "동아리, 등산",
+      univ: "동아리, 등산",
+      major: "파랑2",
       grade: "19학번",
       email: "abcd@00.ac.kr",
       score: 4.1,
@@ -161,9 +161,15 @@ const CardBox = () => {
 
   const groupData = ["전체", "운동", "동아리", "등산"];
   const [selectedGroup, setSelectedGroup] = useState("전체");
-  const filteredCardData = cardData.filter((card) =>
-    card.group.includes(selectedGroup)
-  );
+
+  const [filteredCardData, setFilteredCardData] = useState(cardData);
+
+  const onGroupChange = () => {
+    setSelectedGroup(item);
+    setFilteredCardData(
+      ...cardData.filter((card) => card.group.includes(item))
+    );
+  };
 
   // bottomModal Ref 받아오기 (모달을 띄우기 위함)
   const bottomSheetRef = useSelector((state) => {
@@ -187,6 +193,8 @@ const CardBox = () => {
     bottomSheetRef.snapToIndex(0);
   };
 
+  const [isEditing, setIsEditing] = useState(false);
+
   return (
     <Container>
       <GroupContainer>
@@ -199,7 +207,12 @@ const CardBox = () => {
                 item === selectedGroup ? "#ff9810" : "#ccc";
               return (
                 <Group
-                  onPress={() => setSelectedGroup(item)}
+                  onPress={() => {
+                    setSelectedGroup(item);
+                    setFilteredCardData(
+                      cardData.filter((card) => card.group.includes(item))
+                    );
+                  }}
                   bgColor={backgroundColor}
                 >
                   <Text>{item}</Text>
@@ -223,7 +236,6 @@ const CardBox = () => {
             }
             return <BoxCardComponent cardData={item} isEnd={false} />;
           }}
-          //ItemSeparatorComponent={() => <Separator />}
         />
       </CardContainer>
     </Container>
