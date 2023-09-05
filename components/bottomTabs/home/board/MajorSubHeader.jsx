@@ -1,17 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 
-const MajorChip = ({ item, onPress, backgroundColor }) => {
-  return (
-    <MajorBtn onPress={onPress} backgroundColor={backgroundColor}>
-      <MajorText>{item}</MajorText>
-    </MajorBtn>
-  );
-};
-
-const MajorSubHeader = ({ majors }) => {
-  const [selectedIdx, setSelectedIdx] = useState(0);
-
+/* MajorSubHeader
+ * 전공게시판 서브 메뉴 선택 컴포넌트
+ */
+const MajorSubHeader = ({ majors, selectedIdx, setSelectedIdx }) => {
+  // 서브 메뉴 버튼 컴포넌트
   const renderMajorBtn = (item, index) => {
     const backgroundColor = index === selectedIdx ? "#ff9810" : "#ccc";
     return (
@@ -41,8 +35,7 @@ const MarginRight = styled.View`
   margin-right: 12px;
 `;
 const MajorText = styled.Text`
-  margin: 0 auto;
-  line-height: 30px;
+  margin: auto auto;
   font-size: 16px;
   color: #fff;
   font-weight: 500;
