@@ -3,36 +3,42 @@ import styled from "styled-components/native";
 import { WithLocalSvg } from "react-native-svg";
 import { useNavigation } from "@react-navigation/native";
 import DraggableFlatList from "react-native-draggable-flatlist";
-import { Text, TouchableOpacity } from "react-native";
 
 import BackArrowSvg from "../../../assets/images/back_arrow.svg";
 import PlusSvg from "../../../assets/images/plus.svg";
 import DeleteSVG from "../../../assets/images/delete_group.svg";
 import MoveGroup from "../../../assets/images/dehaze.svg";
+import AlertModal from "../../../components/common/AlertModal";
 
 const EditGroup = () => {
   const navigation = useNavigation();
   const [groupData, setGroupData] = useState([
-    { label: "전체", key: 1 },
-    { label: "운동", key: 2 },
-    { label: "등산", key: 3 },
-    { label: "동아리", key: 4 },
+    { label: "운동", key: 1 },
+    { label: "등산", key: 2 },
+    { label: "동아리", key: 3 },
   ]);
+  const [deleteModalVisiable, setDeleteModalVisiable] = useState(false);
   const renderItem = ({ item, drag, isActive }) => {
     return (
       <GroupContainer>
-        <WithLocalSvg width={20} height={20} asset={DeleteSVG} />
+        <DeleteBtn onPress={() => setDeleteModalVisiable(true)}>
+          <WithLocalSvg width={20} height={20} asset={DeleteSVG} />
+        </DeleteBtn>
         <GroupInput value={item.label} />
-        <TouchableOpacity onPressIn={drag} disabled={isActive}>
+        <MoveBtn onPressIn={drag} disabled={isActive}>
           <WithLocalSvg width={20} height={20} asset={MoveGroup} />
-        </TouchableOpacity>
-
-        {/* */}
+        </MoveBtn>
       </GroupContainer>
     );
   };
   return (
     <Container>
+      {deleteModalVisiable && (
+        <AlertModal
+          text={"명함을 삭제하시겠습니까?"}
+          onPress={() => setDeleteModalVisiable(false)}
+        />
+      )}
       <HeaderSection>
         <PrevPageBtn onPress={() => navigation.goBack()}>
           <WithLocalSvg
@@ -43,7 +49,19 @@ const EditGroup = () => {
           />
         </PrevPageBtn>
         <HeaderTitle>그룹 편집</HeaderTitle>
-        <SaveBtn onPress={() => setClickSave(true)}>
+        <SaveBtn
+          onPress={() => {
+            const newGroup = [
+              ...groupData,
+              {
+                label: "새로운 그룹 " + (groupData.length + 1),
+                key: groupData.length + 1,
+              },
+            ];
+
+            setGroupData(newGroup);
+          }}
+        >
           <WithLocalSvg width={20} height={20} fill={"#000"} asset={PlusSvg} />
         </SaveBtn>
       </HeaderSection>
@@ -70,7 +88,7 @@ const GroupContainer = styled.View`
   justify-content: space-between;
   flex-direction: row;
   border-color: rgba(243, 243, 243, 1);
-  border-bottom-width: 2px;
+  //border-bottom-width: 2px;
 `;
 const GroupInput = styled.TextInput`
   width: 240px;
@@ -79,6 +97,8 @@ const GroupInput = styled.TextInput`
   border-radius: 5px;
   padding: 20px;
 `;
+const MoveBtn = styled.TouchableOpacity``;
+const DeleteBtn = styled.TouchableOpacity``;
 const HeaderSection = styled.View`
   display: flex;
   flex-direction: row;
@@ -96,12 +116,5 @@ const HeaderTitle = styled.Text`
 `;
 const PrevPageBtn = styled.TouchableOpacity``;
 const SaveBtn = styled.TouchableOpacity``;
-const BtnText = styled.Text`
-  color: #fff;
-  font-size: 16px;
-  line-height: 30px;
-  font-weight: 600;
-  margin: 0 auto;
-`;
 
 export default EditGroup;
