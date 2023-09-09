@@ -209,7 +209,7 @@ const CardBox = () => {
   const snapPoints = useMemo(() => ["15%"], []);
 
   //명함 편집에서 선택된 명함들의 리스트 관리
-  //FIXME: 받아온 리스트 토대로 그룹 이동, 삭제 기능 구현 필요
+  //TODO: 받아온 리스트 토대로 그룹 이동, 삭제 기능 구현 필요
   //FIXME: 인덱스로 리스트 구성이 아닌 해당 명함의 ID로 리스트 구성 필요
   const [selectedCardList, setSelectedCardList] = useState([]);
   const toggleItemSelection = (index) => {
@@ -222,8 +222,9 @@ const CardBox = () => {
     }
   };
 
+  //TODO: 해당 리스트로 기능 구현 필요
   useEffect(() => {
-    console.log(selectedCardList);
+    //console.log(selectedCardList);
   }, [selectedCardList]);
 
   return (
