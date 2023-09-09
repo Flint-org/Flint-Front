@@ -7,7 +7,7 @@ import { useDispatch } from "react-redux";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheetModal from "./components/common/BottomSheetModal";
-import { View } from "react-native";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -43,10 +43,12 @@ export default function App() {
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <NavigationContainer onReady={onLayoutRootView}>
-        <Root />
-      </NavigationContainer>
-      <BottomSheetModal></BottomSheetModal>
+      <BottomSheetModalProvider>
+        <NavigationContainer onReady={onLayoutRootView}>
+          <Root />
+        </NavigationContainer>
+        <BottomSheetModal></BottomSheetModal>
+      </BottomSheetModalProvider>
     </GestureHandlerRootView>
   );
 }

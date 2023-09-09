@@ -1,10 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components/native";
 import BoxCardComponent from "../../../components/bottomTabs/card/BoxCardComponent";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import bottomSheetSlice from "../../../redux_modules/slice/bottomSheetSlice";
 import { useNavigation } from "@react-navigation/native";
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import { WithLocalSvg } from "react-native-svg";
+
+import CancelSVG from "../../../assets/images/cancel.svg";
+import DeleteSVG from "../../../assets/images/delete.svg";
+import MoveSVG from "../../../assets/images/drive_file_move.svg";
 
 const Container = styled.View`
   background-color: white;
@@ -164,19 +176,14 @@ const CardBox = () => {
 
   const [filteredCardData, setFilteredCardData] = useState(cardData);
 
-  const onGroupChange = () => {
-    setSelectedGroup(item);
-    setFilteredCardData(
-      ...cardData.filter((card) => card.group.includes(item))
-    );
-  };
-
   // bottomModal Ref 받아오기 (모달을 띄우기 위함)
   const bottomSheetRef = useSelector((state) => {
     return state.bottomSheet.bottomSheetRef;
   });
+  const bottomSheetModalRef = useRef(null);
 
   //bottomModal에 값 보내기
+  //FIXME: BottomSheetModal 사용하면 좀 더 쉽고 직관적이므로 수정 필요.
   const dispatch = useDispatch();
   const editBtnOnPress = () => {
     dispatch(
@@ -187,13 +194,37 @@ const CardBox = () => {
           bottomSheetRef.close();
         },
         text_2: "명함 수정",
-        onPress_2: () => console.log("onPress_2"),
+        onPress_2: () => {
+          setIsEditing(true);
+          bottomSheetRef.close();
+          bottomSheetModalRef.current.present();
+        },
       })
     );
     bottomSheetRef.snapToIndex(0);
   };
 
   const [isEditing, setIsEditing] = useState(false);
+
+  const snapPoints = useMemo(() => ["15%"], []);
+
+  //명함 편집에서 선택된 명함들의 리스트 관리
+  //FIXME: 받아온 리스트 토대로 그룹 이동, 삭제 기능 구현 필요
+  //FIXME: 인덱스로 리스트 구성이 아닌 해당 명함의 ID로 리스트 구성 필요
+  const [selectedCardList, setSelectedCardList] = useState([]);
+  const toggleItemSelection = (index) => {
+    if (selectedCardList.includes(index)) {
+      setSelectedCardList(
+        selectedCardList.filter((itemIndex) => itemIndex !== index)
+      );
+    } else {
+      setSelectedCardList([...selectedCardList, index]);
+    }
+  };
+
+  useEffect(() => {
+    console.log(selectedCardList);
+  }, [selectedCardList]);
 
   return (
     <Container>
@@ -222,7 +253,11 @@ const CardBox = () => {
           />
         </GroupListWrap>
         <EditWrap>
-          <EditBtn onPress={editBtnOnPress}>
+          <EditBtn
+            onPress={() => {
+              editBtnOnPress();
+            }}
+          >
             <Text style={{ color: "rgba(255, 152, 16, 1)" }}>편집</Text>
           </EditBtn>
         </EditWrap>
@@ -232,14 +267,75 @@ const CardBox = () => {
           data={filteredCardData}
           renderItem={({ item, index }) => {
             if (index == filteredCardData.length - 1) {
-              return <BoxCardComponent cardData={item} isEnd={true} />;
+              return (
+                <BoxCardComponent
+                  cardData={item}
+                  isEnd={true}
+                  isEdit={isEditing}
+                  toggleItemSelection={toggleItemSelection}
+                  index={index}
+                />
+              );
             }
-            return <BoxCardComponent cardData={item} isEnd={false} />;
+            return (
+              <BoxCardComponent
+                cardData={item}
+                isEnd={false}
+                isEdit={isEditing}
+                toggleItemSelection={toggleItemSelection}
+                index={index}
+              />
+            );
           }}
         />
       </CardContainer>
+      <BottomSheetModal
+        ref={bottomSheetModalRef}
+        index={0}
+        snapPoints={snapPoints}
+        handleComponent={null}
+        enablePanDownToClose={false}
+      >
+        <BottomMenu>
+          <Btn>
+            <WithLocalSvg asset={CancelSVG} height={36} />
+            <BtnText>그룹 지정</BtnText>
+          </Btn>
+          <Btn>
+            <WithLocalSvg asset={DeleteSVG} height={36} />
+            <BtnText>명함 삭제</BtnText>
+          </Btn>
+          <Btn
+            onPress={() => {
+              setIsEditing(false);
+              bottomSheetModalRef.current.close();
+            }}
+          >
+            <WithLocalSvg asset={MoveSVG} height={36} />
+            <BtnText>편집 취소</BtnText>
+          </Btn>
+        </BottomMenu>
+      </BottomSheetModal>
     </Container>
   );
 };
+
+const BottomMenu = styled.View`
+  position: absolute;
+  background-color: white;
+  bottom: 0;
+  height: 110px;
+  width: 100%;
+  box-shadow: 10px 10px 10px rgba(0, 0, 0, 0.7);
+  flex-direction: row;
+  justify-content: space-between;
+`;
+const Btn = styled.TouchableOpacity`
+  width: 30%;
+  height: 80%;
+  justify-content: center;
+  align-items: center;
+`;
+const BtnText = styled.Text``;
 
 export default CardBox;

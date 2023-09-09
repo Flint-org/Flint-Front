@@ -1,13 +1,14 @@
 import React, { useRef, useState } from "react";
 import styled from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Animated } from "react-native";
+import { Animated, View } from "react-native";
 import { WithLocalSvg } from "react-native-svg";
 
 import LogoSvg from "../../../assets/images/logo_symbol_white.svg";
 import PlusSvg from "../../../assets/images/plus.svg";
 import CloseSvg from "../../../assets/images/close.svg";
 import ArrowUpSvg from "../../../assets/images/arrow_up.svg";
+import CheckBtnSVG from "../../../assets/images/check.svg";
 
 /* TODO: 전체 완료 시 삭제
  * 앞면 UI 생성 (O)
@@ -15,6 +16,12 @@ import ArrowUpSvg from "../../../assets/images/arrow_up.svg";
  * flip 애니메이션 추가 (O)
  * 실제 데이터 받아오기
  */
+
+const CheckBtn = styled.TouchableOpacity`
+  position: absolute;
+  top: 15px;
+  left: 40px;
+`;
 
 const CardModal = ({
   visible,
@@ -56,7 +63,13 @@ const CardModal = ({
   );
 };
 
-const BoxCardComponent = ({ cardData, isEnd }) => {
+const BoxCardComponent = ({
+  cardData,
+  isEnd,
+  isEdit,
+  toggleItemSelection,
+  index,
+}) => {
   const [focus, setFocus] = useState(false);
   // 학교별 메인컬러 R,G,B 담는 state
   // const [cardData.red, setcardData.Red] = useState(cardData.cardData.red);
@@ -127,9 +140,14 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
     setFocus((prev) => !prev);
   };
 
+  const [selected, setSelected] = useState(false);
+
   return (
     <Container style={{ marginBottom: isEnd ? 0 : slideAnim }}>
-      <CardWrap onPress={() => (focus ? flipCard() : acitveSlideAnim())}>
+      <CardWrap
+        onPress={() => (focus ? flipCard() : acitveSlideAnim())}
+        disabled={isEdit && true}
+      >
         <>
           <CardFront
             style={{
@@ -304,6 +322,20 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
         >
           <WithLocalSvg height={24} width={24} asset={ArrowUpSvg} />
         </SlideUpBtn>
+      )}
+      {isEdit && (
+        <CheckBtn
+          onPress={() => {
+            setSelected((prev) => !prev);
+            toggleItemSelection(index);
+          }}
+        >
+          <WithLocalSvg
+            height={40}
+            asset={CheckBtnSVG}
+            fill={selected ? "rgba(255, 152, 16, 1)" : "rgba(217, 217, 217, 1)"}
+          />
+        </CheckBtn>
       )}
     </Container>
   );
