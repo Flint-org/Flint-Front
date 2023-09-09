@@ -62,7 +62,7 @@ const EditGroup = () => {
             setGroupData(newGroup);
           }}
         >
-          <WithLocalSvg width={20} height={20} fill={"#000"} asset={PlusSvg} />
+          <WithLocalSvg width={18} height={18} fill={"#000"} asset={PlusSvg} />
         </SaveBtn>
       </HeaderSection>
       <DraggableFlatList
