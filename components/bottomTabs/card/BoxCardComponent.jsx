@@ -1,4 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
 import { Animated, View } from "react-native";
@@ -68,14 +74,9 @@ const BoxCardComponent = ({
   isEnd,
   isEdit,
   toggleItemSelection,
-  index,
+  selectedGroup,
 }) => {
   const [focus, setFocus] = useState(false);
-  // 학교별 메인컬러 R,G,B 담는 state
-  // const [cardData.red, setcardData.Red] = useState(cardData.cardData.red);
-  // const [cardData.green, setcardData.Green] = useState(cardData.cardData.green);
-  // const [cardData.blue, setcardData.Blue] = useState(cardData.cardData.blue);
-
   // 관심사, 자기소개 모달 클릭 여닫힘 여부 state
   const [onClickIntroModal, setClickIntroModal] = useState(false);
   const [onClickInterestModal, setClickInterestModal] = useState(false);
@@ -104,17 +105,9 @@ const BoxCardComponent = ({
 
   const flipCard = () => {
     if (listenerVal >= 90) {
-      Animated.timing(flipValue, {
-        toValue: 0,
-        duration: 800,
-        useNativeDriver: true,
-      }).start();
+      flipValue.setValue(0);
     } else {
-      Animated.timing(flipValue, {
-        toValue: 180,
-        duration: 800,
-        useNativeDriver: true,
-      }).start();
+      flipValue.setValue(180);
     }
   };
 
@@ -137,16 +130,31 @@ const BoxCardComponent = ({
       }).start();
     }
     setSlideDown((prev) => !prev);
+    if (listenerVal >= 90) {
+      flipValue.setValue(0);
+    }
     setFocus((prev) => !prev);
   };
 
   const [selected, setSelected] = useState(false);
 
+  const initialize = () => {
+    setSlideDown(false);
+    slideAnim.setValue(-167);
+    flipValue.setValue(0);
+    setFocus(false);
+  };
+  //그룹 변경 시 상태 초기화
+  useEffect(() => {
+    initialize();
+  }, [selectedGroup]);
+
   return (
     <Container style={{ marginBottom: isEnd ? 0 : slideAnim }}>
       <CardWrap
-        onPress={() => (focus ? flipCard() : acitveSlideAnim())}
+        onPress={() => (focus || isEnd ? flipCard() : acitveSlideAnim())}
         disabled={isEdit && true}
+        underlayColor={"white"}
       >
         <>
           <CardFront
@@ -173,9 +181,7 @@ const BoxCardComponent = ({
                 </FrontNameText>
               </FrontNameWrap>
               <FrontContentWrap>
-                <FrontContentText weight={800}>
-                  {cardData.univ}
-                </FrontContentText>
+                <FrontContentText weight={800}>{isEnd + ""}</FrontContentText>
                 <FrontContentText>{cardData.major}</FrontContentText>
                 <FrontContentText>
                   {cardData.grade} {cardData.userName}
@@ -327,7 +333,8 @@ const BoxCardComponent = ({
         <CheckBtn
           onPress={() => {
             setSelected((prev) => !prev);
-            toggleItemSelection(index);
+            toggleItemSelection(cardData.id);
+            console.log(cardData.id);
           }}
         >
           <WithLocalSvg

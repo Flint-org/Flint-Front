@@ -92,6 +92,7 @@ const CardBox = () => {
         "악기",
       ],
       group: ["전체", "운동"],
+      id: "0001",
     },
     {
       red: 139,
@@ -117,6 +118,7 @@ const CardBox = () => {
         "악기",
       ],
       group: ["전체", "운동", "동아리"],
+      id: "0002",
     },
     {
       red: 105,
@@ -142,6 +144,7 @@ const CardBox = () => {
         "악기",
       ],
       group: ["전체", "동아리"],
+      id: "0003",
     },
     {
       red: 0,
@@ -167,6 +170,7 @@ const CardBox = () => {
         "악기",
       ],
       group: ["전체", "동아리", "등산"],
+      id: "0004",
     },
   ];
 
@@ -211,19 +215,17 @@ const CardBox = () => {
   //TODO: 받아온 리스트 토대로 그룹 이동, 삭제 기능 구현 필요
   //FIXME: 인덱스로 리스트 구성이 아닌 해당 명함의 ID로 리스트 구성 필요
   const [selectedCardList, setSelectedCardList] = useState([]);
-  const toggleItemSelection = (index) => {
-    if (selectedCardList.includes(index)) {
-      setSelectedCardList(
-        selectedCardList.filter((itemIndex) => itemIndex !== index)
-      );
+  const toggleItemSelection = (id) => {
+    if (selectedCardList.includes(id)) {
+      setSelectedCardList(selectedCardList.filter((itemId) => itemId !== id));
     } else {
-      setSelectedCardList([...selectedCardList, index]);
+      setSelectedCardList([...selectedCardList, id]);
     }
   };
 
   //TODO: 해당 리스트로 기능 구현 필요
   useEffect(() => {
-    //console.log(selectedCardList);
+    console.log(selectedCardList);
   }, [selectedCardList]);
 
   return (
@@ -245,6 +247,7 @@ const CardBox = () => {
                     );
                   }}
                   bgColor={backgroundColor}
+                  disabled={isEditing}
                 >
                   <Text>{item}</Text>
                 </Group>
@@ -257,6 +260,7 @@ const CardBox = () => {
             onPress={() => {
               editBtnOnPress();
             }}
+            disabled={isEditing}
           >
             <Text style={{ color: "rgba(255, 152, 16, 1)" }}>편집</Text>
           </EditBtn>
@@ -273,7 +277,7 @@ const CardBox = () => {
                   isEnd={true}
                   isEdit={isEditing}
                   toggleItemSelection={toggleItemSelection}
-                  index={index}
+                  selectedGroup={selectedGroup}
                 />
               );
             }
@@ -284,6 +288,7 @@ const CardBox = () => {
                 isEdit={isEditing}
                 toggleItemSelection={toggleItemSelection}
                 index={index}
+                selectedGroup={selectedGroup}
               />
             );
           }}
