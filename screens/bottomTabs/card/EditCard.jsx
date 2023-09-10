@@ -121,7 +121,11 @@ const EditCard = () => {
   return (
     <Container>
       <HeaderSection>
-        <PrevPageBtn onPress={() => navigation.goBack()}>
+        <PrevPageBtn
+          onPress={() =>
+            navigation.navigate("BottomTabs", { screen: "MyCard" })
+          }
+        >
           <WithLocalSvg
             width={20}
             height={20}
@@ -456,6 +460,7 @@ const InterestBtnWrap = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   gap: 15px;
+  margin-bottom: 5%;
 `;
 const InterestBtn = styled.TouchableOpacity`
   padding: 10px 15px;
