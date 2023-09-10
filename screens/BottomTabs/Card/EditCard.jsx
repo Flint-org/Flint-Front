@@ -1,14 +1,14 @@
-import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
-import styled from 'styled-components/native';
-import { WithLocalSvg } from 'react-native-svg';
-import * as DocumentPicker from 'expo-document-picker';
-import { LinearGradient } from 'expo-linear-gradient';
+import { useNavigation } from "@react-navigation/native";
+import React, { useState } from "react";
+import styled from "styled-components/native";
+import { WithLocalSvg } from "react-native-svg";
+import * as DocumentPicker from "expo-document-picker";
+import { LinearGradient } from "expo-linear-gradient";
 
-import BackArrowSvg from '../../../assets/images/back_arrow.svg';
-import LogoSvg from '../../../assets/images/logo_symbol_white.svg';
-import PlusSvg from '../../../assets/images/plus.svg';
-import AlertModal from '../../../components/common/AlertModal';
+import BackArrowSvg from "../../../assets/images/back_arrow.svg";
+import LogoSvg from "../../../assets/images/logo_symbol_white.svg";
+import PlusSvg from "../../../assets/images/plus.svg";
+import AlertModal from "../../../components/common/AlertModal";
 
 /* TODO: 전체 완료 시 삭제
  * 헤더 추가 (O)
@@ -32,7 +32,7 @@ const CardDataInput = (props) => {
               value={props.value[0]}
               placeholder={props.placeholder[0]}
               onChangeText={props.onChangeText[0]}
-              placeholderTextColor={'#c0c0c0'}
+              placeholderTextColor={"#c0c0c0"}
             ></Input>
           </InputWrap>
           <AtSignText>@</AtSignText>
@@ -41,7 +41,7 @@ const CardDataInput = (props) => {
               value={props.value[1]}
               placeholder={props.placeholder[1]}
               onChangeText={props.onChangeText[1]}
-              placeholderTextColor={'#c0c0c0'}
+              placeholderTextColor={"#c0c0c0"}
             ></Input>
           </InputWrap>
         </InputsWrap>
@@ -59,7 +59,7 @@ const CardDataInput = (props) => {
             editable={props.editable}
             multiline={props.multiline}
             maxLength={props.maxLength}
-            placeholderTextColor={'#c0c0c0'}
+            placeholderTextColor={"#c0c0c0"}
           ></Input>
         </InputWrap>
       </>
@@ -67,21 +67,54 @@ const CardDataInput = (props) => {
   }
 };
 
+// 관심사 키워드 버튼 컴포넌트
+const InterestBtns = ({
+  interests,
+  type,
+  onCilckInterest,
+  setClickInterest,
+}) => {
+  return (
+    <InterestBtnWrap>
+      {interests.map((interest) => {
+        if (interest.type == type) {
+          return (
+            <InterestBtn
+              key={interest.name}
+              onPress={() => {
+                interest.active = !interest.active;
+                setClickInterest(!onCilckInterest);
+              }}
+              style={{
+                backgroundColor: interest.active ? "#ff9810" : "#f3f3f3",
+              }}
+            >
+              <InteretText style={{ color: interest.active ? "#fff" : "#000" }}>
+                {interest.name}
+              </InteretText>
+            </InterestBtn>
+          );
+        }
+      })}
+    </InterestBtnWrap>
+  );
+};
+
 const EditCard = () => {
   const navigation = useNavigation();
 
   // 프로필 사진 가져오기 성공여부, 프로필 사진 URI state
   const [selectSuccess, setSelectSuccess] = useState(false);
-  const [profileURI, setProfileURI] = useState('');
+  const [profileURI, setProfileURI] = useState("");
 
   /* selectProfileImg : 프로필 사진 가져오는 함수
    * 프로필 사진 가져와서 profileURI state에  URI 저장
    */
   const selectProfileImg = async () => {
     const result = await DocumentPicker.getDocumentAsync({
-      type: ['image/*'],
+      type: ["image/*"],
     });
-    if (result.canceled) console.log('canceled');
+    if (result.canceled) console.log("canceled");
     else {
       setSelectSuccess(true);
       setProfileURI(result?.assets[0]?.uri);
@@ -94,21 +127,65 @@ const EditCard = () => {
   const [blue, setBlue] = useState(172);
 
   // FIXME: 명함 데이터 state (임시 state로 나중에 삭제될 수도 수정될 수도 있음)
-  const [userName, setUserName] = useState('김이름');
-  const [year, setYear] = useState('2019');
-  const [univ, setUniv] = useState('00대학교');
-  const [major, setMajor] = useState('소프트웨어학과');
-  const [emailLocal, setEmailLocal] = useState('wjoo3');
-  const [emailDomain, setEmailDomain] = useState('naver.com');
-  const [introduction, setIntroduction] = useState('');
-  const [mbti, setMbti] = useState('');
-  const [sns, setSns] = useState('');
+  const [userName, setUserName] = useState("김이름");
+  const [year, setYear] = useState("2019");
+  const [univ, setUniv] = useState("00대학교");
+  const [major, setMajor] = useState("소프트웨어학과");
+  const [emailLocal, setEmailLocal] = useState("wjoo3");
+  const [emailDomain, setEmailDomain] = useState("naver.com");
+  const [introduction, setIntroduction] = useState("");
+  const [mbti, setMbti] = useState("");
+  const [sns, setSns] = useState("");
+
+  const [interestTitle, setInterestTitle] = useState([
+    "엔터테인먼트 및 문화예술",
+    "운동 및 피트니스",
+    "취미 및 창작",
+    "패션 및 뷰티",
+    "여행 및 레저",
+    "라이프스타일",
+  ]);
   const [interests, setInterests] = useState([
-    { name: '맛집 탐방', active: false },
-    { name: '전시회 관람', active: false },
-    { name: '게임', active: false },
-    { name: '산책', active: false },
-    { name: '스포츠', active: false },
+    { type: 0, name: "🎮 게임", active: false },
+    { type: 0, name: "🎥 영화", active: false },
+    { type: 0, name: "📺 드라마", active: false },
+    { type: 0, name: "🖼️ 전시회", active: false },
+    { type: 0, name: "🎞️ 애니메이션", active: false },
+    { type: 0, name: "🪩 콘서트", active: false },
+    { type: 0, name: "🎭 연극", active: false },
+    { type: 0, name: "🎟️ 뮤지컬", active: false },
+    { type: 0, name: "🗯️ 웹툰", active: false },
+    { type: 1, name: "🏃‍♂️ 런닝", active: false },
+    { type: 1, name: "🏋️ 헬스", active: false },
+    { type: 1, name: "🧘‍♂️ 요가", active: false },
+    { type: 1, name: "🧘 필라테스", active: false },
+    { type: 1, name: "⚽ 스포츠", active: false },
+    { type: 1, name: "🚶‍♀️ 산책", active: false },
+    { type: 1, name: "🚗 드라이브", active: false },
+    { type: 2, name: "📚 독서", active: false },
+    { type: 2, name: "🎨 그림그리기", active: false },
+    { type: 2, name: "🖋️ 글쓰기", active: false },
+    { type: 2, name: "🤸 댄스", active: false },
+    { type: 2, name: "🥁 악기 연주", active: false },
+    { type: 2, name: "🎧 노래 감상", active: false },
+    { type: 2, name: "🎤 노래 부르기", active: false },
+    { type: 2, name: "🍳 요리", active: false },
+    { type: 2, name: "📸 사진 찍기", active: false },
+    { type: 3, name: "🛍️ 쇼핑", active: false },
+    { type: 3, name: "🕶️ 패션", active: false },
+    { type: 3, name: "💄 뷰티", active: false },
+    { type: 4, name: "🛩️ 여행", active: false },
+    { type: 4, name: "⛷️ 스키", active: false },
+    { type: 4, name: "🍜 맛집 탐방", active: false },
+    { type: 4, name: "🌊 빠지", active: false },
+    { type: 4, name: "🤿 스노쿨링", active: false },
+    { type: 5, name: "🍺 술", active: false },
+    { type: 5, name: "🥐 카페", active: false },
+    { type: 5, name: "🥰 덕질", active: false },
+    { type: 5, name: "📝 자기계발", active: false },
+    { type: 5, name: "🐶 동물", active: false },
+    { type: 5, name: "🗞️ 사회이슈", active: false },
+    { type: 5, name: "🕊️ 봉사", active: false },
   ]);
 
   // 관심사 버튼 클릭 여부 : 리렌더링을 목적으로 함
@@ -121,13 +198,13 @@ const EditCard = () => {
       <HeaderSection>
         <PrevPageBtn
           onPress={() =>
-            navigation.navigate('BottomTabs', { screen: 'MyCard' })
+            navigation.navigate("BottomTabs", { screen: "MyCard" })
           }
         >
           <WithLocalSvg
             width={20}
             height={20}
-            fill={'#000'}
+            fill={"#000"}
             asset={BackArrowSvg}
           />
         </PrevPageBtn>
@@ -156,90 +233,85 @@ const EditCard = () => {
             <WithLocalSvg
               width={15}
               height={15}
-              fill={'#fff'}
+              fill={"#fff"}
               asset={PlusSvg}
             />
           </EditProfileBtn>
         </ProfileImgWrap>
         <CardDataInput
-          title={'이름'}
+          title={"이름"}
           value={userName}
           onChangeText={setUserName}
-          placeholder={'이름을 입력하세요.'}
+          placeholder={"이름을 입력하세요."}
           editable={false}
         />
         <CardDataInput
-          title={'입학년도'}
+          title={"입학년도"}
           value={year}
           onChangeText={setYear}
-          placeholder={'입학년도를 입력하세요.'}
+          placeholder={"입학년도를 입력하세요."}
           editable={false}
         />
         <CardDataInput
-          title={'학교'}
+          title={"학교"}
           value={univ}
           onChangeText={setUniv}
-          placeholder={'학교 이름을 입력하세요.'}
+          placeholder={"학교 이름을 입력하세요."}
           editable={false}
         />
         <CardDataInput
-          title={'학과'}
+          title={"학과"}
           value={major}
           onChangeText={setMajor}
-          placeholder={'학과 이름을 입력하세요.'}
+          placeholder={"학과 이름을 입력하세요."}
           editable={false}
         />
         <CardDataInput
           half={true}
-          title={'이메일'}
+          title={"이메일"}
           value={[emailLocal, emailDomain]}
           onChangeText={[setEmailLocal, setEmailDomain]}
-          placeholder={['이메일', '도메인']}
+          placeholder={["이메일", "도메인"]}
           editable={false}
         />
         <CardDataInput
-          title={'자기소개'}
+          title={"자기소개"}
           value={introduction}
           onChangeText={setIntroduction}
-          placeholder={'자기소개를 입력하세요.'}
+          placeholder={"자기소개를 입력하세요."}
           multiline={true}
           maxLength={100}
         />
         <CardDataInput
-          title={'MBTI'}
+          title={"MBTI"}
           value={mbti}
           onChangeText={setMbti}
-          placeholder={'MBTI를 입력하세요.'}
+          placeholder={"MBTI를 입력하세요."}
         />
         <CardDataInput
-          title={'SNS'}
+          title={"SNS"}
           value={sns}
           onChangeText={setSns}
-          placeholder={'SNS 계정을 입력하세요.'}
+          placeholder={"SNS 계정을 입력하세요."}
         />
         <InputTitle>관심사</InputTitle>
-        <InterestBtnWrap>
-          {interests.map((interest) => (
-            <InterestBtn
-              key={interest.name}
-              onPress={() => {
-                interest.active = !interest.active;
-                setClickInterest(!onCilckInterest);
-              }}
-              style={{
-                backgroundColor: interest.active ? '#ff9810' : '#f3f3f3',
-              }}
-            >
-              <InteretText style={{ color: interest.active ? '#fff' : '#000' }}>
-                {interest.name}
-              </InteretText>
-            </InterestBtn>
-          ))}
-        </InterestBtnWrap>
+        {interestTitle.map((title, index) => {
+          return (
+            <>
+              <InterestTitle>{title}</InterestTitle>
+              <InterestBtns
+                interests={interests}
+                type={index}
+                onCilckInterest={onCilckInterest}
+                setClickInterest={setClickInterest}
+              />
+            </>
+          );
+        })}
       </MainSection>
       {onClickSave && (
         <AlertModal
-          text={'저장되었습니다.'}
+          text={"저장되었습니다."}
           onPress={() => setClickSave(false)}
         />
       )}
@@ -337,7 +409,7 @@ const InputsWrap = styled.View`
 const InputWrap = styled.View`
   display: flex;
   justify-content: center;
-  width: ${(props) => (props.half ? '45%' : '100%')};
+  width: ${(props) => (props.half ? "45%" : "100%")};
   background-color: #f3f3f3;
   border-radius: 5px;
   margin-bottom: 6%;
@@ -349,15 +421,28 @@ const Input = styled.TextInput`
   color: #000;
   font-weight: 500;
 `;
+const InterstBtnsWrap = styled.View`
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  margin-bottom: 6%;
+  padding: 4% 15px;
+`;
+const InterestTitle = styled.Text`
+  margin-left: 12px;
+  margin-bottom: 5%;
+  font-size: 17px;
+  font-weight: 500;
+`;
 const InterestBtnWrap = styled.View`
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   gap: 15px;
+  margin-bottom: 5%;
 `;
 const InterestBtn = styled.TouchableOpacity`
   padding: 10px 15px;
-  border-radius: 5px;
+  border-radius: 30px;
 `;
 const InteretText = styled.Text`
   font-size: 16px;
