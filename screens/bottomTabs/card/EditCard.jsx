@@ -6,7 +6,6 @@ import * as DocumentPicker from "expo-document-picker";
 import { LinearGradient } from "expo-linear-gradient";
 
 import BackArrowSvg from "../../../assets/images/back_arrow.svg";
-import ArrowDownSvg from "../../../assets/images/arrow_down.svg";
 import LogoSvg from "../../../assets/images/logo_symbol_white.svg";
 import PlusSvg from "../../../assets/images/plus.svg";
 import AlertModal from "../../../components/common/AlertModal";
@@ -220,28 +219,19 @@ const EditCard = () => {
           placeholder={"SNS 계정을 입력하세요."}
         />
         <InputTitle>관심사</InputTitle>
-        <InterestsWrap>
-          <ArrowIconWrap
-            onPress={() => setClickDropdown(!onClickDropdown)}
-            rotate={onClickDropdown}
-          >
-            <WithLocalSvg width={20} height={20} asset={ArrowDownSvg} />
-          </ArrowIconWrap>
-          {onClickDropdown &&
-            interestTitle.map((title, index) => {
-              return (
-                <>
-                  <InterestTitle>{title}</InterestTitle>
-                  <InterestBtns
-                    interests={interests}
-                    type={index}
-                    onCilckInterest={onCilckInterest}
-                    setClickInterest={setClickInterest}
-                  />
-                </>
-              );
-            })}
-        </InterestsWrap>
+        {interestTitle.map((title, index) => {
+          return (
+            <>
+              <InterestTitle>{title}</InterestTitle>
+              <InterestBtns
+                interests={interests}
+                type={index}
+                onCilckInterest={onCilckInterest}
+                setClickInterest={setClickInterest}
+              />
+            </>
+          );
+        })}
       </MainSection>
       {onClickSave && (
         <AlertModal
@@ -435,24 +425,16 @@ const Input = styled.TextInput`
   color: #000;
   font-weight: 500;
 `;
-const InterestsWrap = styled.View`
-  display: flex;
-  gap: 20px;
+const InterstBtnsWrap = styled.View`
   background-color: #f3f3f3;
   border-radius: 5px;
   margin-bottom: 6%;
-  padding: 4% 5%;
-`;
-const ArrowIconWrap = styled.TouchableOpacity`
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  width: 100%;
-  transform: ${(props) => (props.rotate ? "rotate(180deg)" : "rotate(0deg)")};
+  padding: 4% 15px;
 `;
 const InterestTitle = styled.Text`
-  margin-left: 10px;
-  font-size: 18px;
+  margin-left: 12px;
+  margin-bottom: 5%;
+  font-size: 17px;
   font-weight: 500;
 `;
 const InterestBtnWrap = styled.View`
@@ -460,6 +442,7 @@ const InterestBtnWrap = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   gap: 15px;
+  margin-bottom: 5%;
 `;
 const InterestBtn = styled.TouchableOpacity`
   padding: 10px 15px;
