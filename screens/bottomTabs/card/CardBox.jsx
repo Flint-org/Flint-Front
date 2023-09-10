@@ -22,9 +22,8 @@ const Container = styled.View`
   background-color: white;
   flex: 1;
 `;
-const Text = styled.Text``;
-const Separator = styled.View`
-  margin-top: 30%;
+const Text = styled.Text`
+  color: white;
 `;
 const GroupListWrap = styled.View`
   width: 80%;
