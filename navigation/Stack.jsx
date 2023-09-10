@@ -5,6 +5,7 @@ import EditCard from "../screens/bottomTabs/card/EditCard";
 
 import GeneralBoard from "../screens/bottomTabs/home/GeneralBoard";
 import MajorBoard from "../screens/bottomTabs/home/MajorBoard";
+import EditGroup from "../screens/bottomTabs/card/EditGroup";
 
 const NativeStack = createNativeStackNavigator();
 
@@ -20,6 +21,7 @@ const Stack = () => {
       <NativeStack.Screen name="EditCard" component={EditCard} />
       <NativeStack.Screen name="GeneralBoard" component={GeneralBoard} />
       <NativeStack.Screen name="MajorBoard" component={MajorBoard} />
+      <NativeStack.Screen name="EditGroup" component={EditGroup} />
     </NativeStack.Navigator>
   );
 };

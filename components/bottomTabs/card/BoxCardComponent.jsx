@@ -1,13 +1,20 @@
-import React, { useRef, useState } from "react";
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from "react";
 import styled from "styled-components/native";
 import { LinearGradient } from "expo-linear-gradient";
-import { Animated } from "react-native";
+import { Animated, View } from "react-native";
 import { WithLocalSvg } from "react-native-svg";
 
 import LogoSvg from "../../../assets/images/logo_symbol_white.svg";
 import PlusSvg from "../../../assets/images/plus.svg";
 import CloseSvg from "../../../assets/images/close.svg";
 import ArrowUpSvg from "../../../assets/images/arrow_up.svg";
+import CheckBtnSVG from "../../../assets/images/check.svg";
 
 /* TODO: 전체 완료 시 삭제
  * 앞면 UI 생성 (O)
@@ -15,6 +22,12 @@ import ArrowUpSvg from "../../../assets/images/arrow_up.svg";
  * flip 애니메이션 추가 (O)
  * 실제 데이터 받아오기
  */
+
+const CheckBtn = styled.TouchableOpacity`
+  position: absolute;
+  top: 15px;
+  left: 40px;
+`;
 
 const CardModal = ({
   visible,
@@ -56,13 +69,14 @@ const CardModal = ({
   );
 };
 
-const BoxCardComponent = ({ cardData, isEnd }) => {
+const BoxCardComponent = ({
+  cardData,
+  isEnd,
+  isEdit,
+  toggleItemSelection,
+  selectedGroup,
+}) => {
   const [focus, setFocus] = useState(false);
-  // 학교별 메인컬러 R,G,B 담는 state
-  const [red, setRed] = useState(cardData.red);
-  const [green, setGreen] = useState(cardData.green);
-  const [blue, setBlue] = useState(cardData.blue);
-
   // 관심사, 자기소개 모달 클릭 여닫힘 여부 state
   const [onClickIntroModal, setClickIntroModal] = useState(false);
   const [onClickInterestModal, setClickInterestModal] = useState(false);
@@ -91,17 +105,9 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
 
   const flipCard = () => {
     if (listenerVal >= 90) {
-      Animated.timing(flipValue, {
-        toValue: 0,
-        duration: 800,
-        useNativeDriver: true,
-      }).start();
+      flipValue.setValue(0);
     } else {
-      Animated.timing(flipValue, {
-        toValue: 180,
-        duration: 800,
-        useNativeDriver: true,
-      }).start();
+      flipValue.setValue(180);
     }
   };
 
@@ -124,12 +130,32 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
       }).start();
     }
     setSlideDown((prev) => !prev);
+    if (listenerVal >= 90) {
+      flipValue.setValue(0);
+    }
     setFocus((prev) => !prev);
   };
 
+  const [selected, setSelected] = useState(false);
+
+  const initialize = () => {
+    setSlideDown(false);
+    slideAnim.setValue(-167);
+    flipValue.setValue(0);
+    setFocus(false);
+  };
+  //그룹 변경 시 상태 초기화
+  useEffect(() => {
+    initialize();
+  }, [selectedGroup]);
+
   return (
     <Container style={{ marginBottom: isEnd ? 0 : slideAnim }}>
-      <CardWrap onPress={() => (focus ? flipCard() : acitveSlideAnim())}>
+      <CardWrap
+        onPress={() => (focus || isEnd ? flipCard() : acitveSlideAnim())}
+        disabled={isEdit && true}
+        underlayColor={"white"}
+      >
         <>
           <CardFront
             style={{
@@ -138,9 +164,9 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
           >
             <CardGradient
               colors={[
-                `rgba(${red}, ${green}, ${blue}, 0)`,
-                `rgba(${red}, ${green}, ${blue}, 0.3)`,
-                `rgba(${red}, ${green}, ${blue}, 0.9)`,
+                `rgba(${cardData.red}, ${cardData.green}, ${cardData.blue}, 0)`,
+                `rgba(${cardData.red}, ${cardData.green}, ${cardData.blue}, 0.3)`,
+                `rgba(${cardData.red}, ${cardData.green}, ${cardData.blue}, 0.9)`,
               ]}
               start={{ x: 0, y: 0.5 }}
               end={{ x: 1, y: 0.5 }}
@@ -148,14 +174,14 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
               <FrontNameWrap>
                 {/* FIXME: 학교 로고 SVG로 변경 필요 */}
                 <Circle></Circle>
-                <FrontNameText color={`rgb(${red}, ${green}, ${blue})`}>
+                <FrontNameText
+                  color={`rgb(${cardData.red}, ${cardData.green}, ${cardData.blue})`}
+                >
                   {cardData.userName}
                 </FrontNameText>
               </FrontNameWrap>
               <FrontContentWrap>
-                <FrontContentText weight={800}>
-                  {cardData.univ}
-                </FrontContentText>
+                <FrontContentText weight={800}>{isEnd + ""}</FrontContentText>
                 <FrontContentText>{cardData.major}</FrontContentText>
                 <FrontContentText>
                   {cardData.grade} {cardData.userName}
@@ -169,14 +195,18 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
             style={{
               transform: [{ rotateY: backInterpolation }],
             }}
-            backgroundColor={`rgba(${red}, ${green}, ${blue},0.1)`}
+            backgroundColor={`rgba(${cardData.red}, ${cardData.green}, ${cardData.blue},0.1)`}
           >
             <BackContentWrap>
               <BackTextWrap>
-                <BackTitleText color={`rgb(${red}, ${green}, ${blue})`}>
+                <BackTitleText
+                  color={`rgb(${cardData.red}, ${cardData.green}, ${cardData.blue})`}
+                >
                   모임성적
                 </BackTitleText>
-                <ScoreWrap backgroundColor={`rgb(${red}, ${green}, ${blue})`}>
+                <ScoreWrap
+                  backgroundColor={`rgb(${cardData.red}, ${cardData.green}, ${cardData.blue})`}
+                >
                   <BackContentText weight={700} color={"#fff"}>
                     {cardData.score}
                   </BackContentText>
@@ -186,8 +216,8 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
               {/* FIXME: 사용자가 이미지 가져오면 해당 이미지로 변경돼야 함 */}
               <BasicProfile
                 colors={[
-                  `rgba(${red}, ${green}, ${blue}, 0.8)`,
-                  `rgba(${red}, ${green}, ${blue}, 0.3)`,
+                  `rgba(${cardData.red}, ${cardData.green}, ${cardData.blue}, 0.8)`,
+                  `rgba(${cardData.red}, ${cardData.green}, ${cardData.blue}, 0.3)`,
                 ]}
                 start={{ x: 0.5, y: 0 }}
                 end={{ x: 0.5, y: 1 }}
@@ -195,18 +225,26 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
                 <WithLocalSvg height={42} asset={LogoSvg} />
               </BasicProfile>
               <BackTextWrap>
-                <BackTitleText color={`rgb(${red}, ${green}, ${blue})`}>
+                <BackTitleText
+                  color={`rgb(${cardData.red}, ${cardData.green}, ${cardData.blue})`}
+                >
                   SNS
                 </BackTitleText>
-                <BackContentText color={`rgb(${red}, ${green}, ${blue})`}>
+                <BackContentText
+                  color={`rgb(${cardData.red}, ${cardData.green}, ${cardData.blue})`}
+                >
                   {cardData.sns}
                 </BackContentText>
               </BackTextWrap>
               <BackTextWrap>
-                <BackTitleText color={`rgb(${red}, ${green}, ${blue})`}>
+                <BackTitleText
+                  color={`rgb(${cardData.red}, ${cardData.green}, ${cardData.blue})`}
+                >
                   MBTI
                 </BackTitleText>
-                <BackContentText color={`rgb(${red}, ${green}, ${blue})`}>
+                <BackContentText
+                  color={`rgb(${cardData.red}, ${cardData.green}, ${cardData.blue})`}
+                >
                   {cardData.mbti}
                 </BackContentText>
               </BackTextWrap>
@@ -219,7 +257,9 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
                   }}
                 >
                   <TitleWrap>
-                    <BackTitleText color={`rgb(${red}, ${green}, ${blue})`}>
+                    <BackTitleText
+                      color={`rgb(${cardData.red}, ${cardData.green}, ${cardData.blue})`}
+                    >
                       자기소개
                     </BackTitleText>
                     <WithLocalSvg height={12} width={12} asset={PlusSvg} />
@@ -240,7 +280,9 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
                   }}
                 >
                   <TitleWrap>
-                    <BackTitleText color={`rgb(${red}, ${green}, ${blue})`}>
+                    <BackTitleText
+                      color={`rgb(${cardData.red}, ${cardData.green}, ${cardData.blue})`}
+                    >
                       관심사
                     </BackTitleText>
                     <WithLocalSvg height={12} width={12} asset={PlusSvg} />
@@ -261,18 +303,18 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
           <CardModal
             visible={onClickIntroModal}
             setVisible={setClickIntroModal}
-            red={red}
-            green={green}
-            blue={blue}
+            red={cardData.red}
+            green={cardData.green}
+            blue={cardData.blue}
             text={"자기소개"}
             content={cardData.introduction}
           />
           <CardModal
             visible={onClickInterestModal}
             setVisible={setClickInterestModal}
-            red={red}
-            green={green}
-            blue={blue}
+            red={cardData.red}
+            green={cardData.green}
+            blue={cardData.blue}
             text={"관심사"}
             content={cardData.interests}
           />
@@ -287,12 +329,28 @@ const BoxCardComponent = ({ cardData, isEnd }) => {
           <WithLocalSvg height={24} width={24} asset={ArrowUpSvg} />
         </SlideUpBtn>
       )}
+      {isEdit && (
+        <CheckBtn
+          onPress={() => {
+            setSelected((prev) => !prev);
+            toggleItemSelection(cardData.id);
+            console.log(cardData.id);
+          }}
+        >
+          <WithLocalSvg
+            height={40}
+            asset={CheckBtnSVG}
+            fill={selected ? "rgba(255, 152, 16, 1)" : "rgba(217, 217, 217, 1)"}
+          />
+        </CheckBtn>
+      )}
     </Container>
   );
 };
 
 const Container = styled(Animated.View)`
   background-color: white;
+  padding: 0px 30px;
 `;
 // 카드 컴포넌트 스타일
 const CardWrap = styled.TouchableHighlight`
