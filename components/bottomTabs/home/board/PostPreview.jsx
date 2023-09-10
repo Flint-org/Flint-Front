@@ -46,7 +46,14 @@ const PostPreview = ({ postData }) => {
   }, [today]);
 
   return (
-    <PostContainer onPress={() => nav.push("Stack", { screen: "BoardDetail" })}>
+    <PostContainer
+      onPress={() =>
+        nav.push("Stack", {
+          screen: "BoardDetail",
+          params: { postData },
+        })
+      }
+    >
       <PostDetailWrap>
         <PostContentWrap>
           <PostTitle>{postData?.title}</PostTitle>
