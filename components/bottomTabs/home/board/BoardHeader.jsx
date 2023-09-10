@@ -40,7 +40,7 @@ const BoardHeader = ({ title }) => {
       <Btn
         tn
         onPress={() => {
-          navigation.navigate("BottomTabs", { screen: "Home" });
+          navigation.goBack();
         }}
       >
         <WithLocalSvg
