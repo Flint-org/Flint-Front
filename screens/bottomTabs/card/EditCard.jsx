@@ -57,7 +57,6 @@ const EditCard = () => {
   const [introduction, setIntroduction] = useState("");
   const [mbti, setMbti] = useState("");
   const [sns, setSns] = useState("");
-
   const [interestTitle, setInterestTitle] = useState([
     "엔터테인먼트 및 문화예술",
     "운동 및 피트니스",
