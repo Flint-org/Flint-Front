@@ -121,11 +121,7 @@ const EditCard = () => {
   return (
     <Container>
       <HeaderSection>
-        <PrevPageBtn
-          onPress={() =>
-            navigation.navigate("BottomTabs", { screen: "MyCard" })
-          }
-        >
+        <PrevPageBtn onPress={() => navigation.goBack()}>
           <WithLocalSvg
             width={20}
             height={20}
