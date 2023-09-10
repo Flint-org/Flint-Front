@@ -20,86 +20,6 @@ import AlertModal from "../../../components/common/AlertModal";
  * 저장 버튼 클릭시 내명함에 반영
  */
 
-// 인풋 컴포넌트
-const CardDataInput = (props) => {
-  if (props.half) {
-    return (
-      <>
-        <InputTitle>{props.title}</InputTitle>
-        <InputsWrap>
-          <InputWrap half={true}>
-            <Input
-              value={props.value[0]}
-              placeholder={props.placeholder[0]}
-              onChangeText={props.onChangeText[0]}
-              placeholderTextColor={"#c0c0c0"}
-            ></Input>
-          </InputWrap>
-          <AtSignText>@</AtSignText>
-          <InputWrap half={true}>
-            <Input
-              value={props.value[1]}
-              placeholder={props.placeholder[1]}
-              onChangeText={props.onChangeText[1]}
-              placeholderTextColor={"#c0c0c0"}
-            ></Input>
-          </InputWrap>
-        </InputsWrap>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <InputTitle>{props.title}</InputTitle>
-        <InputWrap>
-          <Input
-            value={props.value}
-            placeholder={props.placeholder}
-            onChangeText={props.onChangeText}
-            editable={props.editable}
-            multiline={props.multiline}
-            maxLength={props.maxLength}
-            placeholderTextColor={"#c0c0c0"}
-          ></Input>
-        </InputWrap>
-      </>
-    );
-  }
-};
-
-// 관심사 키워드 버튼 컴포넌트
-const InterestBtns = ({
-  interests,
-  type,
-  onCilckInterest,
-  setClickInterest,
-}) => {
-  return (
-    <InterestBtnWrap>
-      {interests.map((interest) => {
-        if (interest.type == type) {
-          return (
-            <InterestBtn
-              key={interest.name}
-              onPress={() => {
-                interest.active = !interest.active;
-                setClickInterest(!onCilckInterest);
-              }}
-              style={{
-                backgroundColor: interest.active ? "#ff9810" : "#f3f3f3",
-              }}
-            >
-              <InteretText style={{ color: interest.active ? "#fff" : "#000" }}>
-                {interest.name}
-              </InteretText>
-            </InterestBtn>
-          );
-        }
-      })}
-    </InterestBtnWrap>
-  );
-};
-
 const EditCard = () => {
   const navigation = useNavigation();
 
@@ -188,9 +108,10 @@ const EditCard = () => {
     { type: 5, name: "🕊️ 봉사", active: false },
   ]);
 
-  // 관심사 버튼 클릭 여부 : 리렌더링을 목적으로 함
+  // 관심사 버튼 클릭 여부 state : 리렌더링을 목적으로 함
   const [onCilckInterest, setClickInterest] = useState(false);
 
+  // 저장 버튼 클릭 여부 state
   const [onClickSave, setClickSave] = useState(false);
 
   return (
@@ -320,6 +241,86 @@ const EditCard = () => {
 };
 
 export default EditCard;
+
+// 인풋 컴포넌트
+const CardDataInput = (props) => {
+  if (props.half) {
+    return (
+      <>
+        <InputTitle>{props.title}</InputTitle>
+        <InputsWrap>
+          <InputWrap half={true}>
+            <Input
+              value={props.value[0]}
+              placeholder={props.placeholder[0]}
+              onChangeText={props.onChangeText[0]}
+              placeholderTextColor={"#c0c0c0"}
+            ></Input>
+          </InputWrap>
+          <AtSignText>@</AtSignText>
+          <InputWrap half={true}>
+            <Input
+              value={props.value[1]}
+              placeholder={props.placeholder[1]}
+              onChangeText={props.onChangeText[1]}
+              placeholderTextColor={"#c0c0c0"}
+            ></Input>
+          </InputWrap>
+        </InputsWrap>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <InputTitle>{props.title}</InputTitle>
+        <InputWrap>
+          <Input
+            value={props.value}
+            placeholder={props.placeholder}
+            onChangeText={props.onChangeText}
+            editable={props.editable}
+            multiline={props.multiline}
+            maxLength={props.maxLength}
+            placeholderTextColor={"#c0c0c0"}
+          ></Input>
+        </InputWrap>
+      </>
+    );
+  }
+};
+
+// 관심사 키워드 버튼 컴포넌트
+const InterestBtns = ({
+  interests,
+  type,
+  onCilckInterest,
+  setClickInterest,
+}) => {
+  return (
+    <InterestBtnWrap>
+      {interests.map((interest) => {
+        if (interest.type == type) {
+          return (
+            <InterestBtn
+              key={interest.name}
+              onPress={() => {
+                interest.active = !interest.active;
+                setClickInterest(!onCilckInterest);
+              }}
+              style={{
+                backgroundColor: interest.active ? "#ff9810" : "#f3f3f3",
+              }}
+            >
+              <InteretText style={{ color: interest.active ? "#fff" : "#000" }}>
+                {interest.name}
+              </InteretText>
+            </InterestBtn>
+          );
+        }
+      })}
+    </InterestBtnWrap>
+  );
+};
 
 const Container = styled.View`
   flex: 1;
