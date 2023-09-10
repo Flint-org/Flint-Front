@@ -6,6 +6,7 @@ import * as DocumentPicker from "expo-document-picker";
 import { LinearGradient } from "expo-linear-gradient";
 
 import BackArrowSvg from "../../../assets/images/back_arrow.svg";
+import ArrowDownSvg from "../../../assets/images/arrow_down.svg";
 import LogoSvg from "../../../assets/images/logo_symbol_white.svg";
 import PlusSvg from "../../../assets/images/plus.svg";
 import AlertModal from "../../../components/common/AlertModal";
@@ -19,53 +20,6 @@ import AlertModal from "../../../components/common/AlertModal";
  * 저장 버튼 클릭시 데이터 저장
  * 저장 버튼 클릭시 내명함에 반영
  */
-
-// 인풋 컴포넌트
-const CardDataInput = (props) => {
-  if (props.half) {
-    return (
-      <>
-        <InputTitle>{props.title}</InputTitle>
-        <InputsWrap>
-          <InputWrap half={true}>
-            <Input
-              value={props.value[0]}
-              placeholder={props.placeholder[0]}
-              onChangeText={props.onChangeText[0]}
-              placeholderTextColor={"#c0c0c0"}
-            ></Input>
-          </InputWrap>
-          <AtSignText>@</AtSignText>
-          <InputWrap half={true}>
-            <Input
-              value={props.value[1]}
-              placeholder={props.placeholder[1]}
-              onChangeText={props.onChangeText[1]}
-              placeholderTextColor={"#c0c0c0"}
-            ></Input>
-          </InputWrap>
-        </InputsWrap>
-      </>
-    );
-  } else {
-    return (
-      <>
-        <InputTitle>{props.title}</InputTitle>
-        <InputWrap>
-          <Input
-            value={props.value}
-            placeholder={props.placeholder}
-            onChangeText={props.onChangeText}
-            editable={props.editable}
-            multiline={props.multiline}
-            maxLength={props.maxLength}
-            placeholderTextColor={"#c0c0c0"}
-          ></Input>
-        </InputWrap>
-      </>
-    );
-  }
-};
 
 const EditCard = () => {
   const navigation = useNavigation();
@@ -103,23 +57,74 @@ const EditCard = () => {
   const [introduction, setIntroduction] = useState("");
   const [mbti, setMbti] = useState("");
   const [sns, setSns] = useState("");
+  const [interestTitle, setInterestTitle] = useState([
+    "엔터테인먼트 및 문화예술",
+    "운동 및 피트니스",
+    "취미 및 창작",
+    "패션 및 뷰티",
+    "여행 및 레저",
+    "라이프스타일",
+  ]);
   const [interests, setInterests] = useState([
-    { name: "맛집 탐방", active: false },
-    { name: "전시회 관람", active: false },
-    { name: "게임", active: false },
-    { name: "산책", active: false },
-    { name: "스포츠", active: false },
+    { type: 0, name: "🎮 게임", active: false },
+    { type: 0, name: "🎥 영화", active: false },
+    { type: 0, name: "📺 드라마", active: false },
+    { type: 0, name: "🖼️ 전시회", active: false },
+    { type: 0, name: "🎞️ 애니메이션", active: false },
+    { type: 0, name: "🪩 콘서트", active: false },
+    { type: 0, name: "🎭 연극", active: false },
+    { type: 0, name: "🎟️ 뮤지컬", active: false },
+    { type: 0, name: "🗯️ 웹툰", active: false },
+    { type: 1, name: "🏃‍♂️ 런닝", active: false },
+    { type: 1, name: "🏋️ 헬스", active: false },
+    { type: 1, name: "🧘‍♂️ 요가", active: false },
+    { type: 1, name: "🧘 필라테스", active: false },
+    { type: 1, name: "⚽ 스포츠", active: false },
+    { type: 1, name: "🚶‍♀️ 산책", active: false },
+    { type: 1, name: "🚗 드라이브", active: false },
+    { type: 2, name: "📚 독서", active: false },
+    { type: 2, name: "🎨 그림그리기", active: false },
+    { type: 2, name: "🖋️ 글쓰기", active: false },
+    { type: 2, name: "🤸 댄스", active: false },
+    { type: 2, name: "🥁 악기 연주", active: false },
+    { type: 2, name: "🎧 노래 감상", active: false },
+    { type: 2, name: "🎤 노래 부르기", active: false },
+    { type: 2, name: "🍳 요리", active: false },
+    { type: 2, name: "📸 사진 찍기", active: false },
+    { type: 3, name: "🛍️ 쇼핑", active: false },
+    { type: 3, name: "🕶️ 패션", active: false },
+    { type: 3, name: "💄 뷰티", active: false },
+    { type: 4, name: "🛩️ 여행", active: false },
+    { type: 4, name: "⛷️ 스키", active: false },
+    { type: 4, name: "🍜 맛집 탐방", active: false },
+    { type: 4, name: "🌊 빠지", active: false },
+    { type: 4, name: "🤿 스노쿨링", active: false },
+    { type: 5, name: "🍺 술", active: false },
+    { type: 5, name: "🥐 카페", active: false },
+    { type: 5, name: "🥰 덕질", active: false },
+    { type: 5, name: "📝 자기계발", active: false },
+    { type: 5, name: "🐶 동물", active: false },
+    { type: 5, name: "🗞️ 사회이슈", active: false },
+    { type: 5, name: "🕊️ 봉사", active: false },
   ]);
 
-  // 관심사 버튼 클릭 여부 : 리렌더링을 목적으로 함
+  // 관심사 버튼 클릭 여부 state : 리렌더링을 목적으로 함
   const [onCilckInterest, setClickInterest] = useState(false);
 
+  // 저장 버튼 클릭 여부 state
   const [onClickSave, setClickSave] = useState(false);
+
+  // 관심사 드롭다운 클릭 여부 state
+  const [onClickDropdown, setClickDropdown] = useState(false);
 
   return (
     <Container>
       <HeaderSection>
-        <PrevPageBtn onPress={() => navigation.goBack()}>
+        <PrevPageBtn
+          onPress={() =>
+            navigation.navigate("BottomTabs", { screen: "MyCard" })
+          }
+        >
           <WithLocalSvg
             width={20}
             height={20}
@@ -214,24 +219,28 @@ const EditCard = () => {
           placeholder={"SNS 계정을 입력하세요."}
         />
         <InputTitle>관심사</InputTitle>
-        <InterestBtnWrap>
-          {interests.map((interest) => (
-            <InterestBtn
-              key={interest.name}
-              onPress={() => {
-                interest.active = !interest.active;
-                setClickInterest(!onCilckInterest);
-              }}
-              style={{
-                backgroundColor: interest.active ? "#ff9810" : "#f3f3f3",
-              }}
-            >
-              <InteretText style={{ color: interest.active ? "#fff" : "#000" }}>
-                {interest.name}
-              </InteretText>
-            </InterestBtn>
-          ))}
-        </InterestBtnWrap>
+        <InterestsWrap>
+          <ArrowIconWrap
+            onPress={() => setClickDropdown(!onClickDropdown)}
+            rotate={onClickDropdown}
+          >
+            <WithLocalSvg width={20} height={20} asset={ArrowDownSvg} />
+          </ArrowIconWrap>
+          {onClickDropdown &&
+            interestTitle.map((title, index) => {
+              return (
+                <>
+                  <InterestTitle>{title}</InterestTitle>
+                  <InterestBtns
+                    interests={interests}
+                    type={index}
+                    onCilckInterest={onCilckInterest}
+                    setClickInterest={setClickInterest}
+                  />
+                </>
+              );
+            })}
+        </InterestsWrap>
       </MainSection>
       {onClickSave && (
         <AlertModal
@@ -244,6 +253,86 @@ const EditCard = () => {
 };
 
 export default EditCard;
+
+// 인풋 컴포넌트
+const CardDataInput = (props) => {
+  if (props.half) {
+    return (
+      <>
+        <InputTitle>{props.title}</InputTitle>
+        <InputsWrap>
+          <InputWrap half={true}>
+            <Input
+              value={props.value[0]}
+              placeholder={props.placeholder[0]}
+              onChangeText={props.onChangeText[0]}
+              placeholderTextColor={"#c0c0c0"}
+            ></Input>
+          </InputWrap>
+          <AtSignText>@</AtSignText>
+          <InputWrap half={true}>
+            <Input
+              value={props.value[1]}
+              placeholder={props.placeholder[1]}
+              onChangeText={props.onChangeText[1]}
+              placeholderTextColor={"#c0c0c0"}
+            ></Input>
+          </InputWrap>
+        </InputsWrap>
+      </>
+    );
+  } else {
+    return (
+      <>
+        <InputTitle>{props.title}</InputTitle>
+        <InputWrap>
+          <Input
+            value={props.value}
+            placeholder={props.placeholder}
+            onChangeText={props.onChangeText}
+            editable={props.editable}
+            multiline={props.multiline}
+            maxLength={props.maxLength}
+            placeholderTextColor={"#c0c0c0"}
+          ></Input>
+        </InputWrap>
+      </>
+    );
+  }
+};
+
+// 관심사 키워드 버튼 컴포넌트
+const InterestBtns = ({
+  interests,
+  type,
+  onCilckInterest,
+  setClickInterest,
+}) => {
+  return (
+    <InterestBtnWrap>
+      {interests.map((interest) => {
+        if (interest.type == type) {
+          return (
+            <InterestBtn
+              key={interest.name}
+              onPress={() => {
+                interest.active = !interest.active;
+                setClickInterest(!onCilckInterest);
+              }}
+              style={{
+                backgroundColor: interest.active ? "#ff9810" : "#fff",
+              }}
+            >
+              <InteretText style={{ color: interest.active ? "#fff" : "#000" }}>
+                {interest.name}
+              </InteretText>
+            </InterestBtn>
+          );
+        }
+      })}
+    </InterestBtnWrap>
+  );
+};
 
 const Container = styled.View`
   flex: 1;
@@ -345,6 +434,26 @@ const Input = styled.TextInput`
   color: #000;
   font-weight: 500;
 `;
+const InterestsWrap = styled.View`
+  display: flex;
+  gap: 20px;
+  background-color: #f3f3f3;
+  border-radius: 5px;
+  margin-bottom: 6%;
+  padding: 4% 5%;
+`;
+const ArrowIconWrap = styled.TouchableOpacity`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  transform: ${(props) => (props.rotate ? "rotate(180deg)" : "rotate(0deg)")};
+`;
+const InterestTitle = styled.Text`
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: 500;
+`;
 const InterestBtnWrap = styled.View`
   display: flex;
   flex-direction: row;
@@ -353,7 +462,7 @@ const InterestBtnWrap = styled.View`
 `;
 const InterestBtn = styled.TouchableOpacity`
   padding: 10px 15px;
-  border-radius: 5px;
+  border-radius: 30px;
 `;
 const InteretText = styled.Text`
   font-size: 16px;
