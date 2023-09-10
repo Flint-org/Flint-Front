@@ -460,6 +460,7 @@ const InterestBtnWrap = styled.View`
   flex-direction: row;
   flex-wrap: wrap;
   gap: 15px;
+  margin-bottom: 5%;
 `;
 const InterestBtn = styled.TouchableOpacity`
   padding: 10px 15px;
