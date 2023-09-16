@@ -38,7 +38,7 @@ const ClipSection = styled.View`
   align-items: center;
 `;
 
-const AuthorInfo = ({ postData }) => {
+const AuthorInfo = ({ postData, isComment }) => {
   return (
     <Container>
       <WithLocalSvg height={50} width={50} asset={LogoSVG} />
@@ -49,8 +49,12 @@ const AuthorInfo = ({ postData }) => {
             <MajorText>{postData.major}</MajorText>
           </ClipSection>
           <ClipSection>
-            <WithLocalSvg asset={StarSVG} width={15} height={15} />
-            <Text>스크랩</Text>
+            {!isComment && (
+              <>
+                <WithLocalSvg asset={StarSVG} width={15} height={15} />
+                <Text>스크랩</Text>
+              </>
+            )}
           </ClipSection>
         </AuthorSection>
         <Text style={{ color: "gray" }}>
