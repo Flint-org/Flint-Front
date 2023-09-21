@@ -1,17 +1,16 @@
 import React from "react";
 import styled from "styled-components/native";
 import { WithLocalSvg } from "react-native-svg";
+import { Entypo } from "@expo/vector-icons";
 
 import LogoSVG from "../../../../assets/images/flint_logo.svg";
-import StarSVG from "../../../../assets/images/heart.svg";
-import { View } from "react-native";
 
 const Container = styled.View`
-  width: 390px;
+  width: auto;
   height: 80px;
   justify-content: center;
   align-items: center;
-  padding: 45px 30px;
+  //padding: 45px 30px;
   flex-direction: row;
 `;
 const InfoWrap = styled.View`
@@ -51,8 +50,16 @@ const AuthorInfo = ({ postData, isComment }) => {
           <ClipSection>
             {!isComment && (
               <>
-                <WithLocalSvg asset={StarSVG} width={15} height={15} />
-                <Text>스크랩</Text>
+                <Entypo
+                  name="star-outlined"
+                  size={16}
+                  color="rgba(160, 160, 160, 1)"
+                />
+                <Text
+                  style={{ marginLeft: 5, color: "rgba(160, 160, 160, 1)" }}
+                >
+                  스크랩
+                </Text>
               </>
             )}
           </ClipSection>
