@@ -37,7 +37,6 @@ const BtnWrap = styled.View`
   flex-direction: row;
   justify-content: space-between;
   margin-top: 20px;
-  padding: 0px 20px;
 `;
 const Btn = styled.TouchableOpacity`
   flex-direction: row;
@@ -61,8 +60,8 @@ const BoardDetail = ({ route }) => {
   const [text, onChangeText] = useState("");
   return (
     <Container>
+      <BoardDetailHeader title={postData.type} subTitle={postData.type} />
       <Board>
-        <BoardDetailHeader title={postData.type} subTitle={postData.type} />
         <BoardWrap>
           <AuthorInfo postData={postData} isComment={false} />
           <ContentWrap>
@@ -131,6 +130,17 @@ const BoardDetail = ({ route }) => {
                     <View>
                       <Content>{commentData.content}</Content>
                     </View>
+                    <BtnWrap>
+                      <Btn>
+                        <WithLocalSvg
+                          asset={HeartSVG}
+                          height={16}
+                          width={16}
+                          fill={"rgba(160, 160, 160, 1)"}
+                        />
+                        <BtnText>좋아요</BtnText>
+                      </Btn>
+                    </BtnWrap>
                   </View>
                 </NestedCommentWrap>
               </ContentWrap>
