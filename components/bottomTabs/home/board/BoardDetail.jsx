@@ -19,11 +19,12 @@ const Text = styled.Text``;
 const BoardWrap = styled.View``;
 const ContentWrap = styled.View`
   padding: 0px 30px;
-  padding-bottom: 20px;
+`;
+const CommentWrap = styled.View`
   border-color: rgba(217, 217, 217, 1);
   border-bottom-width: 1px;
+  padding-bottom: 20px;
 `;
-const CommentWrap = styled.View``;
 const Title = styled.Text`
   font-weight: 700;
   font-size: 18px;
@@ -54,6 +55,8 @@ const CommentBtnWrap = styled.View`
 const NestedCommentWrap = styled.View`
   flex-direction: row;
   padding-top: 15px;
+  padding-left: 24px;
+  padding-right: 24px;
 `;
 const BoardDetail = ({ route }) => {
   const { postData } = route.params;
@@ -121,29 +124,33 @@ const BoardDetail = ({ route }) => {
                     <BtnText>답글쓰기</BtnText>
                   </Btn>
                 </CommentBtnWrap>
-                <NestedCommentWrap>
-                  <View>
-                    <WithLocalSvg asset={Stroke} height={24} width={24} />
-                  </View>
-                  <View>
-                    <AuthorInfo postData={commentData} isComment={true} />
-                    <View>
-                      <Content>{commentData.content}</Content>
-                    </View>
-                    <BtnWrap>
-                      <Btn>
-                        <WithLocalSvg
-                          asset={HeartSVG}
-                          height={16}
-                          width={16}
-                          fill={"rgba(160, 160, 160, 1)"}
-                        />
-                        <BtnText>좋아요</BtnText>
-                      </Btn>
-                    </BtnWrap>
-                  </View>
-                </NestedCommentWrap>
               </ContentWrap>
+              <NestedCommentWrap>
+                <View>
+                  <WithLocalSvg asset={Stroke} height={24} width={24} />
+                </View>
+                <View style={{ paddingRight: 24 }}>
+                  <AuthorInfo
+                    postData={commentData}
+                    isComment={true}
+                    isNested={true}
+                  />
+                  <View>
+                    <Content>{commentData.content}</Content>
+                  </View>
+                  <BtnWrap>
+                    <Btn>
+                      <WithLocalSvg
+                        asset={HeartSVG}
+                        height={16}
+                        width={16}
+                        fill={"rgba(160, 160, 160, 1)"}
+                      />
+                      <BtnText>좋아요</BtnText>
+                    </Btn>
+                  </BtnWrap>
+                </View>
+              </NestedCommentWrap>
             </CommentWrap>
           );
         })}

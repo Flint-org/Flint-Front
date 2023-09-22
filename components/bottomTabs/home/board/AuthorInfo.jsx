@@ -4,6 +4,8 @@ import { WithLocalSvg } from "react-native-svg";
 import { Entypo } from "@expo/vector-icons";
 
 import LogoSVG from "../../../../assets/images/flint_logo.svg";
+import { useDispatch, useSelector } from "react-redux";
+import bottomSheetSlice from "../../../../redux_modules/slice/bottomSheetSlice";
 
 const Container = styled.View`
   width: auto;
@@ -12,10 +14,12 @@ const Container = styled.View`
   align-items: center;
   //padding: 45px 30px;
   flex-direction: row;
+  //border: 1px solid red;
 `;
 const InfoWrap = styled.View`
   width: 280px;
   height: 50px;
+  //border: 1px solid red;
 `;
 const Text = styled.Text`
   font-size: 14px;
@@ -36,8 +40,31 @@ const ClipSection = styled.View`
   flex-direction: row;
   align-items: center;
 `;
+const DotMenu = styled.TouchableOpacity`
+  position: absolute;
+  right: ${(props) => {
+    return props.isNested ? "15px" : "0px";
+  }};
+`;
 
-const AuthorInfo = ({ postData, isComment }) => {
+const AuthorInfo = ({ postData, isComment, isNested }) => {
+  const bottomSheetRef = useSelector((state) => {
+    return state.bottomSheet.bottomSheetRef;
+  });
+  const dispatch = useDispatch();
+  const menuBtnOnPress = () => {
+    dispatch(
+      bottomSheetSlice.actions.updateObj({
+        text_1: "신고하기",
+        onPress_1: () => {
+          console.log("신고");
+          bottomSheetRef.close();
+        },
+      })
+    );
+    bottomSheetRef.snapToIndex(0);
+  };
+
   return (
     <Container>
       <WithLocalSvg height={50} width={50} asset={LogoSVG} />
@@ -48,7 +75,15 @@ const AuthorInfo = ({ postData, isComment }) => {
             <MajorText>{postData.major}</MajorText>
           </ClipSection>
           <ClipSection>
-            {!isComment && (
+            {isComment ? (
+              <DotMenu isNested={isNested} onPress={menuBtnOnPress}>
+                <Entypo
+                  name="dots-three-horizontal"
+                  size={16}
+                  color="rgba(160, 160, 160, 1)"
+                />
+              </DotMenu>
+            ) : (
               <>
                 <Entypo
                   name="star-outlined"
