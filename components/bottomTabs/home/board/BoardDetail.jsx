@@ -16,7 +16,11 @@ const Container = styled.View`
 `;
 const Board = styled.ScrollView``;
 const Text = styled.Text``;
-const BoardWrap = styled.View``;
+const BoardWrap = styled.View`
+  border-color: rgba(217, 217, 217, 1);
+  border-bottom-width: 1px;
+  padding-bottom: 20px;
+`;
 const ContentWrap = styled.View`
   padding: 0px 30px;
 `;
