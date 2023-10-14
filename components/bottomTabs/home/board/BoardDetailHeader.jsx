@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import BackArrowSvg from "../../../../assets/images/back_arrow.svg";
 
-const BoardHeader = ({ title }) => {
+const BoardDetailHeader = ({ title, subTitle }) => {
   const Header = styled.View`
     display: flex;
     flex-direction: row;
@@ -30,8 +30,12 @@ const BoardHeader = ({ title }) => {
   `;
   const Title = styled.Text`
     font-weight: 700;
-    font-size: 20px;
+    font-size: 18px;
     color: #000;
+  `;
+  const SubTitle = styled.Text`
+    font-size: 12px;
+    color: rgba(118, 118, 118, 1);
   `;
 
   const navigation = useNavigation();
@@ -52,9 +56,10 @@ const BoardHeader = ({ title }) => {
       </Btn>
       <TitleWrap>
         <Title>{title}</Title>
+        <SubTitle>{subTitle}</SubTitle>
       </TitleWrap>
     </Header>
   );
 };
 
-export default BoardHeader;
+export default BoardDetailHeader;

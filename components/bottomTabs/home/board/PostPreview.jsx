@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { WithLocalSvg } from "react-native-svg";
+import { useNavigation } from "@react-navigation/native";
 
 import HeartSvg from "../../../../assets/images/heart.svg";
 import CommentSvg from "../../../../assets/images/comment.svg";
 import StarSvg from "../../../../assets/images/star.svg";
 
 const PostPreview = ({ postData }) => {
+  const nav = useNavigation();
   // 현재 년도, 월, 일, 시, 분 가져오는 state
   const today = new Date();
   const [year, setYear] = useState(0);
@@ -44,7 +46,14 @@ const PostPreview = ({ postData }) => {
   }, [today]);
 
   return (
-    <PostContainer>
+    <PostContainer
+      onPress={() =>
+        nav.push("Stack", {
+          screen: "BoardDetail",
+          params: { postData },
+        })
+      }
+    >
       <PostDetailWrap>
         <PostContentWrap>
           <PostTitle>{postData?.title}</PostTitle>
