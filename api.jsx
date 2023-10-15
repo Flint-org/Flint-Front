@@ -12,3 +12,6 @@ export const majorList = async (univName, className) =>
   await axios.get(
     `${BASE_URL}/api/v1/assets/majors?universityName=${univName}&largeClass=${className}`
   );
+
+export const univEmail = async (univName) =>
+  await axios.get(`${BASE_URL}/api/v1/assets/email/${univName}`);

@@ -6,7 +6,6 @@ import axios from "axios";
 
 import SignupHeader from "../../../components/signup/SignupHeader";
 import StartPage from "./StartPage";
-import EmailVerificationPage from "./EmailVerificationPage";
 import InfoDropdown from "../../../components/signup/InfoDropdown";
 import OrangeNextBtn from "../../../components/common/OrangeNextBtn";
 import { useQuery } from "react-query";
@@ -16,9 +15,9 @@ import { classList, univList, majorList } from "../../../api";
  * 입학년도 입력 dropdown (O)
  * 학교 입력 searchable dropdown (O)
  * 학과 입력 searchable dropdown (O)
- * 년도 데이터
- * 학교 데이터
- * 학과 데이터
+ * 년도 데이터 (0)
+ * 학교 데이터 (0)
+ * 학과 데이터 (0)
  * 사용자가 선택한 데이터 보내기
  */
 
@@ -88,22 +87,9 @@ const DetailsInfoPage = () => {
     error,
   } = useQuery("univList", univList);
 
-  //FIXME: 데이터 교체 필요
   // 학과 dropdown에 대한 state
-  const [majorLoading, setMajorLoading] = useState(false);
-  const [majorOpen, setMajorOpen] = useState(false);
   const [classOpen, setClassOpen] = useState(false);
-  const [majorValue, setMajorValue] = useState(null);
   const [classValue, setClassValue] = useState(null);
-  const [majorItems, setMajorItems] = useState([
-    { label: "기계공학과", value: "기계공학과" },
-    { label: "소프트웨어학과", value: "소프트웨어학과" },
-    { label: "전자공학과", value: "전자공학과" },
-    { label: "미디어학과", value: "미디어학과" },
-    { label: "산업공학과", value: "산업공학과" },
-    { label: "사이버보안학과", value: "사이버보안학과" },
-    { label: "국방디지털융합학과", value: "국방디지털융합학과" },
-  ]);
   const { isLoading: classListLoading, data: classListData } = useQuery(
     ["classList", univValue],
     () => classList(univValue),
@@ -111,6 +97,11 @@ const DetailsInfoPage = () => {
       enabled: !!univValue,
     }
   );
+
+  const [majorLoading, setMajorLoading] = useState(false);
+  const [majorOpen, setMajorOpen] = useState(false);
+  const [majorValue, setMajorValue] = useState(null);
+  const [majorItems, setMajorItems] = useState([]);
   const { isLoading: majorListLoading, data: majorListData } = useQuery(
     ["majorList", univValue, classValue],
     () => majorList(univValue, classValue),
@@ -118,12 +109,6 @@ const DetailsInfoPage = () => {
       enabled: !!classValue,
     }
   );
-  useEffect(() => {
-    if (majorListData) {
-      console.log(univValue);
-      console.log(majorListData.data.data.majors);
-    }
-  }, [majorListData]);
 
   // 다른 dropdown 열리면 나머지 닫히도록 설정
   const onYearOpen = useCallback(() => {
@@ -267,7 +252,9 @@ const DetailsInfoPage = () => {
               univValue !== null &&
               classValue !== null &&
               majorValue !== null &&
-              navigation.navigate(EmailVerificationPage);
+              navigation.navigate("EmailVerificationPage", {
+                univName: univValue,
+              });
           }}
         />
       </MainSection>
