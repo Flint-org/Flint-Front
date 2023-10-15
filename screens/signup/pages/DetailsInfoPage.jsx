@@ -2,12 +2,15 @@ import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import axios from "axios";
 
 import SignupHeader from "../../../components/signup/SignupHeader";
 import StartPage from "./StartPage";
 import EmailVerificationPage from "./EmailVerificationPage";
 import InfoDropdown from "../../../components/signup/InfoDropdown";
 import OrangeNextBtn from "../../../components/common/OrangeNextBtn";
+import { useQuery } from "react-query";
+import { univList } from "../../../api";
 
 /* TODO: 전체 완료 시 삭제
  * 입학년도 입력 dropdown (O)
@@ -68,20 +71,16 @@ const DetailsInfoPage = () => {
   const [yearValue, setYearValue] = useState(null);
   const [yearItems, setYearItems] = useState([]);
 
-  //FIXME: 데이터 교체 필요
   // 학교 dropdown에 대한 state
   const [univLoading, setUnivLoading] = useState(false);
   const [univOpen, setUnivOpen] = useState(false);
   const [univValue, setUnivValue] = useState(null);
-  const [univItems, setUnivItems] = useState([
-    { label: "aa대학교", value: "aa대학교" },
-    { label: "bb대학교", value: "bb대학교" },
-    { label: "cc대학교", value: "cc대학교" },
-    { label: "dd대학교", value: "dd대학교" },
-    { label: "ee대학교", value: "ee대학교" },
-    { label: "ff대학교", value: "ff대학교" },
-    { label: "gg대학교", value: "gg대학교" },
-  ]);
+  const [univItems, setUnivItems] = useState([]);
+  const {
+    isLoading: univListLoading,
+    data: univListData,
+    error,
+  } = useQuery("univList", univList);
 
   //FIXME: 데이터 교체 필요
   // 학과 dropdown에 대한 state
@@ -127,8 +126,10 @@ const DetailsInfoPage = () => {
     setYearItems(setYearData);
   }, []);
 
+  const isLoading = univListLoading;
+
   // FIXME: dropdown들에 적용된 아이콘 변경 필요
-  return (
+  return isLoading ? null : (
     <Container>
       <SignupHeader prevPage={StartPage} onPrevBtn={false} />
       <MainSection>
@@ -139,7 +140,10 @@ const DetailsInfoPage = () => {
             loading={univLoading}
             open={univOpen}
             value={univValue}
-            items={univItems}
+            items={univListData.data.data.map((item) => ({
+              label: item,
+              value: item,
+            }))}
             setOpen={setUnivOpen}
             setValue={setUnivValue}
             setItems={setUnivItems}
