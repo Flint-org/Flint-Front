@@ -10,7 +10,7 @@ import EmailVerificationPage from "./EmailVerificationPage";
 import InfoDropdown from "../../../components/signup/InfoDropdown";
 import OrangeNextBtn from "../../../components/common/OrangeNextBtn";
 import { useQuery } from "react-query";
-import { univList } from "../../../api";
+import { classList, univList, majorList } from "../../../api";
 
 /* TODO: 전체 완료 시 삭제
  * 입학년도 입력 dropdown (O)
@@ -37,15 +37,21 @@ const ContentWrap1 = styled.View`
   display: flex;
   gap: 18px;
   margin-bottom: 6%;
-  ${Platform.OS == "ios" && "z-index: 3"};
+  ${Platform.OS == "ios" && "z-index: 4"};
 `;
 const ContentWrap2 = styled.View`
   display: flex;
   gap: 18px;
   margin-bottom: 6%;
-  ${Platform.OS == "ios" && "z-index: 2"};
+  ${Platform.OS == "ios" && "z-index: 3"};
 `;
 const ContentWrap3 = styled.View`
+  display: flex;
+  gap: 18px;
+  ${Platform.OS == "ios" && "z-index: 2"};
+  margin-bottom: 10%;
+`;
+const ContentWrap4 = styled.View`
   display: flex;
   gap: 18px;
   ${Platform.OS == "ios" && "z-index: 1"};
@@ -86,7 +92,9 @@ const DetailsInfoPage = () => {
   // 학과 dropdown에 대한 state
   const [majorLoading, setMajorLoading] = useState(false);
   const [majorOpen, setMajorOpen] = useState(false);
+  const [classOpen, setClassOpen] = useState(false);
   const [majorValue, setMajorValue] = useState(null);
+  const [classValue, setClassValue] = useState(null);
   const [majorItems, setMajorItems] = useState([
     { label: "기계공학과", value: "기계공학과" },
     { label: "소프트웨어학과", value: "소프트웨어학과" },
@@ -96,24 +104,52 @@ const DetailsInfoPage = () => {
     { label: "사이버보안학과", value: "사이버보안학과" },
     { label: "국방디지털융합학과", value: "국방디지털융합학과" },
   ]);
+  const { isLoading: classListLoading, data: classListData } = useQuery(
+    ["classList", univValue],
+    () => classList(univValue),
+    {
+      enabled: !!univValue,
+    }
+  );
+  const { isLoading: majorListLoading, data: majorListData } = useQuery(
+    ["majorList", univValue, classValue],
+    () => majorList(univValue, classValue),
+    {
+      enabled: !!classValue,
+    }
+  );
+  useEffect(() => {
+    if (majorListData) {
+      console.log(univValue);
+      console.log(majorListData.data.data.majors);
+    }
+  }, [majorListData]);
 
   // 다른 dropdown 열리면 나머지 닫히도록 설정
   const onYearOpen = useCallback(() => {
     setUnivOpen(false);
     setMajorOpen(false);
+    setClassOpen(false);
   }, []);
   const onUnivOpen = useCallback(() => {
     setYearOpen(false);
     setMajorOpen(false);
+    setClassOpen(false);
   }, []);
   const onMajorOpen = useCallback(() => {
     setYearOpen(false);
     setUnivOpen(false);
+    setClassOpen(false);
+  }, []);
+  const onClassOpen = useCallback(() => {
+    setYearOpen(false);
+    setUnivOpen(false);
+    setMajorOpen(false);
   }, []);
 
   // retrun: 1980년부터 2023년까지의 년도 데이터를 반환
   const setYearData = () => {
-    let year = 1980;
+    let year = 2010;
     const yearItems = [];
     while (year < 2024) {
       yearItems.push({ label: year, value: year });
@@ -135,6 +171,21 @@ const DetailsInfoPage = () => {
       <MainSection>
         <Title>학교 및 학과 선택</Title>
         <ContentWrap1>
+          <SubTitle>입학년도</SubTitle>
+          <InfoDropdown
+            loading={yearLoading}
+            open={yearOpen}
+            value={yearValue}
+            items={yearItems}
+            setOpen={setYearOpen}
+            setValue={setYearValue}
+            setItems={setYearItems}
+            onOpen={onYearOpen}
+            placeholder={"입학년도를 입력하세요."}
+            zIndex={1}
+          />
+        </ContentWrap1>
+        <ContentWrap2>
           <SubTitle>학교</SubTitle>
           <InfoDropdown
             loading={univLoading}
@@ -151,42 +202,56 @@ const DetailsInfoPage = () => {
             searchable={true}
             placeholder={"학교 이름을 입력하세요."}
             searchPlaceholder={"검색"}
-            zIndex={3}
+            zIndex={2}
             addCustomItem={true}
           />
-        </ContentWrap1>
-        <ContentWrap2>
-          <SubTitle>학과</SubTitle>
-          <InfoDropdown
-            loading={majorLoading}
-            open={majorOpen}
-            value={majorValue}
-            items={majorItems}
-            setOpen={setMajorOpen}
-            setValue={setMajorValue}
-            setItems={setMajorItems}
-            onOpen={onMajorOpen}
-            searchable={true}
-            placeholder={"학과 이름을 입력하세요."}
-            searchPlaceholder={"검색"}
-            zIndex={2}
-          />
         </ContentWrap2>
-        <ContentWrap3>
-          <SubTitle>입학년도</SubTitle>
-          <InfoDropdown
-            loading={yearLoading}
-            open={yearOpen}
-            value={yearValue}
-            items={yearItems}
-            setOpen={setYearOpen}
-            setValue={setYearValue}
-            setItems={setYearItems}
-            onOpen={onYearOpen}
-            placeholder={"입학년도를 입력하세요."}
-            zIndex={1}
-          />
-        </ContentWrap3>
+        {classListData && (
+          <>
+            <ContentWrap3>
+              <SubTitle>학과</SubTitle>
+              <InfoDropdown
+                loading={majorLoading}
+                open={majorOpen}
+                value={classValue}
+                items={classListData.data.data.map((item) => ({
+                  label: item,
+                  value: item,
+                }))}
+                setOpen={setMajorOpen}
+                setValue={setClassValue}
+                setItems={setMajorItems}
+                onOpen={onMajorOpen}
+                searchable={true}
+                placeholder={"계열을 선택해주세요."}
+                searchPlaceholder={"검색"}
+                zIndex={3}
+              />
+            </ContentWrap3>
+            {classValue && majorListData && (
+              <ContentWrap4>
+                <InfoDropdown
+                  loading={majorLoading}
+                  open={classOpen}
+                  value={majorValue}
+                  items={majorListData.data.data.majors.map((item) => ({
+                    label: item,
+                    value: item,
+                  }))}
+                  setOpen={setClassOpen}
+                  setValue={setMajorValue}
+                  setItems={setMajorItems}
+                  onOpen={onClassOpen}
+                  searchable={true}
+                  placeholder={"학과를 선택해주세요."}
+                  searchPlaceholder={"검색"}
+                  zIndex={4}
+                />
+              </ContentWrap4>
+            )}
+          </>
+        )}
+
         <OrangeNextBtn
           height={"50px"}
           width={"100%"}
@@ -200,6 +265,7 @@ const DetailsInfoPage = () => {
           onPress={() => {
             yearValue !== null &&
               univValue !== null &&
+              classValue !== null &&
               majorValue !== null &&
               navigation.navigate(EmailVerificationPage);
           }}
