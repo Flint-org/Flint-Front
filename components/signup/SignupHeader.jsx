@@ -1,9 +1,9 @@
-import React from 'react';
-import styled from 'styled-components/native';
-import { WithLocalSvg } from 'react-native-svg';
-import { useNavigation } from '@react-navigation/native';
+import React from "react";
+import styled from "styled-components/native";
+import { WithLocalSvg } from "react-native-svg";
+import { useNavigation } from "@react-navigation/native";
 
-import BackArrowSvg from '../../assets/images/back_arrow.svg';
+import BackArrowSvg from "../../assets/images/back_arrow.svg";
 
 const SignupHeader = ({ prevPage, onPrevBtn = true }) => {
   const Header = styled.View`
@@ -26,7 +26,7 @@ const SignupHeader = ({ prevPage, onPrevBtn = true }) => {
   const TitleWrap = styled.View`
     flex: 1;
     align-items: center;
-    margin-right: ${onPrevBtn ? '30px' : '0'};
+    margin-right: ${onPrevBtn ? "30px" : "0"};
   `;
   const Title = styled.Text`
     font-weight: 700;
@@ -41,13 +41,13 @@ const SignupHeader = ({ prevPage, onPrevBtn = true }) => {
         <Btn
           tn
           onPress={() => {
-            navigation.navigate(prevPage);
+            navigation.goBack();
           }}
         >
           <WithLocalSvg
             width={20}
             height={20}
-            fill={'#000'}
+            fill={"#000"}
             asset={BackArrowSvg}
           />
         </Btn>
