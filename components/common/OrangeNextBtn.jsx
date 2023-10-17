@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components/native';
+import React from "react";
+import styled from "styled-components/native";
 
 /*
  * OrangeNextBtn 컴포넌트
@@ -13,7 +13,7 @@ const OrangeNextBtn = ({ height, width, fontSize, active, onPress, text }) => {
     justify-content: center;
     height: ${height};
     width: ${width};
-    background-color: ${active ? '#ff9810' : '#a0a0a0'};
+    background-color: ${active ? "#ff9810" : "#a0a0a0"};
     border-radius: 5px;
   `;
   const BtnText = styled.Text`
@@ -23,7 +23,7 @@ const OrangeNextBtn = ({ height, width, fontSize, active, onPress, text }) => {
   `;
 
   return (
-    <Btn onPress={onPress}>
+    <Btn onPress={onPress} disabled={!active}>
       <BtnText>{text}</BtnText>
     </Btn>
   );
