@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
 import { WithLocalSvg } from "react-native-svg";
@@ -10,8 +9,6 @@ import { useSelector } from "react-redux";
 import FlintLogoSvg from "../../../assets/images/flint_logo.svg";
 import KakaoLogoSvg from "../../../assets/images/kakao_logo.svg";
 import NaverLogoSvg from "../../../assets/images/naver_logo.svg";
-import DetailsInfoPage from "./DetailsInfoPage";
-
 const Container = styled.View`
   flex: 1;
   align-items: center;
@@ -78,7 +75,7 @@ const StartPage = () => {
   };
 
   useEffect(() => {
-    navigation.navigate(DetailsInfoPage);
+    navigation.navigate("DetailsInfoPage");
     console.log("accessToken: " + token);
   }, [token]);
 
