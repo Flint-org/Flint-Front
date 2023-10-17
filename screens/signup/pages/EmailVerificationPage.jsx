@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import styled from 'styled-components/native';
-import { useNavigation } from '@react-navigation/native';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components/native";
+import { useQuery } from "react-query";
 
-import DetailsInfoPage from './DetailsInfoPage';
-import SignupHeader from '../../../components/signup/SignupHeader';
-import OrangeNextBtn from '../../../components/common/OrangeNextBtn';
-import EmailVerificationPage2 from './EmailVerificationPage2';
-import CertificatePage from './CertificatePage';
+import DetailsInfoPage from "./DetailsInfoPage";
+import SignupHeader from "../../../components/signup/SignupHeader";
+import OrangeNextBtn from "../../../components/common/OrangeNextBtn";
+import EmailVerificationPage2 from "./EmailVerificationPage2";
+import CertificatePage from "./CertificatePage";
+import { univEmail } from "../../../api";
 
 /* TODO: 전체 완료 시 삭제
  * 이메일 입력 input 생성 (O)
@@ -64,6 +65,15 @@ const EmailInput = styled.TextInput`
   font-size: 16px;
   color: #000;
 `;
+const DomainBox = styled.View`
+  flex: 1;
+  justify-content: center;
+  text-align: center;
+`;
+const EmailView = styled.Text`
+  font-size: 16px;
+  color: #a0a0a0;
+`;
 const AtSignText = styled.Text`
   color: #a0a0a0;
   font-size: 16px;
@@ -79,16 +89,23 @@ const ChangePageText = styled.Text`
   font-size: 16px;
 `;
 
-const EmailVerificationPage = () => {
-  const navigation = useNavigation();
-
+const EmailVerificationPage = ({ route, navigation }) => {
+  const { univName } = route.params;
   // email state : local-parts@domain
-  const [localParts, setLocalParts] = useState('');
-  const [domain, setDomain] = useState('naver.com');
-
+  const [localParts, setLocalParts] = useState("");
+  const [domain, setDomain] = useState("");
+  const { data: univEmailData, isLoading } = useQuery(
+    ["univEmail", univName],
+    () => univEmail(univName)
+  );
+  useEffect(() => {
+    if (univEmailData) {
+      setDomain(univEmailData.data.data.emailSuffix);
+    }
+  }, [univEmailData]);
   // 인증번호 전송 버튼 onPress 함수
   const onBtnPress = () => {
-    if (localParts !== '' && domain !== '') {
+    if (localParts !== "" && domain !== "") {
       navigation.navigate(EmailVerificationPage2);
     }
   };
@@ -105,29 +122,28 @@ const EmailVerificationPage = () => {
               placeholder="이메일"
               onChangeText={setLocalParts}
               value={localParts}
-              keyboardType={'email-address'}
+              keyboardType={"email-address"}
             />
           </InpuStyleWrap>
           <AtSignText>@</AtSignText>
           <InpuStyleWrap>
-            <EmailInput
-              placeholder="도메인"
-              value={domain}
-              onChangeText={setDomain}
-              keyboardType={'email-address'}
-            />
+            <DomainBox>
+              <EmailView>{domain ? domain : "존재하지 않음"}</EmailView>
+            </DomainBox>
           </InpuStyleWrap>
         </InputWrap>
         <OrangeNextBtn
-          width={'100%'}
-          height={'50px'}
-          fontSize={'18px'}
-          active={localParts !== '' && setDomain !== '' ? true : false}
-          text={'인증번호 전송'}
+          width={"100%"}
+          height={"50px"}
+          fontSize={"18px"}
+          active={localParts !== "" && domain !== "" ? true : false}
+          text={"인증번호 전송"}
           onPress={onBtnPress}
         />
         <ChangePageBtn>
-          <ChangePageText onPress={() => navigation.navigate(CertificatePage)}>
+          <ChangePageText
+            onPress={() => navigation.navigate("CertificatePage")}
+          >
             학교 이메일이 없으신가요?
           </ChangePageText>
         </ChangePageBtn>

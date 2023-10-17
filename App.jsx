@@ -4,12 +4,15 @@ import Root from "./navigation/Root";
 import * as SplashScreen from "expo-splash-screen";
 import userSlice from "./redux_modules/slice/userSlice";
 import { useDispatch } from "react-redux";
+import { QueryClientProvider, QueryClient } from "react-query";
 
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import BottomSheetModal from "./components/common/BottomSheetModal";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 
 SplashScreen.preventAutoHideAsync();
+
+const queryClient = new QueryClient();
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
@@ -42,13 +45,15 @@ export default function App() {
   }
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <BottomSheetModalProvider>
-        <NavigationContainer onReady={onLayoutRootView}>
-          <Root />
-        </NavigationContainer>
-        <BottomSheetModal></BottomSheetModal>
-      </BottomSheetModalProvider>
-    </GestureHandlerRootView>
+    <QueryClientProvider client={queryClient}>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <BottomSheetModalProvider>
+          <NavigationContainer onReady={onLayoutRootView}>
+            <Root />
+          </NavigationContainer>
+          <BottomSheetModal></BottomSheetModal>
+        </BottomSheetModalProvider>
+      </GestureHandlerRootView>
+    </QueryClientProvider>
   );
 }
