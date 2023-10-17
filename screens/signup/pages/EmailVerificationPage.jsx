@@ -65,12 +65,14 @@ const EmailInput = styled.TextInput`
   font-size: 16px;
   color: #000;
 `;
-const EmailView = styled.TextInput`
-  width: 125px;
-  height: 50px;
-  overflow: hidden;
+const DomainBox = styled.View`
+  flex: 1;
+  justify-content: center;
+  text-align: center;
+`;
+const EmailView = styled.Text`
   font-size: 16px;
-  color: #000;
+  color: #a0a0a0;
 `;
 const AtSignText = styled.Text`
   color: #a0a0a0;
@@ -125,14 +127,16 @@ const EmailVerificationPage = ({ route, navigation }) => {
           </InpuStyleWrap>
           <AtSignText>@</AtSignText>
           <InpuStyleWrap>
-            <EmailView placeholder="도메인" value={domain} />
+            <DomainBox>
+              <EmailView>{domain ? domain : "존재하지 않음"}</EmailView>
+            </DomainBox>
           </InpuStyleWrap>
         </InputWrap>
         <OrangeNextBtn
           width={"100%"}
           height={"50px"}
           fontSize={"18px"}
-          active={localParts !== "" && setDomain !== "" ? true : false}
+          active={localParts !== "" && domain !== "" ? true : false}
           text={"인증번호 전송"}
           onPress={onBtnPress}
         />
