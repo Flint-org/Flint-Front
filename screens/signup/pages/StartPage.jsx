@@ -76,7 +76,7 @@ const StartPage = () => {
 
   useEffect(() => {
     navigation.navigate("DetailsInfoPage");
-    console.log("accessToken: " + token);
+    //console.log("accessToken: " + token);
   }, [token]);
 
   return (
