@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from "react";
 import styled from "styled-components/native";
-import { Platform } from "react-native";
+import { ActivityIndicator, Modal, Platform } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import axios from "axios";
 
@@ -10,6 +10,7 @@ import InfoDropdown from "../../../components/signup/InfoDropdown";
 import OrangeNextBtn from "../../../components/common/OrangeNextBtn";
 import { useQuery } from "react-query";
 import { classList, univList, majorList } from "../../../api";
+import Loader from "../../../components/common/Loader";
 
 /* TODO: 전체 완료 시 삭제
  * 입학년도 입력 dropdown (O)
@@ -147,11 +148,12 @@ const DetailsInfoPage = () => {
     setYearItems(setYearData);
   }, []);
 
-  const isLoading = univListLoading;
+  const isLoading = univListLoading || classListLoading || majorListLoading;
 
   // FIXME: dropdown들에 적용된 아이콘 변경 필요
-  return isLoading ? null : (
+  return (
     <Container>
+      <Loader visible={isLoading} />
       <SignupHeader prevPage={StartPage} onPrevBtn={false} />
       <MainSection>
         <Title>학교 및 학과 선택</Title>
@@ -170,27 +172,29 @@ const DetailsInfoPage = () => {
             zIndex={1}
           />
         </ContentWrap1>
-        <ContentWrap2>
-          <SubTitle>학교</SubTitle>
-          <InfoDropdown
-            loading={univLoading}
-            open={univOpen}
-            value={univValue}
-            items={univListData.data.data.map((item) => ({
-              label: item,
-              value: item,
-            }))}
-            setOpen={setUnivOpen}
-            setValue={setUnivValue}
-            setItems={setUnivItems}
-            onOpen={onUnivOpen}
-            searchable={true}
-            placeholder={"학교 이름을 입력하세요."}
-            searchPlaceholder={"검색"}
-            zIndex={2}
-            addCustomItem={true}
-          />
-        </ContentWrap2>
+        {univListData && (
+          <ContentWrap2>
+            <SubTitle>학교</SubTitle>
+            <InfoDropdown
+              loading={univLoading}
+              open={univOpen}
+              value={univValue}
+              items={univListData.data.data.map((item) => ({
+                label: item,
+                value: item,
+              }))}
+              setOpen={setUnivOpen}
+              setValue={setUnivValue}
+              setItems={setUnivItems}
+              onOpen={onUnivOpen}
+              searchable={true}
+              placeholder={"학교 이름을 입력하세요."}
+              searchPlaceholder={"검색"}
+              zIndex={2}
+              addCustomItem={true}
+            />
+          </ContentWrap2>
+        )}
         {classListData && (
           <>
             <ContentWrap3>
