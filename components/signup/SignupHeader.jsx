@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import BackArrowSvg from "../../assets/images/back_arrow.svg";
 
-const SignupHeader = ({ prevPage, onPrevBtn = true }) => {
+const SignupHeader = ({ onPrevBtn = true }) => {
   const Header = styled.View`
     display: flex;
     flex-direction: row;

@@ -5,8 +5,6 @@ import { useQuery } from "react-query";
 import DetailsInfoPage from "./DetailsInfoPage";
 import SignupHeader from "../../../components/signup/SignupHeader";
 import OrangeNextBtn from "../../../components/common/OrangeNextBtn";
-import EmailVerificationPage2 from "./EmailVerificationPage2";
-import CertificatePage from "./CertificatePage";
 import { univEmail } from "../../../api";
 
 /* TODO: 전체 완료 시 삭제
@@ -106,7 +104,7 @@ const EmailVerificationPage = ({ route, navigation }) => {
   // 인증번호 전송 버튼 onPress 함수
   const onBtnPress = () => {
     if (localParts !== "" && domain !== "") {
-      navigation.navigate(EmailVerificationPage2);
+      navigation.navigate("EmailVerificationPage2");
     }
   };
 
