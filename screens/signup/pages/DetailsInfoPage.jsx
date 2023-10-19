@@ -9,7 +9,7 @@ import StartPage from "./StartPage";
 import InfoDropdown from "../../../components/signup/InfoDropdown";
 import OrangeNextBtn from "../../../components/common/OrangeNextBtn";
 import { useQuery } from "react-query";
-import { classList, univList, majorList } from "../../../api";
+import { assetAPI } from "../../../api";
 import Loader from "../../../components/common/Loader";
 
 /* TODO: 전체 완료 시 삭제
@@ -86,14 +86,14 @@ const DetailsInfoPage = () => {
     isLoading: univListLoading,
     data: univListData,
     error,
-  } = useQuery("univList", univList);
+  } = useQuery("univList", assetAPI.univList);
 
   // 학과 dropdown에 대한 state
   const [classOpen, setClassOpen] = useState(false);
   const [classValue, setClassValue] = useState(null);
   const { isLoading: classListLoading, data: classListData } = useQuery(
     ["classList", univValue],
-    () => classList(univValue),
+    () => assetAPI.classList(univValue),
     {
       enabled: !!univValue,
     }
@@ -105,7 +105,7 @@ const DetailsInfoPage = () => {
   const [majorItems, setMajorItems] = useState([]);
   const { isLoading: majorListLoading, data: majorListData } = useQuery(
     ["majorList", univValue, classValue],
-    () => majorList(univValue, classValue),
+    () => assetAPI.majorList(univValue, classValue),
     {
       enabled: !!classValue,
     }
