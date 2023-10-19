@@ -42,13 +42,15 @@ export default function App() {
         });
         if (connection.objects("flintToken").length !== 0) {
           //토큰이 로컬에 존재할 경우
-          console.log("토큰 유효한지 체크하기");
+
+          //토큰이 유효한지 체크
+          //유효하지 않을 시 리프레시 토큰으로 로그인 시도
+          //실패 시 setIsTokenAvailable(true)
 
           //토큰이 유효할 경우
           setIsTokenAvailable(true);
         } else {
           //토큰이 로컬에 존재하지 않을 경우
-          console.log("not exist");
           setIsTokenAvailable(false);
         }
         setRealm(connection);
