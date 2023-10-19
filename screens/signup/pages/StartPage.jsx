@@ -4,11 +4,11 @@ import { WithLocalSvg } from "react-native-svg";
 import { useNavigation } from "@react-navigation/native";
 import { login } from "@react-native-seoul/kakao-login";
 import NaverLogin from "@react-native-seoul/naver-login";
-import { useSelector } from "react-redux";
 
 import FlintLogoSvg from "../../../assets/images/flint_logo.svg";
 import KakaoLogoSvg from "../../../assets/images/kakao_logo.svg";
 import NaverLogoSvg from "../../../assets/images/naver_logo.svg";
+
 const Container = styled.View`
   flex: 1;
   align-items: center;
@@ -75,7 +75,7 @@ const StartPage = () => {
   };
 
   useEffect(() => {
-    navigation.navigate("DetailsInfoPage");
+    //navigation.navigate("DetailsInfoPage");
     //console.log("accessToken: " + token);
   }, [token]);
 
