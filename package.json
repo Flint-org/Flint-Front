@@ -38,6 +38,7 @@
     "react-native-tab-view": "^3.5.2",
     "react-query": "^3.39.3",
     "react-redux": "^8.1.2",
+    "realm": "^12.2.1",
     "styled-components": "^6.0.7"
   },
   "devDependencies": {
