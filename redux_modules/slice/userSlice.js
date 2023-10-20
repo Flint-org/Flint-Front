@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
-  name: "token",
-  initialState: { token: "" },
+  name: "flintToken",
+  initialState: { accessToken: "", refreshToken: "" },
   reducers: {
     updateToken(state, action) {
-      state.token = action.payload;
+      state.accessToken = action.payload.accessToken;
+      state.refreshToken = action.payload.refreshToken;
     },
   },
 });
