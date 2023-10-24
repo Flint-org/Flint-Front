@@ -54,9 +54,10 @@ const CardModal = ({
             <ModalText>{content}</ModalText>
           ) : (
             <ModalInterestsWrap>
-              {content.map((interest) => (
+              {content.map((interest, index) => (
                 <ModalInterestWrap
                   backgroundColor={`rgba(${red},${green},${blue},0.1)`}
+                  key={index}
                 >
                   <ModalText>{interest}</ModalText>
                 </ModalInterestWrap>

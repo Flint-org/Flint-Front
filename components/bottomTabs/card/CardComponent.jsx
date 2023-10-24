@@ -1,12 +1,12 @@
-import React, { useRef, useState } from 'react';
-import styled from 'styled-components/native';
-import { LinearGradient } from 'expo-linear-gradient';
-import { Animated } from 'react-native';
-import { WithLocalSvg } from 'react-native-svg';
+import React, { useRef, useState } from "react";
+import styled from "styled-components/native";
+import { LinearGradient } from "expo-linear-gradient";
+import { Animated } from "react-native";
+import { WithLocalSvg } from "react-native-svg";
 
-import LogoSvg from '../../../assets/images/logo_symbol_white.svg';
-import PlusSvg from '../../../assets/images/plus.svg';
-import CloseSvg from '../../../assets/images/close.svg';
+import LogoSvg from "../../../assets/images/logo_symbol_white.svg";
+import PlusSvg from "../../../assets/images/plus.svg";
+import CloseSvg from "../../../assets/images/close.svg";
 
 /* TODO: 전체 완료 시 삭제
  * 앞면 UI 생성 (O)
@@ -36,13 +36,14 @@ const CardModal = ({
               <WithLocalSvg width={13} height={13} asset={CloseSvg} />
             </CloseBtn>
           </ModalTitleWrap>
-          {text == '자기소개' ? (
+          {text == "자기소개" ? (
             <ModalText>{content}</ModalText>
           ) : (
             <ModalInterestsWrap>
-              {content.map((interest) => (
+              {content.map((interest, index) => (
                 <ModalInterestWrap
                   backgroundColor={`rgba(${red},${green},${blue},0.1)`}
+                  key={index}
                 >
                   <ModalText>{interest}</ModalText>
                 </ModalInterestWrap>
@@ -80,11 +81,11 @@ const CardComponent = ({ cardData, focus }) => {
 
   const frontInterpolation = flipValue.interpolate({
     inputRange: [0, 180],
-    outputRange: ['0deg', '180deg'],
+    outputRange: ["0deg", "180deg"],
   });
   const backInterpolation = flipValue.interpolate({
     inputRange: [0, 180],
-    outputRange: ['180deg', '360deg'],
+    outputRange: ["180deg", "360deg"],
   });
 
   const flipCard = () => {
@@ -149,10 +150,10 @@ const CardComponent = ({ cardData, focus }) => {
               모임성적
             </BackTitleText>
             <ScoreWrap backgroundColor={`rgb(${red}, ${green}, ${blue})`}>
-              <BackContentText weight={700} color={'#fff'}>
+              <BackContentText weight={700} color={"#fff"}>
                 {cardData.score}
               </BackContentText>
-              <BackContentText color={'#fff'}>/ 4.5</BackContentText>
+              <BackContentText color={"#fff"}>/ 4.5</BackContentText>
             </ScoreWrap>
           </BackTextWrap>
           {/* FIXME: 사용자가 이미지 가져오면 해당 이미지로 변경돼야 함 */}
@@ -198,9 +199,9 @@ const CardComponent = ({ cardData, focus }) => {
               </TitleWrap>
               <IntroWrap>
                 <BackContentText
-                  color={'#000'}
+                  color={"#000"}
                   numberOfLines={2}
-                  ellipsizeMode={'end'}
+                  ellipsizeMode={"end"}
                 >
                   {cardData.introduction}
                 </BackContentText>
@@ -220,7 +221,7 @@ const CardComponent = ({ cardData, focus }) => {
               <InterestsWrap>
                 {cardData.interests.map((interest) => (
                   <InterestWrap key={interest}>
-                    <BackContentText color={'#000'}>{interest}</BackContentText>
+                    <BackContentText color={"#000"}>{interest}</BackContentText>
                   </InterestWrap>
                 ))}
               </InterestsWrap>
@@ -234,7 +235,7 @@ const CardComponent = ({ cardData, focus }) => {
         red={red}
         green={green}
         blue={blue}
-        text={'자기소개'}
+        text={"자기소개"}
         content={cardData.introduction}
       />
       <CardModal
@@ -243,7 +244,7 @@ const CardComponent = ({ cardData, focus }) => {
         red={red}
         green={green}
         blue={blue}
-        text={'관심사'}
+        text={"관심사"}
         content={cardData.interests}
       />
     </CardWrap>
