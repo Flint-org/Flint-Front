@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components/native";
 import { Feather } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const HoverWrap = styled.TouchableOpacity`
   position: absolute;
@@ -16,8 +17,9 @@ const HoverWrap = styled.TouchableOpacity`
 `;
 
 const HoverBtn = ({ currentScreen }) => {
+  const nav = useNavigation();
   return (
-    <HoverWrap>
+    <HoverWrap onPress={() => nav.navigate("Stack", { screen: "WriteBoard" })}>
       <Feather name="edit" size={26} color="white" />
     </HoverWrap>
   );
