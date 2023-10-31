@@ -23,7 +23,7 @@ const MajorSubHeader = ({ majors, selectedIdx, setSelectedIdx }) => {
       <MajorList
         horizontal={true}
         showsHorizontalScrollIndicator={false}
-        data={majors}
+        data={majors.map((item) => item.lowerMajorName)}
         renderItem={({ item, index }) => renderMajorBtn(item, index)}
         ItemSeparatorComponent={() => <MarginRight />}
       />

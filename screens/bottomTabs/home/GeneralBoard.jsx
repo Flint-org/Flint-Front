@@ -1,12 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 import BoardHeader from "../../../components/bottomTabs/home/board/BoardHeader";
-import FreeBoard from "./generalBoard/FreeBoard";
-import FreshmanBoard from "./generalBoard/FreshmanBoard";
-import PromotionBoard from "./generalBoard/PromotionBoard";
-import DateBoard from "./generalBoard/DateBoard";
-import PopularBoard from "./generalBoard/PopularBoard";
+import GeneralScreen from "./generalBoard/GeneralScreen";
 import { useQuery } from "react-query";
 import { communityAPI } from "../../../api";
 import Loader from "../../../components/common/Loader";
@@ -25,6 +21,7 @@ const GeneralBoard = () => {
   const {
     data: { data: boardData },
   } = boardObj;
+
   return (
     <>
       <BoardHeader title={"일반게시판"} />
@@ -41,27 +38,27 @@ const GeneralBoard = () => {
       >
         <Tab.Screen
           name={boardData[0].boardName}
-          component={FreeBoard}
+          component={GeneralScreen}
           initialParams={{ boardId: boardData[0].boardId }}
         />
         <Tab.Screen
           name={boardData[1].boardName}
-          component={FreshmanBoard}
+          component={GeneralScreen}
           initialParams={{ boardId: boardData[1].boardId }}
         />
         <Tab.Screen
           name={boardData[2].boardName}
-          component={PromotionBoard}
+          component={GeneralScreen}
           initialParams={{ boardId: boardData[2].boardId }}
         />
         <Tab.Screen
           name={boardData[3].boardName}
-          component={DateBoard}
+          component={GeneralScreen}
           initialParams={{ boardId: boardData[3].boardId }}
         />
         <Tab.Screen
           name={boardData[4].boardName}
-          component={PopularBoard}
+          component={GeneralScreen}
           initialParams={{ boardId: boardData[4].boardId }}
         />
       </Tab.Navigator>

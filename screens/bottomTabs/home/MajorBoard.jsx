@@ -2,17 +2,25 @@ import React from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 import BoardHeader from "../../../components/bottomTabs/home/board/BoardHeader";
-import Engineering from "./majorBoard/Engineering";
-import Social from "./majorBoard/Social";
-import Education from "./majorBoard/Education";
-import Medical from "./majorBoard/Medical";
-import NaturalScience from "./majorBoard/NaturalScience";
-import LiberalArts from "./majorBoard/LiberalArts";
-import ArtsAthletics from "./majorBoard/ArtsAthletics";
+import MajorScreen from "./majorBoard/MajorScreen";
+import { useQuery } from "react-query";
+import { communityAPI } from "../../../api";
+import Loader from "../../../components/common/Loader";
 
 const Tab = createMaterialTopTabNavigator();
 
 const MajorBoard = () => {
+  const { isLoading, data: boardObj } = useQuery(
+    "majorBoardList",
+    communityAPI.majorBoardList
+  );
+
+  if (isLoading) {
+    return <Loader visible={isLoading} />;
+  }
+  const {
+    data: { data: boardData },
+  } = boardObj;
   return (
     <>
       <BoardHeader title={"전공게시판"} />
@@ -27,13 +35,41 @@ const MajorBoard = () => {
           tabBarScrollEnabled: true,
         }}
       >
-        <Tab.Screen name="공학계열" component={Engineering} />
-        <Tab.Screen name="자연계열" component={NaturalScience} />
-        <Tab.Screen name="인문계열" component={LiberalArts} />
-        <Tab.Screen name="사회계열" component={Social} />
-        <Tab.Screen name="교육계열" component={Education} />
-        <Tab.Screen name="의학계열" component={Medical} />
-        <Tab.Screen name="예체능계열" component={ArtsAthletics} />
+        <Tab.Screen
+          name={boardData[0].upperMajor.upperMajorName}
+          component={MajorScreen}
+          initialParams={{ boardData: boardData[0] }}
+        />
+        <Tab.Screen
+          name={boardData[1].upperMajor.upperMajorName}
+          component={MajorScreen}
+          initialParams={{ boardData: boardData[1] }}
+        />
+        <Tab.Screen
+          name={boardData[2].upperMajor.upperMajorName}
+          component={MajorScreen}
+          initialParams={{ boardData: boardData[2] }}
+        />
+        <Tab.Screen
+          name={boardData[3].upperMajor.upperMajorName}
+          component={MajorScreen}
+          initialParams={{ boardData: boardData[3] }}
+        />
+        <Tab.Screen
+          name={boardData[4].upperMajor.upperMajorName}
+          component={MajorScreen}
+          initialParams={{ boardData: boardData[4] }}
+        />
+        <Tab.Screen
+          name={boardData[5].upperMajor.upperMajorName}
+          component={MajorScreen}
+          initialParams={{ boardData: boardData[5] }}
+        />
+        <Tab.Screen
+          name={boardData[6].upperMajor.upperMajorName}
+          component={MajorScreen}
+          initialParams={{ boardData: boardData[6] }}
+        />
       </Tab.Navigator>
     </>
   );
