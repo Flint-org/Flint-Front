@@ -17,16 +17,18 @@ const GeneralBoard = () => {
   );
   const [currentScreen, setCurrentScreen] = useState(null);
 
+  useEffect(() => {
+    if (boardObj) {
+      setCurrentScreen(boardObj.data.data[0]);
+    }
+  }, [boardObj]);
+
   if (isLoading) {
     return <Loader visible={isLoading} />;
   }
   const {
     data: { data: boardData },
   } = boardObj;
-
-  useEffect(() => {
-    setCurrentScreen(boardData[0]);
-  }, []);
 
   return (
     <>
