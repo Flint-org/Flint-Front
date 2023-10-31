@@ -7,12 +7,10 @@ import SortingFilter from "../../../../components/common/SortingFilter";
 import { PostData2 } from "../../../../const/TempMajorPostData";
 import PostPreview from "../../../../components/bottomTabs/home/board/PostPreview";
 
-const LiberalArts = () => {
+const Engineering = ({ route }) => {
   // 선택된 서브 메뉴 Index 0은 전체 그 외에는 서브 메뉴
   const [selectedIdx, setSelectedIdx] = useState(0);
-
-  // 서브 메뉴 목록 데이터
-  const majorData = ["전체", "언어·문학", "인문과학"];
+  const { lowerMajors } = route.params.boardData.upperMajor;
 
   // 인기순 클릭 여부 state (false인 경우 최신순 true인 경우 인기순)
   const [clickBestBtn, setClickBestBtn] = useState(false);
@@ -34,7 +32,7 @@ const LiberalArts = () => {
   return (
     <>
       <MajorSubHeader
-        majors={majorData}
+        majors={lowerMajors}
         selectedIdx={selectedIdx}
         setSelectedIdx={setSelectedIdx}
       />
@@ -49,10 +47,10 @@ const LiberalArts = () => {
             <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
           }
           renderItem={({ item }) => {
-            if (item.type === "LiberalArts" && selectedIdx == 0) {
+            if (item.type === "Engineering" && selectedIdx == 0) {
               return <PostPreview postData={item} />;
             } else if (
-              item.type === "LiberalArts" &&
+              item.type === "Engineering" &&
               item.subType == selectedIdx
             ) {
               return <PostPreview postData={item} />;
@@ -64,7 +62,7 @@ const LiberalArts = () => {
   );
 };
 
-export default LiberalArts;
+export default Engineering;
 
 const PostsWrap = styled.FlatList``;
 const Container = styled.View`

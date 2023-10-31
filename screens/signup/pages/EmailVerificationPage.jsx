@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import DetailsInfoPage from "./DetailsInfoPage";
 import SignupHeader from "../../../components/signup/SignupHeader";
 import OrangeNextBtn from "../../../components/common/OrangeNextBtn";
-import { univEmail } from "../../../api";
+import { assetAPI } from "../../../api";
 
 /* TODO: 전체 완료 시 삭제
  * 이메일 입력 input 생성 (O)
@@ -94,7 +94,7 @@ const EmailVerificationPage = ({ route, navigation }) => {
   const [domain, setDomain] = useState("");
   const { data: univEmailData, isLoading } = useQuery(
     ["univEmail", univName],
-    () => univEmail(univName)
+    () => assetAPI.univEmail(univName)
   );
   useEffect(() => {
     if (univEmailData) {

@@ -1,25 +1,27 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { WithLocalSvg } from 'react-native-svg';
-import styled from 'styled-components/native';
-import { getHeaderTitle } from '@react-navigation/elements';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { WithLocalSvg } from "react-native-svg";
+import styled from "styled-components/native";
+import { getHeaderTitle } from "@react-navigation/elements";
+import { useNavigation } from "@react-navigation/native";
 
-import Card from '../screens/bottomTabs/Card';
-import Chat from '../screens/bottomTabs/Chat';
-import Home from '../screens/bottomTabs/Home';
-import Notification from '../screens/bottomTabs/Notification';
-import Profile from '../screens/bottomTabs/Profile';
+import Card from "../screens/bottomTabs/Card";
+import Chat from "../screens/bottomTabs/Chat";
+import Home from "../screens/bottomTabs/Home";
+import Notification from "../screens/bottomTabs/Notification";
+import Profile from "../screens/bottomTabs/Profile";
 
-import CardActive from '../assets/bottomTabIcons/card_active.svg';
-import CardInActive from '../assets/bottomTabIcons/card_inactive.svg';
-import AlarmActive from '../assets/bottomTabIcons/alarm_active.svg';
-import AlarmInActive from '../assets/bottomTabIcons/alarm_inactive.svg';
-import ChatActive from '../assets/bottomTabIcons/chat_active.svg';
-import ChatInActive from '../assets/bottomTabIcons/chat_inactive.svg';
-import HomeActive from '../assets/bottomTabIcons/home_active.svg';
-import HomeInActive from '../assets/bottomTabIcons/home_inactive.svg';
-import InfoActive from '../assets/bottomTabIcons/info_active.svg';
-import InfoInActive from '../assets/bottomTabIcons/info_inactive.svg';
-import { Platform } from 'react-native';
+import CardActive from "../assets/bottomTabIcons/card_active.svg";
+import CardInActive from "../assets/bottomTabIcons/card_inactive.svg";
+import AlarmActive from "../assets/bottomTabIcons/alarm_active.svg";
+import AlarmInActive from "../assets/bottomTabIcons/alarm_inactive.svg";
+import ChatActive from "../assets/bottomTabIcons/chat_active.svg";
+import ChatInActive from "../assets/bottomTabIcons/chat_inactive.svg";
+import HomeActive from "../assets/bottomTabIcons/home_active.svg";
+import HomeInActive from "../assets/bottomTabIcons/home_inactive.svg";
+import InfoActive from "../assets/bottomTabIcons/info_active.svg";
+import InfoInActive from "../assets/bottomTabIcons/info_inactive.svg";
+import { Platform } from "react-native";
+import { useEffect } from "react";
 
 const Tab = createBottomTabNavigator();
 
@@ -38,16 +40,24 @@ const HeaderText = styled.Text`
   color: #000;
 `;
 
-const BottomTabs = () => {
+const BottomTabs = ({ route }) => {
+  const nav = useNavigation();
+  const { isTokenAvailable } = route.params;
+  useEffect(() => {
+    if (!isTokenAvailable) {
+      //nav.navigate("Stack");
+    }
+  }, []);
+
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarActiveTintColor: '#FF9810',
+        tabBarActiveTintColor: "#FF9810",
         tabBarLabelStyle: { fontSize: 13, marginTop: 3 },
         tabBarStyle: {
-          height: Platform.OS == 'android' ? '9.5%' : '10.5%',
-          paddingBottom: Platform.OS == 'android' ? '4.5%' : '7%',
-          paddingTop: Platform.OS == 'android' ? '3.5%' : '2%',
+          height: Platform.OS == "android" ? "9.5%" : "10.5%",
+          paddingBottom: Platform.OS == "android" ? "4.5%" : "7%",
+          paddingTop: Platform.OS == "android" ? "3.5%" : "2%",
           paddingLeft: 20,
           paddingRight: 20,
         },

@@ -4,11 +4,13 @@ import { WithLocalSvg } from "react-native-svg";
 import { useNavigation } from "@react-navigation/native";
 import { login } from "@react-native-seoul/kakao-login";
 import NaverLogin from "@react-native-seoul/naver-login";
-import { useSelector } from "react-redux";
 
 import FlintLogoSvg from "../../../assets/images/flint_logo.svg";
 import KakaoLogoSvg from "../../../assets/images/kakao_logo.svg";
 import NaverLogoSvg from "../../../assets/images/naver_logo.svg";
+import { useQuery } from "react-query";
+import { authAPI } from "../../../api";
+
 const Container = styled.View`
   flex: 1;
   align-items: center;
@@ -40,7 +42,8 @@ const BtnText = styled.Text`
 
 const StartPage = () => {
   const navigation = useNavigation();
-  const [token, setToken] = useState(null);
+  const [token, setToken] = useState("");
+  const [providerName, setProviderName] = useState("");
   //FIXME: 그냥 테스트 코드라 추후에 삭제필요.
   /* user store에 올려놓은 토큰 값 받아와지는지 테스트 코드
   const myToken = useSelector((state) => {
@@ -52,6 +55,7 @@ const StartPage = () => {
     try {
       const token = await login();
       setToken(token.accessToken);
+      setProviderName("kakao");
       console.log(token);
     } catch (err) {
       console.error("error: ", err);
@@ -68,16 +72,37 @@ const StartPage = () => {
       });
     if (isSuccess) {
       setToken(successResponse.accessToken);
+      setProviderName("naver");
       console.log(successResponse);
     } else {
       console.log("error: " + failureResponse);
     }
   };
 
+  const {
+    isLoading: flintTokenLoading,
+    data: flintToken,
+    isError,
+    error,
+  } = useQuery(
+    ["flintToken", token, providerName],
+    () => {
+      //console.log(providerName, token);
+      return authAPI.login(providerName, token);
+    },
+    {
+      enabled: !!token && !!providerName,
+    }
+  );
+
+  if (isError) {
+    console.log("error: " + error);
+  }
+
   useEffect(() => {
-    navigation.navigate("DetailsInfoPage");
-    console.log("accessToken: " + token);
-  }, [token]);
+    //navigation.navigate("DetailsInfoPage");
+    //console.log("success" + flintToken);
+  }, [flintToken]);
 
   return (
     <Container>

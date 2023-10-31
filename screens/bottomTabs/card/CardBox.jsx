@@ -225,7 +225,7 @@ const CardBox = () => {
 
   //TODO: 해당 리스트로 기능 구현 필요
   useEffect(() => {
-    console.log(selectedCardList);
+    //console.log(selectedCardList);
   }, [selectedCardList]);
 
   return (
