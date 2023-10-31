@@ -63,16 +63,16 @@ const renew = async (refreshToken) =>
   );
 
 const generalBoardList = async () =>
-  await axios.get(`${BASE_URL}/api/v1boards/general`);
+  await axios.get(`${BASE_URL}/api/v1/boards/general`);
 
 const majorBoardList = async () =>
-  await axios.get(`${BASE_URL}/api/v1boards/major`);
+  await axios.get(`${BASE_URL}/api/v1/boards/major`);
 
 const majorUpperList = async () =>
-  await axios.get(`${BASE_URL}/api/v1boards/major/uppers`);
+  await axios.get(`${BASE_URL}/api/v1/boards/major/uppers`);
 
 const majorUpperMajorList = async (upperMajorId) =>
-  await axios.get(`${BASE_URL}/api/v1boards/major/uppers/${upperMajorId}`);
+  await axios.get(`${BASE_URL}/api/v1/boards/major/uppers/${upperMajorId}`);
 
 export const assetAPI = { univList, classList, majorList, univEmail };
 export const authAPI = { login, register, renew };
