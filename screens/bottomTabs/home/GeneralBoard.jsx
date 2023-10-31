@@ -15,6 +15,7 @@ const GeneralBoard = () => {
     "generalBoardList",
     communityAPI.generalBoardList
   );
+  const [currentScreen, setCurrentScreen] = useState(null);
 
   if (isLoading) {
     return <Loader visible={isLoading} />;
@@ -23,7 +24,9 @@ const GeneralBoard = () => {
     data: { data: boardData },
   } = boardObj;
 
-  const [currentScreen, setCurrentScreen] = useState(boardData[0]);
+  useEffect(() => {
+    setCurrentScreen(boardData[0]);
+  }, []);
 
   return (
     <>

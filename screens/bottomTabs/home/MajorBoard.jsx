@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 import BoardHeader from "../../../components/bottomTabs/home/board/BoardHeader";
@@ -15,6 +15,7 @@ const MajorBoard = () => {
     "majorBoardList",
     communityAPI.majorBoardList
   );
+  const [currentScreen, setCurrentScreen] = useState(null);
 
   if (isLoading) {
     return <Loader visible={isLoading} />;
@@ -23,7 +24,9 @@ const MajorBoard = () => {
     data: { data: boardData },
   } = boardObj;
 
-  const [currentScreen, setCurrentScreen] = useState(boardData[0]);
+  useEffect(() => {
+    setCurrentScreen(boardData[0]);
+  }, []);
 
   return (
     <>
