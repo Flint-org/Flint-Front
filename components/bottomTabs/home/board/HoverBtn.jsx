@@ -16,10 +16,17 @@ const HoverWrap = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-const HoverBtn = ({ currentScreen }) => {
+const HoverBtn = ({ currentScreen, boardData, isGeneral }) => {
   const nav = useNavigation();
   return (
-    <HoverWrap onPress={() => nav.navigate("Stack", { screen: "WriteBoard" })}>
+    <HoverWrap
+      onPress={() =>
+        nav.navigate("Stack", {
+          screen: "WriteBoard",
+          params: { currentScreen, boardData, isGeneral },
+        })
+      }
+    >
       <Feather name="edit" size={26} color="white" />
     </HoverWrap>
   );

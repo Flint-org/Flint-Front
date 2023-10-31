@@ -51,12 +51,11 @@ const BoardName = styled.View`
 `;
 const Content = styled.View``;
 
-const WriteBoard = () => {
+const WriteBoard = ({ route }) => {
+  //사진 관련 상태
   const [selectSuccess, setSelectSuccess] = useState(false);
   const [certificateURI, setCertificateURI] = useState("");
   const [certificateName, setCertificateName] = useState("");
-
-  const [title, onChangeTitle] = useState("");
 
   const selectCertificate = async () => {
     const result = await DocumentPicker.getDocumentAsync({
@@ -69,13 +68,31 @@ const WriteBoard = () => {
       setCertificateName(result?.assets[0]?.name);
     }
   };
+
+  //글 제목
+  const [title, onChangeTitle] = useState("");
+
+  //글쓰기 버튼을 누른 게시판 정보 처리
+  const { currentScreen, boardData, isGeneral } = route.params;
+  const boardName = isGeneral
+    ? currentScreen.boardName
+    : currentScreen.upperMajor.upperMajorName;
+  const boardItem = boardData.map((obj) => {
+    if (isGeneral) {
+      return { label: obj.boardName, value: obj.boardName };
+    } else {
+      return {
+        label: obj.upperMajor.upperMajorName,
+        value: obj.upperMajor.upperMajorName,
+      };
+    }
+  });
+
+  //게시판 분류 DropDownPicker 관련 상태
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(null);
-  const [items, setItems] = useState([
-    { label: "Apple", value: "apple" },
-    { label: "Banana", value: "banana" },
-    { label: "Pear", value: "pear" },
-  ]);
+  const [value, setValue] = useState(boardName);
+  const [items, setItems] = useState(boardItem);
+
   return (
     <Container>
       <BoardHeader title={"글쓰기"} />
@@ -96,7 +113,7 @@ const WriteBoard = () => {
           setOpen={setOpen}
           setValue={setValue}
           setItems={setItems}
-          placeholder={"Choose a fruit."}
+          placeholder={boardName}
           style={{ borderWidth: 0 }}
           dropDownContainerStyle={{
             borderWidth: 0,

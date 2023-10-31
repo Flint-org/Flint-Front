@@ -99,7 +99,11 @@ const GeneralBoard = () => {
           }}
         />
       </Tab.Navigator>
-      <HoverBtn currentScreen={currentScreen} />
+      <HoverBtn
+        currentScreen={currentScreen}
+        boardData={boardData}
+        isGeneral={true}
+      />
     </>
   );
 };
