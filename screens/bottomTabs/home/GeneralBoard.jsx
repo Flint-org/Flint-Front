@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { createMaterialTopTabNavigator } from "@react-navigation/material-top-tabs";
 
 import BoardHeader from "../../../components/bottomTabs/home/board/BoardHeader";
@@ -6,6 +6,7 @@ import GeneralScreen from "./generalBoard/GeneralScreen";
 import { useQuery } from "react-query";
 import { communityAPI } from "../../../api";
 import Loader from "../../../components/common/Loader";
+import HoverBtn from "../../../components/bottomTabs/home/board/HoverBtn";
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -22,6 +23,8 @@ const GeneralBoard = () => {
     data: { data: boardData },
   } = boardObj;
 
+  const [currentScreen, setCurrentScreen] = useState(boardData[0]);
+
   return (
     <>
       <BoardHeader title={"일반게시판"} />
@@ -29,7 +32,11 @@ const GeneralBoard = () => {
         screenOptions={{
           swipeEnabled: false,
           tabBarItemStyle: { width: 145 },
-          tabBarLabelStyle: { fontSize: 17, fontWeight: 600, marginBottom: 5 },
+          tabBarLabelStyle: {
+            fontSize: 17,
+            fontWeight: 600,
+            marginBottom: 5,
+          },
           tabBarIndicatorStyle: {
             backgroundColor: "#FF9810",
           },
@@ -40,28 +47,54 @@ const GeneralBoard = () => {
           name={boardData[0].boardName}
           component={GeneralScreen}
           initialParams={{ boardId: boardData[0].boardId }}
+          listeners={{
+            focus: () => {
+              setCurrentScreen(boardData[0]);
+            },
+          }}
         />
         <Tab.Screen
           name={boardData[1].boardName}
           component={GeneralScreen}
           initialParams={{ boardId: boardData[1].boardId }}
+          listeners={{
+            focus: () => {
+              setCurrentScreen(boardData[1]);
+            },
+          }}
         />
         <Tab.Screen
           name={boardData[2].boardName}
           component={GeneralScreen}
           initialParams={{ boardId: boardData[2].boardId }}
+          listeners={{
+            focus: () => {
+              setCurrentScreen(boardData[2]);
+            },
+          }}
         />
         <Tab.Screen
           name={boardData[3].boardName}
           component={GeneralScreen}
           initialParams={{ boardId: boardData[3].boardId }}
+          listeners={{
+            focus: () => {
+              setCurrentScreen(boardData[3]);
+            },
+          }}
         />
         <Tab.Screen
           name={boardData[4].boardName}
           component={GeneralScreen}
           initialParams={{ boardId: boardData[4].boardId }}
+          listeners={{
+            focus: () => {
+              setCurrentScreen(boardData[4]);
+            },
+          }}
         />
       </Tab.Navigator>
+      <HoverBtn currentScreen={currentScreen} />
     </>
   );
 };
