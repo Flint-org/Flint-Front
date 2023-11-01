@@ -5,6 +5,7 @@ import * as DocumentPicker from "expo-document-picker";
 
 import { Feather } from "@expo/vector-icons";
 import DropDownPicker from "react-native-dropdown-picker";
+import MajorSubHeader from "../../../components/bottomTabs/home/board/MajorSubHeader";
 
 const Container = styled.View`
   flex: 1;
@@ -48,8 +49,20 @@ const BoardName = styled.View`
   margin: 0px 30px;
   border: 0px solid rgba(217, 217, 217, 1);
   border-bottom-width: 1px;
+  z-index: 1;
 `;
-const Content = styled.View``;
+const SubBoardName = styled.View`
+  margin: 0px 30px;
+  border: 0px solid rgba(217, 217, 217, 1);
+  border-bottom-width: 1px;
+  z-index: 0;
+`;
+const ContentInput = styled.TextInput`
+  height: 300px;
+  margin: 20px 30px;
+  padding: 0px 10px;
+  font-size: 16px;
+`;
 
 const WriteBoard = ({ route }) => {
   //사진 관련 상태
@@ -58,11 +71,10 @@ const WriteBoard = ({ route }) => {
   const [certificateName, setCertificateName] = useState("");
 
   const selectCertificate = async () => {
-    const result = await DocumentPicker.getDocumentAsync({
-      type: ["image/*", "application/pdf"],
-    });
-    if (result.canceled) console.log("canceled");
-    else {
+    let result = await DocumentPicker.getDocumentAsync({});
+    if (result.canceled) {
+      console.log("canceled");
+    } else {
       setSelectSuccess(true);
       setCertificateURI(result?.assets[0]?.uri);
       setCertificateName(result?.assets[0]?.name);
@@ -93,6 +105,12 @@ const WriteBoard = ({ route }) => {
   const [value, setValue] = useState(boardName);
   const [items, setItems] = useState(boardItem);
 
+  //전공 게시판 소분류 헤더 관련 상태
+  const [selectedIdx, setSelectedIdx] = useState(0);
+
+  //내용 입력 관련 상태
+  const [text, onChangeText] = useState("");
+
   return (
     <Container>
       <BoardHeader title={"글쓰기"} />
@@ -120,6 +138,23 @@ const WriteBoard = ({ route }) => {
           }}
         />
       </BoardName>
+      {!isGeneral && (
+        <SubBoardName>
+          <MajorSubHeader
+            majors={currentScreen.upperMajor.lowerMajors}
+            selectedIdx={selectedIdx}
+            setSelectedIdx={setSelectedIdx}
+          />
+        </SubBoardName>
+      )}
+      <ContentInput
+        editable
+        multiline
+        maxLength={1000}
+        onChangeText={onChangeText}
+        value={text}
+        placeholder="내용을 입력하세요."
+      />
     </Container>
   );
 };
