@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 import BoardHeader from "../../../components/bottomTabs/home/board/BoardHeader";
-import * as DocumentPicker from "expo-document-picker";
+import * as ImagePicker from "expo-image-picker";
 
 import { Feather } from "@expo/vector-icons";
 import DropDownPicker from "react-native-dropdown-picker";
 import MajorSubHeader from "../../../components/bottomTabs/home/board/MajorSubHeader";
+import { FlatList } from "react-native-gesture-handler";
+import { Image, Text, View } from "react-native";
 
 const Container = styled.View`
   flex: 1;
@@ -63,21 +65,26 @@ const ContentInput = styled.TextInput`
   padding: 0px 10px;
   font-size: 16px;
 `;
+const ImageWrap = styled.View``;
+const ImageDeleteBtn = styled.TouchableOpacity`
+  width: 20px;
+  height: 20px;
+  background-color: red;
+  border-radius: 10px;
+  position: absolute;
+`;
 
 const WriteBoard = ({ route }) => {
-  //사진 관련 상태
-  const [selectSuccess, setSelectSuccess] = useState(false);
-  const [certificateURI, setCertificateURI] = useState("");
-  const [certificateName, setCertificateName] = useState("");
-
-  const selectCertificate = async () => {
-    let result = await DocumentPicker.getDocumentAsync({});
-    if (result.canceled) {
-      console.log("canceled");
-    } else {
-      setSelectSuccess(true);
-      setCertificateURI(result?.assets[0]?.uri);
-      setCertificateName(result?.assets[0]?.name);
+  const [image, setImage] = useState(null);
+  const pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      //mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsMultipleSelection: true,
+    });
+    //console.log(result);
+    if (!result.canceled) {
+      setImage(result.assets);
+      //console.log(image[0].uri);
     }
   };
 
@@ -115,12 +122,49 @@ const WriteBoard = ({ route }) => {
     <Container>
       <BoardHeader title={"글쓰기"} />
       <PictureWrap>
-        <PictureUploadBtn onPress={selectCertificate}>
+        <PictureUploadBtn onPress={pickImage}>
           <PictureIconWrap>
             <Feather name="camera" size={24} color="white" />
           </PictureIconWrap>
-          <PictureCount>0/10</PictureCount>
+          <PictureCount>{image ? image.length : 0}/10</PictureCount>
         </PictureUploadBtn>
+        {image && (
+          <FlatList
+            data={image}
+            horizontal={true}
+            renderItem={({ item, index }) => {
+              console.log(item);
+              return (
+                <ImageWrap>
+                  <Text style={{ color: "black", fontSize: 12 }}>
+                    {item.fileName}
+                  </Text>
+
+                  <Image
+                    uri={item.uri}
+                    width={80}
+                    height={80}
+                    style={{ backgroundColor: "gray" }}
+                  />
+                  <ImageDeleteBtn
+                    onPress={() => {
+                      setImage(
+                        image.filter((img) => img.assetId !== item.assetId)
+                      );
+                    }}
+                  />
+                </ImageWrap>
+              );
+            }}
+            ItemSeparatorComponent={() => (
+              <View
+                style={{
+                  width: 15,
+                }}
+              />
+            )}
+          />
+        )}
       </PictureWrap>
       <Title onChangeText={onChangeTitle} value={title} placeholder="글 제목" />
       <BoardName>
