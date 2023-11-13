@@ -132,14 +132,13 @@ const WriteBoard = ({ route }) => {
           <FlatList
             data={image}
             horizontal={true}
-            renderItem={({ item, index }) => {
-              console.log(item);
+            renderItem={({ item }) => {
               return (
                 <ImageWrap>
+                  {/* 미리보기용 테스트 코드 */}
                   <Text style={{ color: "black", fontSize: 12 }}>
                     {item.fileName}
                   </Text>
-
                   <Image
                     uri={item.uri}
                     width={80}
