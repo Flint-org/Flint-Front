@@ -7,6 +7,7 @@ import GeneralBoard from "../screens/bottomTabs/home/GeneralBoard";
 import MajorBoard from "../screens/bottomTabs/home/MajorBoard";
 import EditGroup from "../screens/bottomTabs/card/EditGroup";
 import BoardDetail from "../components/bottomTabs/home/board/BoardDetail";
+import WriteBoard from "../screens/bottomTabs/home/WriteBoard";
 
 const NativeStack = createNativeStackNavigator();
 
@@ -24,6 +25,11 @@ const Stack = () => {
       <NativeStack.Screen name="MajorBoard" component={MajorBoard} />
       <NativeStack.Screen name="EditGroup" component={EditGroup} />
       <NativeStack.Screen name="BoardDetail" component={BoardDetail} />
+      <NativeStack.Screen
+        name="WriteBoard"
+        component={WriteBoard}
+        options={{ presentation: "card" }}
+      />
     </NativeStack.Navigator>
   );
 };
