@@ -85,7 +85,7 @@ const BottomTabs = ({ route }) => {
           },
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="채팅방"
         component={Chat}
         options={{
@@ -97,7 +97,7 @@ const BottomTabs = ({ route }) => {
             }
           },
         }}
-      />
+      /> */}
       <Tab.Screen
         name="홈"
         component={Home}
