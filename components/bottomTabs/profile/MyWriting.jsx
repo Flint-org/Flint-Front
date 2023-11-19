@@ -13,7 +13,8 @@ const PostWrap = styled.View`
   padding: 30px;
 `;
 
-const MyWriting = ({ title }) => {
+const MyWriting = ({ route }) => {
+  const { title } = route.params;
   return (
     <Container>
       <BoardHeader title={title} />
