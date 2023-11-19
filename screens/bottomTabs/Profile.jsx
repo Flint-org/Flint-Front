@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components/native";
 import { AntDesign } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 const Container = styled.View`
   flex: 1;
@@ -36,6 +37,7 @@ const MenuText = styled.Text`
 `;
 
 const Profile = () => {
+  const nav = useNavigation();
   const [menuNum, setMenuNum] = useState(0);
   return (
     <Container>
@@ -68,15 +70,36 @@ const Profile = () => {
       <SubMenu>
         {menuNum == 0 && (
           <>
-            <SecondMenu>
+            <SecondMenu
+              onPress={() =>
+                nav.navigate("Stack", {
+                  screen: "MyWriting",
+                  params: { title: "내가 쓴 글" },
+                })
+              }
+            >
               <MenuText>내가 쓴 글</MenuText>
               <AntDesign name="right" size={16} color="black" />
             </SecondMenu>
-            <SecondMenu>
+            <SecondMenu
+              onPress={() =>
+                nav.navigate("Stack", {
+                  screen: "MyWriting",
+                  params: { title: "내 댓글" },
+                })
+              }
+            >
               <MenuText>내 댓글</MenuText>
               <AntDesign name="right" size={16} color="black" />
             </SecondMenu>
-            <SecondMenu>
+            <SecondMenu
+              onPress={() =>
+                nav.navigate("Stack", {
+                  screen: "MyWriting",
+                  params: { title: "저장한 글" },
+                })
+              }
+            >
               <MenuText>저장한 글</MenuText>
               <AntDesign name="right" size={16} color="black" />
             </SecondMenu>
