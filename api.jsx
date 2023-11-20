@@ -37,12 +37,10 @@ const register = async (
   await axios.post(
     `${BASE_URL}/api/v1/auth/register`,
     {
-      body: {
-        providerName: { providerName },
-        serviceUsingAgree: { serviceUsingAgree },
-        personalInformationAgree: { personalInformationAgree },
-        marketingAgree: { marketingAgree },
-      },
+      providerName: providerName,
+      serviceUsingAgree: serviceUsingAgree,
+      personalInformationAgree: personalInformationAgree,
+      marketingAgree: marketingAgree,
     },
     {
       headers: {
