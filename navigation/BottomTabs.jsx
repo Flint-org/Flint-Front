@@ -45,7 +45,7 @@ const BottomTabs = ({ route }) => {
   const { isTokenAvailable } = route.params;
   useEffect(() => {
     if (!isTokenAvailable) {
-      //nav.navigate("Stack");
+      nav.navigate("Stack");
     }
   }, []);
 
