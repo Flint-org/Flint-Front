@@ -79,6 +79,7 @@ const StartPage = () => {
     }
   };
 
+  //FIXME: 로그인 후 저장된 계정 없을 시 회원가입하는 로직 필요
   const {
     isLoading: flintTokenLoading,
     data: flintToken,
@@ -101,7 +102,7 @@ const StartPage = () => {
 
   useEffect(() => {
     //navigation.navigate("DetailsInfoPage");
-    //console.log("success" + flintToken);
+    console.log("success" + flintToken);
   }, [flintToken]);
 
   return (

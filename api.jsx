@@ -22,7 +22,7 @@ const login = async (providerName, token) =>
     {},
     {
       headers: {
-        authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     }
   );
@@ -37,16 +37,14 @@ const register = async (
   await axios.post(
     `${BASE_URL}/api/v1/auth/register`,
     {
-      body: {
-        providerName: { providerName },
-        serviceUsingAgree: { serviceUsingAgree },
-        personalInformationAgree: { personalInformationAgree },
-        marketingAgree: { marketingAgree },
-      },
+      providerName: providerName,
+      serviceUsingAgree: serviceUsingAgree,
+      personalInformationAgree: personalInformationAgree,
+      marketingAgree: marketingAgree,
     },
     {
       headers: {
-        authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     }
   );
@@ -57,7 +55,7 @@ const renew = async (refreshToken) =>
     {},
     {
       headers: {
-        authorization: `Bearer ${refreshToken}`,
+        Authorization: `Bearer ${refreshToken}`,
       },
     }
   );
