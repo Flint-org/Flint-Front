@@ -22,7 +22,7 @@ const login = async (providerName, token) =>
     {},
     {
       headers: {
-        authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     }
   );
@@ -44,7 +44,7 @@ const register = async (
     },
     {
       headers: {
-        authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     }
   );
@@ -55,7 +55,7 @@ const renew = async (refreshToken) =>
     {},
     {
       headers: {
-        authorization: `Bearer ${refreshToken}`,
+        Authorization: `Bearer ${refreshToken}`,
       },
     }
   );
